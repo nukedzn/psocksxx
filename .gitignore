@@ -1,0 +1,33 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# autotools
+autom4te.cache/*
+aux-build/*
+aclocal.m4
+config.h.in
+configure
+Makefile.in
+
+# eclipse
+.project
+.cproject
+.settings/*
+
+# swap files
+*.swp
+
+# project specific
+build/*
+
