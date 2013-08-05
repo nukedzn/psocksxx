@@ -1,0 +1,3 @@
+## [psocksxx] lib/
+SUBDIRS = psocksxx
+
