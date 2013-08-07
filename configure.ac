@@ -54,6 +54,7 @@ AC_LANG(C++)
 
 AC_CONFIG_FILES([ \
 	Makefile \
+	include/Makefile \
 	lib/Makefile \
 	lib/psocksxx/Makefile \
 	src/Makefile \

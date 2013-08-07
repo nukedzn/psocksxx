@@ -5,6 +5,7 @@ ACLOCAL_AMFLAGS = -I aux-build/m4
 
 # sub dirs
 SUBDIRS = \
+	include \
 	lib \
 	src
 
