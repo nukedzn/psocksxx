@@ -27,7 +27,7 @@ namespace psocksxx {
 
 	class osockstream : public std::ostream {
 
-	}
+	};
 
 } /* end of namespace psocksxx */
 
