@@ -22,6 +22,7 @@
 
 #include <streambuf>
 
+
 namespace psocksxx {
 
 	class sockbuf : public std::streambuf {
