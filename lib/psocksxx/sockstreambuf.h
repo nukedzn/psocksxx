@@ -17,11 +17,19 @@
 *
 */
 
-#include "sockbuf.h"
+#ifndef PSOCKSXX_SOCKSTREAMBUF_H
+#define PSOCKSXX_SOCKSTREAMBUF_H
+
+#include <streambuf>
 
 
 namespace psocksxx {
 
+	class sockstreambuf : public std::streambuf {
+
+	};
 
 } /* end of namespace psocksxx */
+
+#endif /* !PSOCKSXX_SOCKSTREAMBUF_H */
 
