@@ -50,10 +50,18 @@ AC_PROG_LIBTOOL
 # language
 AC_LANG(C++)
 
+# doxygen
+AC_CHECK_PROGS([DOXYGEN], [doxygen])
+if test -z "$DOXYGEN"; then
+	AC_MSG_WARN([Doxygen not found - continuing without Doxygen support])
+fi
+AM_CONDITIONAL([HAVE_DOXYGEN], [test -n "$DOXYGEN"])
 
 
 AC_CONFIG_FILES([ \
 	Makefile \
+	doc/doxygen.cfg \
+	doc/Makefile \
 	include/Makefile \
 	lib/Makefile \
 	lib/psocksxx/Makefile \
