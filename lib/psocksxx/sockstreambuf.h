@@ -25,7 +25,23 @@
 
 namespace psocksxx {
 
+	/**
+	*   @brief Socket stream buffer class
+	*
+	*   This buffer class associates its both input and output
+	*   sequences with an external POSIX socket.
+	*/
 	class sockstreambuf : public std::streambuf {
+	public:
+
+		/** socket data type definition */
+		typedef int socket_t;
+
+
+	private:
+
+		/** POSIX socket descriptor */
+		socket_t _socket;
 
 	};
 
