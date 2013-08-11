@@ -25,6 +25,12 @@
 
 namespace psocksxx {
 
+	/**
+	*   @brief Output controller class for socket streams
+	*
+	*   This class acts as an interface for sendding outputs
+	*   to a psocksxx::sockstreambuf class
+	*/
 	class osockstream : public std::ostream {
 
 	};
