@@ -10,11 +10,14 @@ libpsocksxx_la_SOURCES  = \
 	sockexception.cpp \
 	sockstreambuf.cpp \
 	isockstream.cpp \
-	osockstream.cpp
+	osockstream.cpp \
+	nsockstream.cpp
 
 libpsocksxxinclude_HEADERS = \
 	sockexception.h \
 	sockstreambuf.h \
 	isockstream.h \
-	osockstream.h
+	osockstream.h \
+	iosockstream.h \
+	nsockstream.h
 
