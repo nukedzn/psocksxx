@@ -22,6 +22,14 @@
 
 namespace psocksxx {
 
+	osockstream::osockstream( sockstreambuf * ssb ) throw() : std::ostream( ssb ) {
+
+	}
+
+
+	osockstream::~osockstream() throw() {
+
+	}
 
 } /* end of namespace psocksxx */
 

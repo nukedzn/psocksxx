@@ -20,6 +20,8 @@
 #ifndef PSOCKSXX_OSOCKSTREAM_H
 #define PSOCKSXX_OSOCKSTREAM_H
 
+#include <psocksxx/sockstreambuf.h>
+
 #include <ostream>
 
 
@@ -32,6 +34,18 @@ namespace psocksxx {
 	*   to a psocksxx::sockstreambuf class
 	*/
 	class osockstream : public std::ostream {
+	public:
+
+		/**
+		*   @brief constructor
+		*   @param ssb socket stream buffer
+		*
+		*   Create and output socket stream controller instance
+		*
+		*/
+		osockstream( sockstreambuf * ssb ) throw();
+
+		virtual ~osockstream() throw();  //!< destructor
 
 	};
 
