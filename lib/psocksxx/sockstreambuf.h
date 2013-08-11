@@ -76,25 +76,25 @@ namespace psocksxx {
 
 		/**
 		*   @brief overloaded constructor
+		*   @param socket socket data
 		*
 		*   Create an instance with the passed in sockstreambuf::socket_t
 		*   type socket. It is assumed that the socket is initialised and
 		*   ready to use.
 		*
-		*   @param socket socket data
 		*/
 		sockstreambuf( socket_t socket ) throw();
 
 
 		/**
 		*   @brief open a socket
-		*
-		*   Open a socket and initialise socket communications.
-		*
 		*   @param domain communications domain for the socket
 		*   @param type socket communications type
 		*   @param proto socket communications protocol
-		*  	@throw psocksxx::sockexception socket exception
+		*   @throw psocksxx::sockexception socket exception
+		*
+		*   Open a socket and initialise socket communications.
+		*
 		*/
 		void open( socket_domain_t domain, socket_type_t type, socket_protocol_t proto ) throw( sockexception );
 
