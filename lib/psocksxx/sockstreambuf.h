@@ -20,7 +20,11 @@
 #ifndef PSOCKSXX_SOCKSTREAMBUF_H
 #define PSOCKSXX_SOCKSTREAMBUF_H
 
+#include <psocksxx/sockexception.h>
+
 #include <streambuf>
+#include <sys/socket.h>
+#include <netinet/in.h>
 
 
 namespace psocksxx {
@@ -36,6 +40,70 @@ namespace psocksxx {
 
 		/** socket data type definition */
 		typedef int socket_t;
+
+		/** socket domains type definition */
+		enum socket_domain_t {
+			pf_local   = PF_LOCAL,        /*!< Host-internal protocols */
+			pf_inet    = PF_INET,         /*!< Internet version 4 protocols */
+			pf_route   = PF_ROUTE,        /*!< Internal Routing protocol */
+			pf_key     = PF_KEY,          /*!< Internal key-management function */
+			pf_inet6   = PF_INET6,        /*!< Internet version 6 protocols */
+			pf_system  = PF_SYSTEM,       /*!< System domain */
+			pf_ndrv    = PF_NDRV          /*!< Raw access to network device */
+		};
+
+		/** socket types type definition */
+		enum socket_type_t {
+			sock_stream     = SOCK_STREAM,
+			sock_dgram      = SOCK_DGRAM,
+			sock_raw        = SOCK_RAW,
+			sock_rdm        = SOCK_RDM,
+			sock_seqpacket  = SOCK_SEQPACKET
+		};
+
+		/** socket protocols type definition */
+		enum socket_protocol_t {
+			ipproto_ip      = IPPROTO_IP,      /*!< Internet protocol */
+			ipproto_ipv6    = IPPROTO_IPV6,    /*!< Internet Protocol Version 6 */
+			ipproto_icmp    = IPPROTO_ICMP,    /*!< Control message protocol */
+			ipproto_raw     = IPPROTO_RAW,     /*!< Raw IP Packets Protocol */
+			ipproto_tcp     = IPPROTO_TCP,     /*!< Transmission control protocol */
+			ipproto_udp     = IPPROTO_UDP      /*!< User datagram protocol */
+		};
+
+		sockstreambuf() throw();          //!< constructor
+		virtual ~sockstreambuf();         //!< destructor
+
+		/**
+		*   @brief overloaded constructor
+		*
+		*   Create an instance with the passed in sockstreambuf::socket_t
+		*   type socket. It is assumed that the socket is initialised and
+		*   ready to use.
+		*
+		*   @param socket socket data
+		*/
+		sockstreambuf( socket_t socket ) throw();
+
+
+		/**
+		*   @brief open a socket
+		*
+		*   Open a socket and initialise socket communications.
+		*
+		*   @param domain communications domain for the socket
+		*   @param type socket communications type
+		*   @param proto socket communications protocol
+		*  	@throw psocksxx::sockexception socket exception
+		*/
+		void open( socket_domain_t domain, socket_type_t type, socket_protocol_t proto ) throw( sockexception );
+
+		/**
+		*   @brief close open sockets
+		*
+		*   Close any open socket connections used by this buffer
+		*/
+		void close() throw();
 
 
 	private:

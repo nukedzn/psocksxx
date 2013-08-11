@@ -19,9 +19,53 @@
 
 #include "sockstreambuf.h"
 
+#include <unistd.h>
+
 
 namespace psocksxx {
 
+	sockstreambuf::sockstreambuf() throw() : _socket(-1) {
+
+	}
+
+
+	sockstreambuf::sockstreambuf( socket_t socket ) throw() {
+		_socket = socket;
+	}
+
+
+	sockstreambuf::~sockstreambuf() {
+
+		// close any open sockets
+		close();
+
+	}
+
+
+	void sockstreambuf::open( socket_domain_t domain, socket_type_t type, socket_protocol_t proto ) throw( sockexception ) {
+
+		// create a communication endpoint
+		_socket = ::socket( domain, type, proto );
+
+		// sanity check
+		if ( _socket == -1 ) {
+			throw sockexception();
+		}
+
+	}
+
+
+	void sockstreambuf::close() throw() {
+
+		// sanity check
+		if ( _socket > -1 ) {
+
+			// close the socket
+			::close( _socket );
+
+		}
+
+	}
 
 } /* end of namespace psocksxx */
 
