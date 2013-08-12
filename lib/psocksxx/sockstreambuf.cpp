@@ -26,11 +26,20 @@ namespace psocksxx {
 
 	sockstreambuf::sockstreambuf() throw() : _socket(-1) {
 
+		// initialise internal buffers
+		init_buffers();
+
 	}
 
 
 	sockstreambuf::sockstreambuf( socket_t socket ) throw() {
+
+		// update local copy of the socket data
 		_socket = socket;
+
+		// initialise internal buffers
+		init_buffers();
+
 	}
 
 
@@ -64,6 +73,31 @@ namespace psocksxx {
 			::close( _socket );
 
 		}
+
+	}
+
+
+	void sockstreambuf::init_buffers() throw() {
+
+		// setup output buffer
+		setp( _pbuf, _pbuf + ( SOCKSTREAMBUF_SIZE - 1 ) );
+
+	}
+
+
+	int sockstreambuf::flush() throw() {
+		return EOF;
+	}
+
+
+	int sockstreambuf::sync() throw() {
+
+		// flush buffer
+		if ( flush() == EOF ) {
+			return -1;
+		}
+
+		return 0;
 
 	}
 

@@ -26,6 +26,10 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
+#ifndef SOCKSTREAMBUF_SIZE
+#define SOCKSTREAMBUF_SIZE 1024
+#endif
+
 
 namespace psocksxx {
 
@@ -105,11 +109,41 @@ namespace psocksxx {
 		*/
 		void close() throw();
 
+	protected:
+
+		/**
+		*   @brief initialise internal buffers
+		*/
+		void init_buffers() throw();
+
+		/**
+		*   @brief flush the socket output buffer
+		*   @return number of characters flushed
+		*
+		*   Flush the socket buffer by writing date into the
+		*   socket and returns the number of characters flushed.
+		*   If the output buffer is empty EOF (-1) is returned.
+		*
+		*/
+		virtual int flush() throw();
+
+		/**
+		*   @brief sync data with the socket
+		*   @return 0 or -1 to denote success or failure
+		*
+		*   Synchronise the buffer with the associated socket
+		*   by flushing data from the buffer to the socket.
+		*
+		*/
+		virtual int sync() throw();
 
 	private:
 
 		/** POSIX socket descriptor */
 		socket_t _socket;
+
+		/** char array to be used as output buffer */
+		char _pbuf[SOCKSTREAMBUF_SIZE];
 
 	};
 
