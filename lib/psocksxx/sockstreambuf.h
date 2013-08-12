@@ -71,6 +71,7 @@ namespace psocksxx {
 			ipproto_udp     = IPPROTO_UDP      /*!< User datagram protocol */
 		};
 
+
 		sockstreambuf() throw();          //!< constructor
 		virtual ~sockstreambuf();         //!< destructor
 
@@ -84,7 +85,6 @@ namespace psocksxx {
 		*
 		*/
 		sockstreambuf( socket_t socket ) throw();
-
 
 		/**
 		*   @brief open a socket
