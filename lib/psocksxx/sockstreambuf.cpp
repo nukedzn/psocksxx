@@ -45,6 +45,9 @@ namespace psocksxx {
 
 	sockstreambuf::~sockstreambuf() {
 
+		// sync
+		sync();
+
 		// close any open sockets
 		close();
 
