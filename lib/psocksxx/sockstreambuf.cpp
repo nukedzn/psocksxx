@@ -102,5 +102,10 @@ namespace psocksxx {
 
 	}
 
+
+	int sockstreambuf::overflow( int c ) throw() {
+		return std::streambuf::overflow( c );
+	}
+
 } /* end of namespace psocksxx */
 

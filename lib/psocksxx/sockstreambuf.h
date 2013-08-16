@@ -143,6 +143,21 @@ namespace psocksxx {
 		*/
 		virtual int sync() throw();
 
+		/**
+		*   @brief consumes the buffer by writing the contents to
+		*          the socket
+		*
+		*   @param c additional character to consume
+		*   @return sockstreambuf::eof to indicate failure or @a c
+		*           if successful.
+		*
+		*   Consumes the buffer contents and writes to the opened socket.
+		*   If @a c is not sockstreambuf::eof then @a c is also written
+		*   out.
+		*
+		*/
+		virtual int overflow( int c = eof ) throw();
+
 	private:
 
 		/** POSIX socket descriptor */
