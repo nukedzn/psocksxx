@@ -19,8 +19,6 @@
 
 #include "sockstreambuf.h"
 
-#include <unistd.h>
-
 
 namespace psocksxx {
 
@@ -89,14 +87,14 @@ namespace psocksxx {
 
 
 	int sockstreambuf::flush() throw() {
-		return EOF;
+		return eof;
 	}
 
 
 	int sockstreambuf::sync() throw() {
 
 		// flush buffer
-		if ( flush() == EOF ) {
+		if ( flush() == eof ) {
 			return -1;
 		}
 

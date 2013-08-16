@@ -25,6 +25,7 @@
 #include <streambuf>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <unistd.h>
 
 #ifndef SOCKSTREAMBUF_SIZE
 #define SOCKSTREAMBUF_SIZE 1024
@@ -44,6 +45,11 @@ namespace psocksxx {
 
 		/** socket data type definition */
 		typedef int socket_t;
+
+		/** socket end-of-file type */
+		enum eof_t {
+			eof = EOF       /*!< end of file */
+		};
 
 		/** socket domains type definition */
 		enum socket_domain_t {
