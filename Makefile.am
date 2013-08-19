@@ -7,7 +7,8 @@ ACLOCAL_AMFLAGS = -I aux-build/m4
 SUBDIRS = \
 	include \
 	lib \
-	src
+	src \
+	test
 
 # extra dist files
 EXTRA_DIST = \

@@ -40,6 +40,9 @@ AC_SUBST(LIBPSOCKSXX_LT_VERSION)
 AM_INIT_AUTOMAKE
 LT_INIT()
 
+# cppunit
+AM_PATH_CPPUNIT(1.12.1)
+
 # check for programs
 AC_PROG_CXX
 AC_PROG_INSTALL
@@ -66,6 +69,7 @@ AC_CONFIG_FILES([ \
 	lib/Makefile \
 	lib/psocksxx/Makefile \
 	src/Makefile \
+	test/Makefile \
 ])
 
 AC_OUTPUT
