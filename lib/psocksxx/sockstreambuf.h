@@ -115,6 +115,16 @@ namespace psocksxx {
 		*/
 		void close() throw();
 
+		/**
+		*   @brief get internal socket data
+		*   @return socket data
+		*
+		*   Returns a read-only reference to the internal POSIX socket
+		*   data.
+		*
+		*/
+		const socket_t & socket() const throw();
+
 	protected:
 
 		/**
@@ -160,7 +170,7 @@ namespace psocksxx {
 
 	private:
 
-		/** POSIX socket descriptor */
+		/** POSIX socket data */
 		socket_t _socket;
 
 		/** char array to be used as output buffer */

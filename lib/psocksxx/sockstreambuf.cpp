@@ -78,6 +78,11 @@ namespace psocksxx {
 	}
 
 
+	const sockstreambuf::socket_t & sockstreambuf::socket() const throw() {
+		return _socket;
+	}
+
+
 	void sockstreambuf::init_buffers() throw() {
 
 		// setup output buffer
