@@ -97,6 +97,16 @@ namespace psocksxx {
 		sockstreambuf( socket_t socket ) throw();
 
 		/**
+		*   @brief get internal socket data
+		*   @return socket data
+		*
+		*   Returns a read-only reference to the internal POSIX socket
+		*   data.
+		*
+		*/
+		const socket_t & socket() const throw();
+
+		/**
 		*   @brief open a socket
 		*   @param domain communications domain for the socket
 		*   @param type socket communications type
@@ -116,14 +126,15 @@ namespace psocksxx {
 		void close() throw();
 
 		/**
-		*   @brief get internal socket data
-		*   @return socket data
+		*   @brief flush the socket output buffer
+		*   @return number of characters flushed
 		*
-		*   Returns a read-only reference to the internal POSIX socket
-		*   data.
+		*   Flush the socket buffer by writing date into the
+		*   socket and returns the number of characters flushed.
+		*   If the output buffer is empty sockstreambuf::eof is returned.
 		*
 		*/
-		const socket_t & socket() const throw();
+		virtual int flush() throw();
 
 	protected:
 
@@ -131,17 +142,6 @@ namespace psocksxx {
 		*   @brief initialise internal buffers
 		*/
 		void init_buffers() throw();
-
-		/**
-		*   @brief flush the socket output buffer
-		*   @return number of characters flushed
-		*
-		*   Flush the socket buffer by writing date into the
-		*   socket and returns the number of characters flushed.
-		*   If the output buffer is empty EOF (-1) is returned.
-		*
-		*/
-		virtual int flush() throw();
 
 		/**
 		*   @brief sync data with the socket
