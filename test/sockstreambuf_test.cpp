@@ -31,7 +31,7 @@ void sockstreambuf_test::tearDown() { }
 void sockstreambuf_test::test_constructor() {
 
 	const psocksxx::sockstreambuf ssb;
-	const psocksxx::sockstreambuf ssb_s(-1);
+	const psocksxx::sockstreambuf ssb_s( -1 );
 
 	// check the default constructor
 	CPPUNIT_ASSERT( ssb.socket() == ssb_s.socket() );

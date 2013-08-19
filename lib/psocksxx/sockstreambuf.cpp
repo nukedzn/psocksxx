@@ -22,7 +22,7 @@
 
 namespace psocksxx {
 
-	sockstreambuf::sockstreambuf() throw() : _socket(-1) {
+	sockstreambuf::sockstreambuf() throw() : _socket( -1 ) {
 
 		// initialise internal buffers
 		init_buffers();
