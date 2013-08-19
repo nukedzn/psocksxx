@@ -43,9 +43,6 @@ namespace psocksxx {
 
 	sockstreambuf::~sockstreambuf() {
 
-		// sync
-		sync();
-
 		// close any open sockets
 		close();
 
@@ -70,8 +67,14 @@ namespace psocksxx {
 		// sanity check
 		if ( _socket > -1 ) {
 
+			// sync
+			sync();
+
 			// close the socket
 			::close( _socket );
+
+			// update socket data
+			_socket = -1;
 
 		}
 

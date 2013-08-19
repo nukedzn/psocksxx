@@ -121,7 +121,9 @@ namespace psocksxx {
 		/**
 		*   @brief close open sockets
 		*
-		*   Close any open socket connections used by this buffer
+		*   Close any open socket connections used by this buffer. This
+		*   will also flush any data in the buffer before closing.
+		*
 		*/
 		void close() throw();
 
