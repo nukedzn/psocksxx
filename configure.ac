@@ -58,7 +58,13 @@ fi
 AM_CONDITIONAL([HAVE_DOXYGEN], [test -n "$DOXYGEN"])
 
 # cppunit
-AM_PATH_CPPUNIT(1.12.1, [cppunit=true], [cppunit=false])
+AM_PATH_CPPUNIT(1.12.1,
+	[cppunit=true],
+	[
+		cppunit=false
+		AC_MSG_WARN([Cppunit not found - continuing without unit test support])
+	]
+)
 AM_CONDITIONAL([HAVE_CPPUNIT], [test x$cppunit = xtrue])
 
 
