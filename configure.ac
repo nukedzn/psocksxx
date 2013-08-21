@@ -40,9 +40,6 @@ AC_SUBST(LIBPSOCKSXX_LT_VERSION)
 AM_INIT_AUTOMAKE
 LT_INIT()
 
-# cppunit
-AM_PATH_CPPUNIT(1.12.1)
-
 # check for programs
 AC_PROG_CXX
 AC_PROG_INSTALL
@@ -54,11 +51,15 @@ AC_PROG_LIBTOOL
 AC_LANG(C++)
 
 # doxygen
-AC_CHECK_PROGS([DOXYGEN], [doxygen])
+AC_CHECK_PROGS([DOXYGEN], [doxygen], [])
 if test -z "$DOXYGEN"; then
 	AC_MSG_WARN([Doxygen not found - continuing without Doxygen support])
 fi
 AM_CONDITIONAL([HAVE_DOXYGEN], [test -n "$DOXYGEN"])
+
+# cppunit
+AM_PATH_CPPUNIT(1.12.1, [cppunit=true], [cppunit=false])
+AM_CONDITIONAL([HAVE_CPPUNIT], [test x$cppunit = xtrue])
 
 
 AC_CONFIG_FILES([ \
