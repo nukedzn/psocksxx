@@ -17,28 +17,45 @@
 *
 */
 
-#include <cppunit/XmlOutputter.h>
+#include <cppunit/TestResult.h>
+#include <cppunit/TestResultCollector.h>
+#include <cppunit/BriefTestProgressListener.h>
+#include <cppunit/TestRunner.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
-#include <cppunit/ui/text/TestRunner.h>
+#include <cppunit/XmlOutputter.h>
+#include <cppunit/CompilerOutputter.h>
+#include <fstream>
 
 
 int main( int argc, char * argv[] ) {
 
-	// Get the top level suite from the registry
-	CppUnit::Test * suite = CppUnit::TestFactoryRegistry::getRegistry().makeTest();
+	// informs test-listener about testresults
+	CppUnit::TestResult testresult;
 
-	// Adds the test to the list of test to run
-	CppUnit::TextUi::TestRunner runner;
-	runner.addTest( suite );
+	// register listener for collecting the test-results
+	CppUnit::TestResultCollector collectedresults;
+	testresult.addListener( &collectedresults );
 
-	// Change the default outputter to a compiler error format outputter
-	runner.setOutputter( new CppUnit::XmlOutputter( &runner.result(), std::cerr ) );
+	// register listener for per-test progress output
+	CppUnit::BriefTestProgressListener progress;
+	testresult.addListener( &progress );
 
-	// Run the tests.
-	bool success = runner.run();
+	// insert test-suite at test-runner by registry
+	CppUnit::TestRunner testrunner;
+	testrunner.addTest( CppUnit::TestFactoryRegistry::getRegistry().makeTest () );
+	testrunner.run( testresult );
 
-	// Return error code 1 if the one of test failed.
-	return success ? 0 : 1;
+	// output results in compiler-format
+	CppUnit::CompilerOutputter compileroutputter( &collectedresults, std::cout );
+	compileroutputter.write();
+
+	// output XML for Jenkins xunit plugin
+	std::ofstream xmloutput( "xunit-runner.xml" );
+	CppUnit::XmlOutputter xmloutputter( &collectedresults, xmloutput );
+	xmloutputter.write();
+
+	// return 0 if tests were successful
+	return collectedresults.wasSuccessful() ? 0 : 1;
 
 }
 
