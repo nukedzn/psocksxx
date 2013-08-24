@@ -13,7 +13,8 @@ check_PROGRAMS = tap-runner.tap
 CPPUNIT_TEST_SOURCES = \
 	sockstreambuf_test.h sockstreambuf_test.cpp
 
-tap_runner_tap_SOURCES = tap-runner.cpp \
+tap_runner_tap_SOURCES = \
+	tap-runner.cpp \
 	$(CPPUNIT_TEST_SOURCES) \
 	tap/tap_listener.h tap/tap_listener.cpp
 
