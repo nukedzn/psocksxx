@@ -17,7 +17,7 @@
 *
 */
 
-#include <cppunit/CompilerOutputter.h>
+#include <cppunit/XmlOutputter.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/ui/text/TestRunner.h>
 
@@ -32,7 +32,7 @@ int main( int argc, char * argv[] ) {
 	runner.addTest( suite );
 
 	// Change the default outputter to a compiler error format outputter
-	runner.setOutputter( new CppUnit::CompilerOutputter( &runner.result(), std::cerr ) );
+	runner.setOutputter( new CppUnit::XmlOutputter( &runner.result(), std::cerr ) );
 
 	// Run the tests.
 	bool success = runner.run();
