@@ -26,6 +26,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
+#include <cstdio>
 
 #ifndef SOCKSTREAMBUF_SIZE
 #define SOCKSTREAMBUF_SIZE 1024
@@ -57,9 +58,7 @@ namespace psocksxx {
 			pf_inet    = PF_INET,         /*!< Internet version 4 protocols */
 			pf_route   = PF_ROUTE,        /*!< Internal Routing protocol */
 			pf_key     = PF_KEY,          /*!< Internal key-management function */
-			pf_inet6   = PF_INET6,        /*!< Internet version 6 protocols */
-			pf_system  = PF_SYSTEM,       /*!< System domain */
-			pf_ndrv    = PF_NDRV          /*!< Raw access to network device */
+			pf_inet6   = PF_INET6         /*!< Internet version 6 protocols */
 		};
 
 		/** socket types type definition */
