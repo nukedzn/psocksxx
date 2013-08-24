@@ -19,8 +19,9 @@
 
 #include <cppunit/extensions/TestFactoryRegistry.h>
 #include <cppunit/TestResult.h>
+#include <cppunit/TestResultCollector.h>
 #include <cppunit/TestRunner.h>
-#include <cppunit/ui/text/TestRunner.h>
+#include <cppunit/XmlOutputter.h>
 
 #include "tap/tap_listener.h"
 
@@ -30,19 +31,28 @@ int main( int argc, char * argv[] ) {
 	// Get the top level suite from the registry
 	CppUnit::Test * suite = CppUnit::TestFactoryRegistry::getRegistry().makeTest();
 
-	// Create the event manager and test controller
+	// the event manager and test controller
 	CppUnit::TestResult controller;
 
 	// TAP listener
 	tap::TAPListener listener( suite );
 	controller.addListener( &listener );
 
-	// Test runner
+	// register listener for collecting the test-results
+	CppUnit::TestResultCollector collectedresults;
+	controller.addListener( &collectedresults );
+
+	// test runner
 	CppUnit::TestRunner runner;
 	runner.addTest( suite );
 
-	// Run the tests.
+	// run tests.
 	runner.run( controller );
+
+	// output XML for Jenkins xunit plugin
+	std::ofstream xmloutput( "xunit-runner.xml" );
+	CppUnit::XmlOutputter xmloutputter( &collectedresults, xmloutput );
+	xmloutputter.write();
 
 	return 0;
 
