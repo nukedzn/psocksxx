@@ -1,14 +1,15 @@
 ## [psocksxx] test/
 
 AUTOMAKE_OPTIONS        = subdir-objects
+TESTS                   =
 TEST_EXTENSIONS         = .tap
 TAP_LOG_DRIVER          = env AM_TAP_AWK='$(AWK)' $(SHELL) \
 	$(top_srcdir)/aux-build/tap-driver.sh
 
 
 if HAVE_CPPUNIT
-TESTS          = tap-runner.tap
 check_PROGRAMS = tap-runner.tap
+TESTS          += $(check_PROGRAMS)
 
 CPPUNIT_TEST_SOURCES = \
 	sockstreambuf_test.h sockstreambuf_test.cpp
