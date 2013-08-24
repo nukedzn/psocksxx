@@ -67,6 +67,9 @@ AM_PATH_CPPUNIT(1.12.1,
 )
 AM_CONDITIONAL([HAVE_CPPUNIT], [test x$cppunit = xtrue])
 
+# TAP driver
+AC_REQUIRE_AUX_FILE([tap-driver.sh])
+
 
 AC_CONFIG_FILES([ \
 	Makefile \
