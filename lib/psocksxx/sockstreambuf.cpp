@@ -95,7 +95,23 @@ namespace psocksxx {
 
 
 	int sockstreambuf::flush() throw() {
+
+		int flush_size = pptr() - pbase();
+
+		// sanity check
+		if ( flush_size > 0 ) {
+
+			// FIXME: timeouts? check whether socket is connected?
+			// FIXME: error handling?
+			if ( ::send( _socket, _pbuf, flush_size, 0 ) == flush_size ) {
+				pbump( -flush_size );
+				return flush_size;
+			}
+
+		}
+
 		return eof;
+
 	}
 
 
@@ -112,7 +128,23 @@ namespace psocksxx {
 
 
 	int sockstreambuf::overflow( int c ) throw() {
-		return std::streambuf::overflow( c );
+
+		// sanity check
+		if ( c != eof ) {
+
+			// insert the overflowed char into the buffer
+			*pptr() = c;
+			pbump( 1 );
+
+		}
+
+		// flush the buffer
+		if ( flush() == eof ) {
+			return eof;
+		}
+
+		return c;
+
 	}
 
 } /* end of namespace psocksxx */
