@@ -50,7 +50,7 @@ int main( int argc, char * argv[] ) {
 	runner.run( controller );
 
 	// output XML for Jenkins xunit plugin
-	std::ofstream xmloutput( "xunit-runner.xml" );
+	std::ofstream xmloutput( "xunit.xml" );
 	CppUnit::XmlOutputter xmloutputter( &collectedresults, xmloutput );
 	xmloutputter.write();
 
