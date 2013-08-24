@@ -25,16 +25,34 @@
 // register the fixture into the 'registry'
 CPPUNIT_TEST_SUITE_REGISTRATION( sockstreambuf_test );
 
+// use namespace psocksxx
+using namespace psocksxx;
+
+
 void sockstreambuf_test::setUp() { }
 void sockstreambuf_test::tearDown() { }
 
-void sockstreambuf_test::test_constructor() {
 
-	const psocksxx::sockstreambuf ssb;
-	const psocksxx::sockstreambuf ssb_s( -1 );
+void sockstreambuf_test::test_constructors() {
+
+	const sockstreambuf ssb;
+	const sockstreambuf ssb_s( -1 );
 
 	// check the default constructor
 	CPPUNIT_ASSERT( ssb.socket() == ssb_s.socket() );
+
+}
+
+
+void sockstreambuf_test::test_open_close_local_ip() {
+
+	sockstreambuf ssb;
+
+	CPPUNIT_ASSERT_NO_THROW_MESSAGE( "Failed to open socket communication end-point",
+		ssb.open( sockstreambuf::pf_local, sockstreambuf::sock_stream, sockstreambuf::ipproto_ip ) );
+
+	// close the opened socket end-point
+	ssb.close();
 
 }
 

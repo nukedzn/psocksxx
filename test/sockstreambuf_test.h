@@ -27,14 +27,16 @@ class sockstreambuf_test : public CppUnit::TestFixture {
 
 	// setup the test suite
 	CPPUNIT_TEST_SUITE( sockstreambuf_test );
-	CPPUNIT_TEST( test_constructor );
+	CPPUNIT_TEST( test_constructors );
+	CPPUNIT_TEST( test_open_close_local_ip );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
 	void setUp();
 	void tearDown();
 
-	void test_constructor();
+	void test_constructors();
+	void test_open_close_local_ip();
 
 };
 
