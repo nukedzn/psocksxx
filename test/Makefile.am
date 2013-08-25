@@ -23,3 +23,7 @@ tap_runner_tap_CXXFLAGS = -I$(top_srcdir)/lib $(CPPUNIT_CFLAGS)
 tap_runner_tap_LDFLAGS  = $(top_builddir)/lib/psocksxx/libpsocksxx.la $(CPPUNIT_LIBS)
 endif
 
+
+# remove xunit XML output files
+CLEANFILES = xunit.xml
+
