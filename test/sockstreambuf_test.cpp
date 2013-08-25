@@ -56,3 +56,11 @@ void sockstreambuf_test::test_open_close_local_ip() {
 
 }
 
+
+void sockstreambuf_test::test_flush_empty() {
+
+	sockstreambuf ssb( -1 );
+	CPPUNIT_ASSERT( sockstreambuf::eof == ssb.flush() );
+
+}
+

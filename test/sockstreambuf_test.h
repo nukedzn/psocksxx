@@ -29,6 +29,7 @@ class sockstreambuf_test : public CppUnit::TestFixture {
 	CPPUNIT_TEST_SUITE( sockstreambuf_test );
 	CPPUNIT_TEST( test_constructors );
 	CPPUNIT_TEST( test_open_close_local_ip );
+	CPPUNIT_TEST( test_flush_empty );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -37,6 +38,7 @@ public:
 
 	void test_constructors();
 	void test_open_close_local_ip();
+	void test_flush_empty();
 
 };
 
