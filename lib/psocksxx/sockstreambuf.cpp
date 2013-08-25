@@ -46,6 +46,9 @@ namespace psocksxx {
 		// close any open sockets
 		close();
 
+		// cleanup buffers
+		cleanup_buffers();
+
 	}
 
 
@@ -128,8 +131,19 @@ namespace psocksxx {
 
 	void sockstreambuf::init_buffers() throw() {
 
+		// allocate output buffer space
+		char * pbuf = new char[SOCKSTREAMBUF_SIZE];
+
 		// setup output buffer
-		setp( _pbuf, _pbuf + ( SOCKSTREAMBUF_SIZE - 1 ) );
+		setp( pbuf, pbuf + ( SOCKSTREAMBUF_SIZE - 1 ) );
+
+	}
+
+
+	void sockstreambuf::cleanup_buffers() throw() {
+
+		// cleanup output buffer
+		delete [] pbase();
 
 	}
 
@@ -143,7 +157,7 @@ namespace psocksxx {
 
 			// FIXME: timeouts? check whether socket is connected?
 			// FIXME: error handling?
-			if ( ::send( _socket, _pbuf, flush_size, 0 ) == flush_size ) {
+			if ( ::send( _socket, pbase(), flush_size, 0 ) == flush_size ) {
 				pbump( -flush_size );
 				return flush_size;
 			}

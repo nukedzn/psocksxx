@@ -198,6 +198,11 @@ namespace psocksxx {
 		void init_buffers() throw();
 
 		/**
+		*   @brief cleanup internal buffers
+		*/
+		void cleanup_buffers() throw();
+
+		/**
 		*   @brief sync data with the socket
 		*   @return 0 or -1 to denote success or failure
 		*
@@ -222,13 +227,11 @@ namespace psocksxx {
 		*/
 		virtual int overflow( int c = eof ) throw();
 
+
 	private:
 
 		/** POSIX socket data */
 		socket_t _socket;
-
-		/** char array to be used as output buffer */
-		char _pbuf[SOCKSTREAMBUF_SIZE];
 
 	};
 
