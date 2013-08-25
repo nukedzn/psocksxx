@@ -161,6 +161,35 @@ namespace psocksxx {
 		*/
 		void bind( const sockaddr * bind_addr ) throw( sockexception );
 
+		/**
+		*   @brief make the socket passive and capable of accepting connections
+		*   @param backlog maximum length of the queue for pending connections
+		*                  and defaults to SOMAXCONN (128) defined in @c <sys/socket.h>
+		*
+		*   @throw psocksxx::sockexception socket exception
+		*
+		*   This method will make the currently opened socket connection
+		*   to passive and capable of accepting client connections using accept()
+		*   method.
+		*
+		*/
+		void listen( int backlog = SOMAXCONN ) throw( sockexception );
+
+		/**
+		*   @brief accept a connection on a listening (passive) socket
+		*   @throw psocksxx::sockexception socket exception
+		*   @return peer socket data structure
+		*
+		*   This method will accept incoming connections on a socket
+		*   set to be passive using the listen() method. Upon success
+		*   this will return the peer socket data structure that can be used
+		*   to create a socket stream buffer instance to communicate
+		*   with the accepted socket connection.
+		*
+		*/
+		socket_t accept() throw( sockexception );
+
+
 	protected:
 
 		/**

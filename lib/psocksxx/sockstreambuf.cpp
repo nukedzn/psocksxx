@@ -99,6 +99,28 @@ namespace psocksxx {
 	}
 
 
+	void sockstreambuf::listen( int backlog ) throw( sockexception ) {
+
+		if ( ::listen( _socket, backlog ) != 0 ) {
+			throw sockexception();
+		}
+
+	}
+
+
+	sockstreambuf::socket_t sockstreambuf::accept() throw( sockexception ) {
+
+		socket_t peer_sock;
+
+		if ( ( peer_sock = ::accept( _socket, NULL, 0 ) ) < 0 ) {
+			throw sockexception();
+		}
+
+		return peer_sock;
+
+	}
+
+
 	const sockstreambuf::socket_t & sockstreambuf::socket() const throw() {
 		return _socket;
 	}
