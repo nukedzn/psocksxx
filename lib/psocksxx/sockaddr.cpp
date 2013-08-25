@@ -24,5 +24,9 @@ namespace psocksxx {
 
 	sockaddr::~sockaddr() { }
 
+	socklen_t sockaddr::size() const throw() {
+		return sizeof( ::sockaddr );
+	}
+
 } /* end of namespace psocksxx*/
 

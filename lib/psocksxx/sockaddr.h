@@ -43,7 +43,7 @@ namespace psocksxx {
 		*   Helper function to get the size of the socket address.
 		*
 		*/
-		virtual socklen_t size() const =0;
+		virtual socklen_t size() const throw();
 
 	};
 
