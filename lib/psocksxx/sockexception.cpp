@@ -25,15 +25,23 @@
 
 namespace psocksxx {
 
-	sockexception::sockexception( const char * message ) throw() : _message( message ) {
+	sockexception::sockexception( const char * message ) throw() {
 
 		// copy system error
 		_errno   = errno;
 		_sys_msg = strerror( _errno );
 
-		// use system error message if no user message is passed in
+		// sanity check
 		if ( message == NULL ) {
+
+			// use system error message if no user message is passed in
 			_message = _sys_msg;
+
+		} else {
+
+			// use the user message
+			_message = message;
+
 		}
 
 	}
