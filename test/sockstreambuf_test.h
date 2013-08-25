@@ -47,11 +47,6 @@ public:
 
 private:
 
-	// basic socket address structure to be used in tests
-	struct sockaddr : public psocksxx::sockaddr {
-		socklen_t size() const { return sizeof( ::sockaddr ); }
-	};
-
 };
 
 

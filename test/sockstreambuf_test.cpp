@@ -68,7 +68,7 @@ void sockstreambuf_test::test_flush_empty() {
 void sockstreambuf_test::test_bad_connect_failure() {
 
 	// socket address
-	sockaddr saddr;
+	psocksxx::sockaddr saddr;
 
 	// socket stream buffer
 	sockstreambuf ssb( -1 );
@@ -82,7 +82,7 @@ void sockstreambuf_test::test_bad_connect_failure() {
 void sockstreambuf_test::test_bad_bind_failure() {
 
 	// socket address
-	sockaddr saddr;
+	psocksxx::sockaddr saddr;
 
 	// socket stream buffer
 	sockstreambuf ssb( -1 );
