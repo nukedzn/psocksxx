@@ -64,3 +64,19 @@ void sockstreambuf_test::test_flush_empty() {
 
 }
 
+
+void sockstreambuf_test::test_bad_connect_failure() {
+
+	// socket address structure
+	struct sockaddr : public psocksxx::sockaddr {
+		socklen_t size() const { return sizeof( ::sockaddr ); }
+	} saddr;
+
+	// socket stream buffer
+	sockstreambuf ssb( -1 );
+
+	// this should throw a bad file descriptor error
+	CPPUNIT_ASSERT_THROW( ssb.connect( &saddr ), sockexception );
+
+}
+
