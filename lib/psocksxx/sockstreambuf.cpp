@@ -81,6 +81,15 @@ namespace psocksxx {
 	}
 
 
+	void sockstreambuf::connect( const sockaddr * dest_addr ) throw( sockexception ) {
+
+		if ( ::connect( _socket, (::sockaddr *) dest_addr, dest_addr->size() ) != 0 ) {
+			throw sockexception();
+		}
+
+	}
+
+
 	const sockstreambuf::socket_t & sockstreambuf::socket() const throw() {
 		return _socket;
 	}

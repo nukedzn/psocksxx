@@ -21,6 +21,7 @@
 #define PSOCKSXX_SOCKSTREAMBUF_H
 
 #include <psocksxx/sockexception.h>
+#include <psocksxx/sockaddr.h>
 
 #include <streambuf>
 #include <sys/socket.h>
@@ -136,6 +137,18 @@ namespace psocksxx {
 		*
 		*/
 		virtual int flush() throw();
+
+
+		/**
+		*   @brief initiate a connection on a socket
+		*   @param dest_addr destination address to connect to
+		*   @throw psocksxx::sockexception socket exception
+		*
+		*   Initiate a connection on a socket previously opened using
+		*   open() method.
+		*
+		*/
+		void connect( const sockaddr * dest_addr ) throw( sockexception );
 
 	protected:
 
