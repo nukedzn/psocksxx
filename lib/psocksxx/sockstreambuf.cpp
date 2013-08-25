@@ -90,6 +90,15 @@ namespace psocksxx {
 	}
 
 
+	void sockstreambuf::bind( const sockaddr * bind_addr ) throw( sockexception ) {
+
+		if ( ::bind( _socket, (::sockaddr *) bind_addr, bind_addr->size() ) != 0) {
+			throw sockexception();
+		}
+
+	}
+
+
 	const sockstreambuf::socket_t & sockstreambuf::socket() const throw() {
 		return _socket;
 	}

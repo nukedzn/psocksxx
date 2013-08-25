@@ -150,6 +150,17 @@ namespace psocksxx {
 		*/
 		void connect( const sockaddr * dest_addr ) throw( sockexception );
 
+		/**
+		*   @brief bind the socket to a specified address
+		*   @param bind_addr address to bind to
+		*   @throw psocksxx::sockexception socket exception
+		*
+		*   After a socket is configured using open() this method can
+		*   be used to assign an address to it.
+		*
+		*/
+		void bind( const sockaddr * bind_addr ) throw( sockexception );
+
 	protected:
 
 		/**
