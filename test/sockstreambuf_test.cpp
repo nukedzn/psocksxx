@@ -92,3 +92,25 @@ void sockstreambuf_test::test_bad_bind_failure() {
 
 }
 
+
+void sockstreambuf_test::test_bad_listen_failure() {
+
+	// socket stream buffer
+	sockstreambuf ssb( -1 );
+
+	// this should throw a bad file descriptor error
+	CPPUNIT_ASSERT_THROW( ssb.listen(), sockexception );
+
+}
+
+
+void sockstreambuf_test::test_bad_accept_failure() {
+
+	// socket stream buffer
+	sockstreambuf ssb( -1 );
+
+	// this should throw a bad file descriptor error
+	CPPUNIT_ASSERT_THROW( ssb.accept(), sockexception );
+
+}
+

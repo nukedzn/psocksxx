@@ -33,6 +33,8 @@ class sockstreambuf_test : public CppUnit::TestFixture {
 	CPPUNIT_TEST( test_flush_empty );
 	CPPUNIT_TEST( test_bad_connect_failure );
 	CPPUNIT_TEST( test_bad_bind_failure );
+	CPPUNIT_TEST( test_bad_listen_failure );
+	CPPUNIT_TEST( test_bad_accept_failure );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -44,6 +46,8 @@ public:
 	void test_flush_empty();
 	void test_bad_connect_failure();
 	void test_bad_bind_failure();
+	void test_bad_listen_failure();
+	void test_bad_accept_failure();
 
 private:
 
