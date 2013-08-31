@@ -20,6 +20,9 @@
 #include "sockstreambuf_test.h"
 
 #include <psocksxx/sockstreambuf.h>
+#include <psocksxx/lsockaddr.h>
+
+#include <cerrno>
 
 
 // register the fixture into the 'registry'
@@ -29,7 +32,14 @@ CPPUNIT_TEST_SUITE_REGISTRATION( sockstreambuf_test );
 using namespace psocksxx;
 
 
-void sockstreambuf_test::setUp() { }
+void sockstreambuf_test::setUp() {
+
+	// initialise locals
+	_sockaddr.sa_family = AF_LOCAL;
+
+}
+
+
 void sockstreambuf_test::tearDown() { }
 
 
@@ -67,28 +77,22 @@ void sockstreambuf_test::test_flush_empty() {
 
 void sockstreambuf_test::test_bad_connect_failure() {
 
-	// socket address
-	psocksxx::sockaddr saddr;
-
 	// socket stream buffer
 	sockstreambuf ssb( -1 );
 
 	// this should throw a bad file descriptor error
-	CPPUNIT_ASSERT_THROW( ssb.connect( &saddr ), sockexception );
+	CPPUNIT_ASSERT_THROW( ssb.connect( &_sockaddr ), sockexception );
 
 }
 
 
 void sockstreambuf_test::test_bad_bind_failure() {
 
-	// socket address
-	psocksxx::sockaddr saddr;
-
 	// socket stream buffer
 	sockstreambuf ssb( -1 );
 
 	// this should throw a bad file descriptor error
-	CPPUNIT_ASSERT_THROW( ssb.bind( &saddr ), sockexception );
+	CPPUNIT_ASSERT_THROW( ssb.bind( &_sockaddr ), sockexception );
 
 }
 
@@ -111,6 +115,79 @@ void sockstreambuf_test::test_bad_accept_failure() {
 
 	// this should throw a bad file descriptor error
 	CPPUNIT_ASSERT_THROW( ssb.accept(), sockexception );
+
+}
+
+
+void sockstreambuf_test::test_local_ip_bind() {
+
+	// socket stream buffer;
+	sockstreambuf ssb;
+
+	// local (unix) socket address
+	const char * path = "/tmp/psocksxx.sock";
+	lsockaddr saddr( path );
+
+
+	// prepare the socket
+	try {
+		ssb.open( sockstreambuf::pf_local, sockstreambuf::sock_stream, sockstreambuf::proto_unspec );
+	} catch( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// bind to address
+	CPPUNIT_ASSERT_NO_THROW( ssb.bind( &saddr ) );
+
+
+	// close socket
+	ssb.close();
+
+	// unlink
+	if ( unlink( path ) !=0 ) {
+		CPPUNIT_FAIL( std::string( "failed to unlink socket: " ).append( path ) );
+	}
+
+}
+
+
+void sockstreambuf_test::test_local_ip_listen() {
+
+	// socket stream buffer;
+	sockstreambuf ssb;
+
+	// local (unix) socket address
+	const char * path = "/tmp/psocksxx.sock";
+	lsockaddr saddr( path );
+
+
+	// prepare the socket
+	try {
+		ssb.open( sockstreambuf::pf_local, sockstreambuf::sock_stream, sockstreambuf::proto_unspec );
+	} catch( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// bind to address
+	try {
+		ssb.bind( &saddr );
+	} catch ( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+	}
+
+	// listen
+	CPPUNIT_ASSERT_NO_THROW( ssb.listen() );
+
+
+	// close socket
+	ssb.close();
+
+	// unlink
+	if ( unlink( path ) !=0 ) {
+		CPPUNIT_FAIL( std::string( "failed to unlink socket: " ).append( path ) );
+	}
 
 }
 

@@ -35,6 +35,8 @@ class sockstreambuf_test : public CppUnit::TestFixture {
 	CPPUNIT_TEST( test_bad_bind_failure );
 	CPPUNIT_TEST( test_bad_listen_failure );
 	CPPUNIT_TEST( test_bad_accept_failure );
+	CPPUNIT_TEST( test_local_ip_bind );
+	CPPUNIT_TEST( test_local_ip_listen );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -48,8 +50,17 @@ public:
 	void test_bad_bind_failure();
 	void test_bad_listen_failure();
 	void test_bad_accept_failure();
+	void test_local_ip_bind();
+	void test_local_ip_listen();
+
 
 private:
+
+	// base sockaddr class for negative testing purposes
+	struct : public psocksxx::sockaddr, public sockaddr {
+		socklen_t size() const throw() { return sizeof( ::sockaddr ); }
+		::sockaddr * psockaddr() const throw() { return (::sockaddr *) this; }
+	} _sockaddr;
 
 };
 
