@@ -119,7 +119,7 @@ void sockstreambuf_test::test_bad_accept_failure() {
 }
 
 
-void sockstreambuf_test::test_local_ip_bind() {
+void sockstreambuf_test::test_local_bind() {
 
 	// socket stream buffer;
 	sockstreambuf ssb;
@@ -152,7 +152,7 @@ void sockstreambuf_test::test_local_ip_bind() {
 }
 
 
-void sockstreambuf_test::test_local_ip_listen() {
+void sockstreambuf_test::test_local_listen() {
 
 	// socket stream buffer;
 	sockstreambuf ssb;

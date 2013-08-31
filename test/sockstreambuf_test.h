@@ -35,8 +35,8 @@ class sockstreambuf_test : public CppUnit::TestFixture {
 	CPPUNIT_TEST( test_bad_bind_failure );
 	CPPUNIT_TEST( test_bad_listen_failure );
 	CPPUNIT_TEST( test_bad_accept_failure );
-	CPPUNIT_TEST( test_local_ip_bind );
-	CPPUNIT_TEST( test_local_ip_listen );
+	CPPUNIT_TEST( test_local_bind );
+	CPPUNIT_TEST( test_local_listen );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -50,8 +50,8 @@ public:
 	void test_bad_bind_failure();
 	void test_bad_listen_failure();
 	void test_bad_accept_failure();
-	void test_local_ip_bind();
-	void test_local_ip_listen();
+	void test_local_bind();
+	void test_local_listen();
 
 
 private:
