@@ -73,6 +73,7 @@ namespace psocksxx {
 
 		/** socket protocols type definition */
 		enum socket_protocol_t {
+			proto_unspec    = 0,               /*!< Unspecified system default */
 			ipproto_ip      = IPPROTO_IP,      /*!< Internet protocol */
 			ipproto_ipv6    = IPPROTO_IPV6,    /*!< Internet Protocol Version 6 */
 			ipproto_icmp    = IPPROTO_ICMP,    /*!< Control message protocol */
@@ -116,7 +117,7 @@ namespace psocksxx {
 		*   Open a socket and initialise socket communications.
 		*
 		*/
-		void open( socket_domain_t domain, socket_type_t type, socket_protocol_t proto ) throw( sockexception );
+		void open( socket_domain_t domain, socket_type_t type, socket_protocol_t proto = proto_unspec ) throw( sockexception );
 
 		/**
 		*   @brief close open sockets
