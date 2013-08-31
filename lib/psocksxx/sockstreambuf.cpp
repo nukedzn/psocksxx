@@ -86,7 +86,7 @@ namespace psocksxx {
 
 	void sockstreambuf::connect( const sockaddr * dest_addr ) throw( sockexception ) {
 
-		if ( ::connect( _socket, (::sockaddr *) dest_addr, dest_addr->size() ) != 0 ) {
+		if ( ::connect( _socket, dest_addr->psockaddr(), dest_addr->size() ) != 0 ) {
 			throw sockexception();
 		}
 
@@ -95,7 +95,7 @@ namespace psocksxx {
 
 	void sockstreambuf::bind( const sockaddr * bind_addr ) throw( sockexception ) {
 
-		if ( ::bind( _socket, (::sockaddr *) bind_addr, bind_addr->size() ) != 0 ) {
+		if ( ::bind( _socket, bind_addr->psockaddr(), bind_addr->size() ) != 0 ) {
 			throw sockexception();
 		}
 

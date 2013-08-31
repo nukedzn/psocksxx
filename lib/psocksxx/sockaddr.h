@@ -28,22 +28,33 @@ namespace psocksxx {
 	/**
 	*   @brief Socket address base class
 	*
-	*   This class holds the socket addressing structure for socket
-	*   communications.
+	*   This abstract class acts as an interface for accessing derived
+	*   socket address structures.
 	*
 	*/
-	class sockaddr : public ::sockaddr {
+	class sockaddr {
 	public:
-		virtual ~sockaddr();
+		virtual ~sockaddr() { };
 
 		/**
-		*   @brief get socket address size
-		*   @return address size
+		*   @brief get POSIX socket address size
+		*   @return POSIX address size
 		*
-		*   Helper function to get the size of the socket address.
+		*   Helper function to get the size of the related POSIX socket
+		*   address.
 		*
 		*/
-		virtual socklen_t size() const throw();
+		virtual socklen_t size() const throw() =0;
+
+		/**
+		*   @brief get a POSIX socket address structure
+		*   @return POSIX socket address structure
+		*
+		*   Helper function to get a pointer to the POSIX socket
+		*   address structure relating to this socket address instance.
+		*
+		*/
+		virtual ::sockaddr * psockaddr() const throw() =0;
 
 	};
 

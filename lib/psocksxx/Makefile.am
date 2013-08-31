@@ -8,7 +8,6 @@ libpsocksxx_la_LIBADD   =
 libpsocksxx_la_LDFLAGS  = -version-info @LIBPSOCKSXX_LT_VERSION@ -no-undefined
 libpsocksxx_la_SOURCES  = \
 	sockexception.cpp \
-	sockaddr.cpp \
 	sockstreambuf.cpp \
 	isockstream.cpp \
 	osockstream.cpp \
