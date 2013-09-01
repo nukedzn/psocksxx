@@ -241,7 +241,7 @@ void sockstreambuf_test::test_local_connect() {
 	lsockaddr saddr( path );
 
 	// local echo server
-	lecho * echo = new lecho( LOCAL_LISTENER_SOCK_PATH );
+	lecho echo( LOCAL_LISTENER_SOCK_PATH );
 
 	// prepare the socket
 	try {
@@ -256,9 +256,6 @@ void sockstreambuf_test::test_local_connect() {
 
 	// close socket
 	ssb.close();
-
-	// cleanup
-	delete echo;
 
 }
 
@@ -338,17 +335,15 @@ void sockstreambuf_test::test_local_accept() {
 
 void sockstreambuf_test::test_local_flush() {
 
-	// fork variables
-	pid_t  cpid, wpid;
-	int    wpid_status;
-
-	// socket stream buffers
+	// socket stream buffer
 	sockstreambuf ssb;
-	sockstreambuf * peer_ssb;
 
 	// local (unix) socket address
-	const char * path = LOCAL_SOCK_PATH;
+	const char * path = LOCAL_LISTENER_SOCK_PATH;
 	lsockaddr saddr( path );
+
+	// local echo server
+	lecho echo( LOCAL_LISTENER_SOCK_PATH );
 
 
 	// prepare the socket
@@ -359,60 +354,21 @@ void sockstreambuf_test::test_local_flush() {
 		return;
 	}
 
-	// bind to address
+	// connect
 	try {
-		ssb.bind( &saddr );
+		ssb.connect( &saddr );
 	} catch ( sockexception &e ) {
 		CPPUNIT_FAIL( e.what() );
+		return;
 	}
 
-	// listen
-	try {
-		ssb.listen();
-	} catch ( sockexception &e ) {
-		CPPUNIT_FAIL( e.what() );
-	}
+	// put a char into the buffer and flush
+	ssb.sputc( 'c' );
+	CPPUNIT_ASSERT( 1 == ssb.flush() );
 
-
-	// fork
-	cpid = fork();
-
-	if ( cpid == -1 ) {
-		CPPUNIT_FAIL( "failed to fork" );
-	} else if ( cpid == 0 ) {
-
-		// child - connect to the local socket created by the parent
-		connect_local();
-
-		// exit
-		exit( 0 );
-
-	} else {
-
-		// parent - accept a connection from the child
-		peer_ssb = new sockstreambuf( ssb.accept() );
-
-		// put a char into the buffer and flush
-		peer_ssb->sputc( 'c' );
-		CPPUNIT_ASSERT( 1 == peer_ssb->flush() );
-
-		// cleanup
-		delete peer_ssb;
-
-		// wait for child to exit
-		if ( ( wpid = waitpid( cpid, &wpid_status, 0 ) ) == -1 ) {
-			CPPUNIT_FAIL( "failed waiting for the child process to terminate" );
-		}
-
-	}
 
 	// close socket
 	ssb.close();
-
-	// unlink
-	if ( unlink( path ) !=0 ) {
-		CPPUNIT_FAIL( std::string( "failed to unlink socket: " ).append( path ) );
-	}
 
 }
 
