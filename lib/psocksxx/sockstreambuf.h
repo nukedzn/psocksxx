@@ -33,6 +33,10 @@
 #define SOCKSTREAMBUF_SIZE 1024
 #endif
 
+#ifndef SOCKSTREAMBUF_PUTBACK_SIZE
+#define SOCKSTREAMBUF_PUTBACK_SIZE 8
+#endif
+
 
 namespace psocksxx {
 
@@ -228,11 +232,16 @@ namespace psocksxx {
 		*/
 		virtual int overflow( int c = eof ) throw();
 
+		virtual int underflow() throw();
+
 
 	private:
 
 		/** POSIX socket data */
 		socket_t _socket;
+
+		size_t _bufsize;
+		size_t _putbacksize;
 
 	};
 

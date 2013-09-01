@@ -22,7 +22,9 @@
 
 namespace psocksxx {
 
-	sockstreambuf::sockstreambuf() throw() : _socket( -1 ) {
+	sockstreambuf::sockstreambuf() throw() :
+			_socket( -1 ), _bufsize( SOCKSTREAMBUF_SIZE ),
+			_putbacksize( SOCKSTREAMBUF_PUTBACK_SIZE ) {
 
 		// initialise internal buffers
 		init_buffers();
@@ -30,7 +32,9 @@ namespace psocksxx {
 	}
 
 
-	sockstreambuf::sockstreambuf( socket_t socket ) throw() {
+	sockstreambuf::sockstreambuf( socket_t socket ) throw() :
+			_bufsize( SOCKSTREAMBUF_SIZE ),
+			_putbacksize( SOCKSTREAMBUF_PUTBACK_SIZE ) {
 
 		// update local copy of the socket data
 		_socket = socket;
@@ -132,10 +136,16 @@ namespace psocksxx {
 	void sockstreambuf::init_buffers() throw() {
 
 		// allocate output buffer space
-		char * pbuf = new char[SOCKSTREAMBUF_SIZE];
+		char * pbuf = new char[_bufsize];
+
+		// allocate input buffer space
+		char * gbuf = new char[_bufsize];
 
 		// setup output buffer
-		setp( pbuf, pbuf + ( SOCKSTREAMBUF_SIZE - 1 ) );
+		setp( pbuf, pbuf + ( _bufsize - 1 ) );
+
+		// setup input buffer
+		setg( gbuf, gbuf, gbuf );
 
 	}
 
@@ -144,6 +154,9 @@ namespace psocksxx {
 
 		// cleanup output buffer
 		delete [] pbase();
+
+		// cleanup input buffer
+		delete [] eback();
 
 	}
 
@@ -198,6 +211,46 @@ namespace psocksxx {
 		}
 
 		return c;
+
+	}
+
+
+	int sockstreambuf::underflow() throw() {
+
+		// sanity check - read position before end-of-buffer?
+		if ( gptr() < egptr() ) {
+			return traits_type::to_int_type( *gptr() );
+		}
+
+
+		char * read_buffer;
+		size_t putback_size  = gptr() - eback();
+		size_t readable_size = 0;
+
+		// sanitise putback size
+		if ( putback_size > _putbacksize ) {
+			putback_size = _putbacksize;
+		}
+
+		// update read buffer position
+		read_buffer = eback() + putback_size;
+
+		// calculate read buffer size
+		readable_size = _bufsize - putback_size;
+
+		// read from socket
+		ssize_t read_size = ::read( _socket, read_buffer, readable_size );
+
+		// sanity check
+		if ( read_size <= 0 ) {
+			return eof;
+		}
+
+		// update pointers
+		setg( eback(), read_buffer, read_buffer + read_size );
+
+		// return next character
+		return traits_type::to_int_type( *gptr() );
 
 	}
 
