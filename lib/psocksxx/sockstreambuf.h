@@ -232,6 +232,17 @@ namespace psocksxx {
 		*/
 		virtual int overflow( int c = eof ) throw();
 
+		/**
+		*   @brief read more data into the buffer from the socket
+		*   @return the first character from the buffer or sockstreambuf::eof
+		*           if no data is available to read
+		*
+		*   This reads more data into the buffer from the socket when
+		*   the input buffer is empty and returns the next readable
+		*   character from the buffer. If the buffer is empty and no
+		*   data is available through the socket, this returns sockstreambuf::eof.
+		*
+		*/
 		virtual int underflow() throw();
 
 
