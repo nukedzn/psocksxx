@@ -170,11 +170,11 @@ void sockstreambuf_test::test_bad_accept_failure() {
 
 void sockstreambuf_test::test_local_bind() {
 
-	// socket stream buffer;
+	// socket stream buffer
 	sockstreambuf ssb;
 
 	// local (unix) socket address
-	const char * path = "/tmp/psocksxx.sock";
+	const char * path = LOCAL_SOCK_PATH;
 	lsockaddr saddr( path );
 
 
@@ -203,11 +203,11 @@ void sockstreambuf_test::test_local_bind() {
 
 void sockstreambuf_test::test_local_listen() {
 
-	// socket stream buffer;
+	// socket stream buffer
 	sockstreambuf ssb;
 
 	// local (unix) socket address
-	const char * path = "/tmp/psocksxx.sock";
+	const char * path = LOCAL_SOCK_PATH;
 	lsockaddr saddr( path );
 
 
