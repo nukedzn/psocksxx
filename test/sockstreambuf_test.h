@@ -41,6 +41,7 @@ class sockstreambuf_test : public CppUnit::TestFixture {
 	CPPUNIT_TEST( test_local_bind );
 	CPPUNIT_TEST( test_local_listen );
 	CPPUNIT_TEST( test_local_connect );
+	CPPUNIT_TEST( test_local_accept );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -59,6 +60,7 @@ public:
 	void test_local_bind();
 	void test_local_listen();
 	void test_local_connect();
+	void test_local_accept();
 
 
 private:
@@ -73,6 +75,7 @@ private:
 	int _local_sock;
 
 	void setup_local_listener() throw();
+	void connect_local() throw();
 
 };
 

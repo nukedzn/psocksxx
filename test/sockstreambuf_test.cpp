@@ -22,8 +22,6 @@
 #include <psocksxx/sockstreambuf.h>
 #include <psocksxx/lsockaddr.h>
 
-#include <cerrno>
-
 
 // register the fixture into the 'registry'
 CPPUNIT_TEST_SUITE_REGISTRATION( sockstreambuf_test );
@@ -68,6 +66,23 @@ void sockstreambuf_test::setup_local_listener() throw() {
 		std::cerr << "failed to listen on local socket" << std::endl;
 		return;
 	}
+
+}
+
+
+void sockstreambuf_test::connect_local() throw() {
+
+	int csock;
+	sockaddr_un saddr;
+
+	const char * path = LOCAL_SOCK_PATH;
+	bzero( (void *) &saddr, sizeof( saddr ) );
+	saddr.sun_family = AF_LOCAL;
+	strcpy( saddr.sun_path, path );
+
+	// not worth having error handling here so we hope for the best
+	csock = socket( AF_LOCAL, SOCK_STREAM, 0 );
+	connect( csock, (::sockaddr *) &saddr, sizeof( sockaddr_un ) );
 
 }
 
@@ -263,6 +278,79 @@ void sockstreambuf_test::test_local_connect() {
 
 	// close socket
 	ssb.close();
+
+}
+
+
+void sockstreambuf_test::test_local_accept() {
+
+	// fork variables
+	pid_t  cpid, wpid;
+	int    wpid_status;
+
+	// socket stream buffer
+	sockstreambuf ssb;
+
+	// local (unix) socket address
+	const char * path = LOCAL_SOCK_PATH;
+	lsockaddr saddr( path );
+
+
+	// prepare the socket
+	try {
+		ssb.open( sockstreambuf::pf_local, sockstreambuf::sock_stream, sockstreambuf::proto_unspec );
+	} catch( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// bind to address
+	try {
+		ssb.bind( &saddr );
+	} catch ( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+	}
+
+	// listen
+	try {
+		ssb.listen();
+	} catch ( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+	}
+
+
+	// fork
+	cpid = fork();
+
+	if ( cpid == -1 ) {
+		CPPUNIT_FAIL( "failed to fork" );
+	} else if ( cpid == 0 ) {
+
+		// child - connect to the local socket created by the parent
+		connect_local();
+
+		// exit
+		exit( 0 );
+
+	} else {
+
+		// parent - accept a connection from the child
+		CPPUNIT_ASSERT( ssb.accept() != -1 );
+
+		// wait for child to exit
+		if ( ( wpid = waitpid( cpid, &wpid_status, 0 ) ) == -1 ) {
+			CPPUNIT_FAIL( "failed waiting for the child process to terminate" );
+		}
+
+	}
+
+	// close socket
+	ssb.close();
+
+	// unlink
+	if ( unlink( path ) !=0 ) {
+		CPPUNIT_FAIL( std::string( "failed to unlink socket: " ).append( path ) );
+	}
 
 }
 
