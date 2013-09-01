@@ -48,6 +48,7 @@ class sockstreambuf_test : public CppUnit::TestFixture {
 
 public:
 	sockstreambuf_test();
+	~sockstreambuf_test();
 
 	void setUp();
 	void tearDown();
@@ -76,9 +77,6 @@ private:
 	} _sockaddr;
 
 
-	int _local_sock;
-
-	void setup_local_listener() throw();
 	void connect_local() throw();
 
 };
