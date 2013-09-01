@@ -23,6 +23,9 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include <psocksxx/sockaddr.h>
 
+#define LOCAL_LISTENER_SOCK_PATH    "/tmp/psocksxx.listener.sock"
+#define LOCAL_SOCK_PATH             "/tmp/psocksxx.sock"
+
 
 class sockstreambuf_test : public CppUnit::TestFixture {
 
@@ -37,9 +40,12 @@ class sockstreambuf_test : public CppUnit::TestFixture {
 	CPPUNIT_TEST( test_bad_accept_failure );
 	CPPUNIT_TEST( test_local_bind );
 	CPPUNIT_TEST( test_local_listen );
+	CPPUNIT_TEST( test_local_connect );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
+	sockstreambuf_test();
+
 	void setUp();
 	void tearDown();
 
@@ -52,6 +58,7 @@ public:
 	void test_bad_accept_failure();
 	void test_local_bind();
 	void test_local_listen();
+	void test_local_connect();
 
 
 private:
@@ -61,6 +68,11 @@ private:
 		socklen_t size() const throw() { return sizeof( ::sockaddr ); }
 		::sockaddr * psockaddr() const throw() { return (::sockaddr *) this; }
 	} _sockaddr;
+
+
+	int _local_sock;
+
+	void setup_local_listener() throw();
 
 };
 

@@ -32,15 +32,64 @@ CPPUNIT_TEST_SUITE_REGISTRATION( sockstreambuf_test );
 using namespace psocksxx;
 
 
+sockstreambuf_test::sockstreambuf_test() :
+	_local_sock( -1 ) {
+
+}
+
+
+void sockstreambuf_test::setup_local_listener() throw() {
+
+	// initialise socket
+	if ( ( _local_sock = socket( PF_LOCAL, SOCK_STREAM, 0 ) ) < 0 ) {
+		std::cerr << "failed to setup local socket" << std::endl;
+		return;
+	}
+
+	// socket address
+	const char * path = LOCAL_LISTENER_SOCK_PATH;
+	sockaddr_un saddr;
+
+	bzero( (void *) &saddr, sizeof( saddr ) );
+	saddr.sun_family = AF_LOCAL;
+	strcpy( saddr.sun_path, path );
+
+
+	// bind
+	if ( bind( _local_sock, (::sockaddr *) &saddr,
+			sizeof( sockaddr_un ) ) != 0 ) {
+		std::cerr << "failed to bind to local socket" << std::endl;
+		return;
+	}
+
+
+	// listen
+	if ( listen( _local_sock, 2 ) != 0 ) {
+		std::cerr << "failed to listen on local socket" << std::endl;
+		return;
+	}
+
+}
+
+
 void sockstreambuf_test::setUp() {
 
 	// initialise locals
 	_sockaddr.sa_family = AF_LOCAL;
 
+	// setup communication sockets
+	setup_local_listener();
+
 }
 
 
-void sockstreambuf_test::tearDown() { }
+void sockstreambuf_test::tearDown() {
+
+	// close opened sockets
+	close( _local_sock );
+	unlink( LOCAL_LISTENER_SOCK_PATH );
+
+}
 
 
 void sockstreambuf_test::test_constructors() {
@@ -188,6 +237,32 @@ void sockstreambuf_test::test_local_listen() {
 	if ( unlink( path ) !=0 ) {
 		CPPUNIT_FAIL( std::string( "failed to unlink socket: " ).append( path ) );
 	}
+
+}
+
+
+void sockstreambuf_test::test_local_connect() {
+
+	// socket steam buffer
+	sockstreambuf ssb;
+
+	// local (unix) socket address
+	const char * path = LOCAL_LISTENER_SOCK_PATH;
+	lsockaddr saddr( path );
+
+	// prepare the socket
+	try {
+		ssb.open( sockstreambuf::pf_local, sockstreambuf::sock_stream, sockstreambuf::proto_unspec );
+	} catch( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// connect
+	CPPUNIT_ASSERT_NO_THROW( ssb.connect( &saddr ) );
+
+	// close socket
+	ssb.close();
 
 }
 
