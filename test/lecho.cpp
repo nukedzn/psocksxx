@@ -111,22 +111,27 @@ void lecho::serve_requests() {
 			continue;
 		}
 
-		close_peer = true;
+		close_peer = false;
 		do {
 
+			// read from the socket
 			n = recv( peer_sockfd, cbuffer, sizeof( cbuffer ), 0 );
-			if ( n < 0 ) {
-				close_peer = true;
-			}
 
-			if (! close_peer ) {
+			// sanity check - did we receive anything?
+			if ( n <= 0 ) {
+				close_peer = true;
+			} else {
+
+				// send back what we received
 				if ( send( peer_sockfd, cbuffer, n, 0 ) < 0 ) {
 					close_peer = true;
 				}
+
 			}
 
 		} while (! close_peer );
 
+		// close peer
 		close( peer_sockfd );
 
 	}
@@ -175,12 +180,18 @@ void lecho::wait_connect() {
 		// try to connect
 		if ( ( connect( sockfd, (sockaddr *) &saddr, sizeof( sockaddr_un ) ) == -1 ) ) {
 
-			// sleep for a bit
+			// connect failed - sleep for a bit
 			usleep( 500 );
 
+		} else {
+			// connect successful - break out of the loop
+			break;
 		}
 
 	}
+
+	// close socket
+	close( sockfd );
 
 }
 
