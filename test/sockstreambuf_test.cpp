@@ -21,6 +21,9 @@
 
 #include <psocksxx/sockstreambuf.h>
 #include <psocksxx/lsockaddr.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <cstdlib>
 
 
 // register the fixture into the 'registry'
