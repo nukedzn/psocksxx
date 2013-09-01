@@ -142,6 +142,20 @@ void sockstreambuf_test::test_flush_empty() {
 }
 
 
+void sockstreambuf_test::test_bad_flush() {
+
+	// socket stream buffer
+	sockstreambuf ssb( -1 );
+
+	// add a char into the buffer
+	ssb.sputc( 'c' );
+
+	// flush buffer
+	CPPUNIT_ASSERT( sockstreambuf::eof == ssb.flush() );
+
+}
+
+
 void sockstreambuf_test::test_bad_connect_failure() {
 
 	// socket stream buffer
@@ -339,6 +353,87 @@ void sockstreambuf_test::test_local_accept() {
 
 		// parent - accept a connection from the child
 		CPPUNIT_ASSERT( ssb.accept() != -1 );
+
+		// wait for child to exit
+		if ( ( wpid = waitpid( cpid, &wpid_status, 0 ) ) == -1 ) {
+			CPPUNIT_FAIL( "failed waiting for the child process to terminate" );
+		}
+
+	}
+
+	// close socket
+	ssb.close();
+
+	// unlink
+	if ( unlink( path ) !=0 ) {
+		CPPUNIT_FAIL( std::string( "failed to unlink socket: " ).append( path ) );
+	}
+
+}
+
+
+void sockstreambuf_test::test_local_flush() {
+
+	// fork variables
+	pid_t  cpid, wpid;
+	int    wpid_status;
+
+	// socket stream buffers
+	sockstreambuf ssb;
+	sockstreambuf * peer_ssb;
+
+	// local (unix) socket address
+	const char * path = LOCAL_SOCK_PATH;
+	lsockaddr saddr( path );
+
+
+	// prepare the socket
+	try {
+		ssb.open( sockstreambuf::pf_local, sockstreambuf::sock_stream, sockstreambuf::proto_unspec );
+	} catch( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// bind to address
+	try {
+		ssb.bind( &saddr );
+	} catch ( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+	}
+
+	// listen
+	try {
+		ssb.listen();
+	} catch ( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+	}
+
+
+	// fork
+	cpid = fork();
+
+	if ( cpid == -1 ) {
+		CPPUNIT_FAIL( "failed to fork" );
+	} else if ( cpid == 0 ) {
+
+		// child - connect to the local socket created by the parent
+		connect_local();
+
+		// exit
+		exit( 0 );
+
+	} else {
+
+		// parent - accept a connection from the child
+		peer_ssb = new sockstreambuf( ssb.accept() );
+
+		// put a char into the buffer and flush
+		peer_ssb->sputc( 'c' );
+		CPPUNIT_ASSERT( 1 == peer_ssb->flush() );
+
+		// cleanup
+		delete peer_ssb;
 
 		// wait for child to exit
 		if ( ( wpid = waitpid( cpid, &wpid_status, 0 ) ) == -1 ) {
