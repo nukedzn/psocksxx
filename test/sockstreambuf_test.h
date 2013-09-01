@@ -44,6 +44,7 @@ class sockstreambuf_test : public CppUnit::TestFixture {
 	CPPUNIT_TEST( test_local_connect );
 	CPPUNIT_TEST( test_local_accept );
 	CPPUNIT_TEST( test_local_flush );
+	CPPUNIT_TEST( test_local_flush_read );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -66,6 +67,7 @@ public:
 	void test_local_connect();
 	void test_local_accept();
 	void test_local_flush();
+	void test_local_flush_read();
 
 
 private:

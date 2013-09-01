@@ -372,3 +372,52 @@ void sockstreambuf_test::test_local_flush() {
 
 }
 
+
+void sockstreambuf_test::test_local_flush_read() {
+
+	// socket stream buffer
+	sockstreambuf ssb;
+
+	// local (unix) socket address
+	const char * path = LOCAL_LISTENER_SOCK_PATH;
+	lsockaddr saddr( path );
+
+	// local echo server
+	lecho echo( LOCAL_LISTENER_SOCK_PATH );
+
+
+	// prepare the socket
+	try {
+		ssb.open( sockstreambuf::pf_local, sockstreambuf::sock_stream, sockstreambuf::proto_unspec );
+	} catch( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// connect
+	try {
+		ssb.connect( &saddr );
+	} catch ( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// put a char into the buffer
+	ssb.sputc( 'c' );
+
+	// flush
+	if ( ssb.flush() == 1 ) {
+
+		// read back
+		CPPUNIT_ASSERT( 'c' == ssb.sgetc() );
+
+	} else {
+		CPPUNIT_FAIL( "failed to flush buffer" );
+	}
+
+
+	// close socket
+	ssb.close();
+
+}
+
