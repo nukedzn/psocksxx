@@ -23,6 +23,7 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <cstring>
+#include <cstdlib>
 #include <signal.h>
 
 
