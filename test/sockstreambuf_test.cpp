@@ -421,3 +421,105 @@ void sockstreambuf_test::test_local_flush_read() {
 
 }
 
+
+void sockstreambuf_test::test_local_ostream() {
+
+	// socket stream buffer
+	sockstreambuf ssb;
+
+	// ostream
+	std::ostream output( &ssb );
+
+	// local (unix) socket address
+	const char * path = LOCAL_LISTENER_SOCK_PATH;
+	lsockaddr saddr( path );
+
+	// local echo server
+	lecho echo( LOCAL_LISTENER_SOCK_PATH );
+
+
+	// prepare the socket
+	try {
+		ssb.open( sockstreambuf::pf_local, sockstreambuf::sock_stream, sockstreambuf::proto_unspec );
+	} catch( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// connect
+	try {
+		ssb.connect( &saddr );
+	} catch ( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// use the output stream to send a char
+	output << 'c' << std::endl;
+
+	// read back using the socket stream buffer
+	CPPUNIT_ASSERT( 'c' ==  ssb.sgetc() );
+
+
+	// close socket
+	ssb.close();
+
+}
+
+
+void sockstreambuf_test::test_local_istream() {
+
+	// socket stream buffer
+	sockstreambuf ssb;
+
+	// istream
+	std::istream input( &ssb );
+
+	// local (unix) socket address
+	const char * path = LOCAL_LISTENER_SOCK_PATH;
+	lsockaddr saddr( path );
+
+	// local echo server
+	lecho echo( LOCAL_LISTENER_SOCK_PATH );
+
+
+	// prepare the socket
+	try {
+		ssb.open( sockstreambuf::pf_local, sockstreambuf::sock_stream, sockstreambuf::proto_unspec );
+	} catch( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// connect
+	try {
+		ssb.connect( &saddr );
+	} catch ( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+
+	// put a char into the buffer
+	ssb.sputc( 'c' );
+
+	// flush
+	if ( ssb.flush() == 1 ) {
+
+		// read back using istream
+		char c;
+		input >> c;
+
+		// assert
+		CPPUNIT_ASSERT( 'c' == c );
+
+	} else {
+		CPPUNIT_FAIL( "failed to flush buffer" );
+	}
+
+
+	// close socket
+	ssb.close();
+
+}
+
