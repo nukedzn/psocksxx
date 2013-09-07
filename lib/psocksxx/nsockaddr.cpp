@@ -21,6 +21,7 @@
 #include "sockstreambuf.h"
 
 #include <netdb.h>
+#include <cstring>
 
 
 namespace psocksxx {
