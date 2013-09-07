@@ -35,7 +35,7 @@ namespace tap {
 		void startSuite( CppUnit::Test * suite );
 		void startTest( CppUnit::Test * test );
 		void addFailure( const CppUnit::TestFailure &failure );
-		void endTest( CppUnit::Test * test) ;
+		void endTest( CppUnit::Test * test);
 
 	private:
 		CppUnit::Test *     _factory_suite;

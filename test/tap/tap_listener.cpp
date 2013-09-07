@@ -36,10 +36,9 @@ namespace tap {
 
 	}
 
+
 	TAPListener::~TAPListener() {
-		if ( _failure_msg ) {
-			delete _failure_msg;
-		}
+		// destructor
 	}
 
 
@@ -59,10 +58,6 @@ namespace tap {
 
 
 	void TAPListener::addFailure( const CppUnit::TestFailure &failure ) {
-
-		if ( _failure_msg ) {
-			delete _failure_msg;
-		}
 
 		CppUnit::Exception * e = failure.thrownException();
 		_failure_msg  = new CppUnit::Message ( e->message() );
@@ -85,6 +80,9 @@ namespace tap {
 			for ( int i = 0; i < _failure_msg->detailCount(); i++ ) {
 				std::cout << "# \t" << _failure_msg->detailAt( i ) << std::endl;
 			}
+
+			// cleanup
+			delete _failure_msg;
 
 		}
 
