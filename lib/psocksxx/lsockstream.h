@@ -61,6 +61,17 @@ namespace psocksxx {
 		*/
 		void connect( const char * path ) throw( sockexception );
 
+		/**
+		*   @brief connect to a local socket
+		*   @param saddr local socket address instance
+		*   @throw psocksxx::sockexception socket exception
+		*
+		*   Connect to a local socket using the passed in socket address
+		*   object.
+		*
+		*/
+		void connect( const lsockaddr * saddr ) throw( sockexception );
+
 	};
 
 } /* end of namespace psocksxx */

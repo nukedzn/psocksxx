@@ -53,5 +53,13 @@ namespace psocksxx {
 
 	}
 
+
+	void lsockstream::connect( const lsockaddr * saddr ) throw( sockexception ) {
+
+		sockstreambuf * ssb = (sockstreambuf *) rdbuf();
+		ssb->connect( saddr );
+
+	}
+
 } /* end of namespace psocksxx */
 
