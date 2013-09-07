@@ -34,6 +34,19 @@ namespace tap {
 		// defaults
 		_failure_msg = 0;
 
+		CppUnit::TestSuite * s = (CppUnit::TestSuite *) _factory_suite;
+		CppUnit::TestSuite * c;
+		int total_tests = 0;
+
+		// calculate total number of tests
+		for ( int i = 0; i < s->getChildTestCount(); i++ ) {
+			c = (CppUnit::TestSuite *) s->getChildTestAt( i );
+			total_tests += c->getChildTestCount();
+		}
+
+		// output tap header
+		std::cout << "1.." << total_tests << std::endl;
+
 	}
 
 
@@ -43,12 +56,7 @@ namespace tap {
 
 
 	void TAPListener::startSuite( CppUnit::Test * suite ) {
-
-		if ( suite != _factory_suite ) {
-			CppUnit::TestSuite * s = (CppUnit::TestSuite *) suite;
-			std::cout << "1.." << s->getChildTestCount() << std::endl;
-		}
-
+		// start test suite
 	}
 
 
@@ -87,6 +95,11 @@ namespace tap {
 		}
 
 
+	}
+
+
+	void TAPListener::endSuite( CppUnit::Test * suite ) {
+		// end test suite
 	}
 
 } /* end of namespace tap */
