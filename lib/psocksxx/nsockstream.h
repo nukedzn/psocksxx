@@ -21,6 +21,7 @@
 #define PSOCKSXX_NSOCKSTREAM_H
 
 #include <psocksxx/iosockstream.h>
+#include <psocksxx/nsockaddr.h>
 
 
 namespace psocksxx {
@@ -50,6 +51,16 @@ namespace psocksxx {
 		*   @brief destructor
 		*/
 		virtual ~nsockstream() throw();
+
+		/**
+		*   @brief connect to a network address
+		*   @param saddr destination address information
+		*
+		*   Connect to a TCP/IPv4 communication end point making this
+		*   stream ready for I/O.
+		*
+		*/
+		void connect( const nsockaddr * saddr ) throw( sockexception );
 
 	};
 

@@ -44,5 +44,16 @@ namespace psocksxx {
 
 	}
 
+
+	void nsockstream::connect( const nsockaddr * saddr ) throw( sockexception ) {
+
+		// socket stream buffer
+		sockstreambuf * ssb = (sockstreambuf *) rdbuf();
+
+		// connect
+		ssb->connect( saddr );
+
+	}
+
 } /* end of namespace psocksxx */
 
