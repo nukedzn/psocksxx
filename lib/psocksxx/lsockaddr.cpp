@@ -18,7 +18,6 @@
 */
 
 #include "lsockaddr.h"
-#include "sockstreambuf.h"
 
 #include <cstring>
 
@@ -28,7 +27,7 @@ namespace psocksxx {
 	lsockaddr::lsockaddr( const char * path ) throw() {
 
 		// set the socket address family
-		sun_family = AF_LOCAL;
+		sun_family = sockaddr::af_local;
 
 		// set the socket path
 		strcpy( sun_path, path );
