@@ -39,6 +39,9 @@ namespace psocksxx {
 
 	nsockstream::~nsockstream() throw() {
 
+		// cleanup
+		delete iosockstream::rdbuf();
+
 	}
 
 } /* end of namespace psocksxx */
