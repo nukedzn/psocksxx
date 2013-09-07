@@ -43,7 +43,7 @@ void lsockstream_test::test_connect_fail() {
 	lsockstream l;
 
 	// this should throw a file not found error
-	CPPUNIT_ASSERT_THROW ( l.connect( LOCAL_SOCK_PATH ), sockexception );
+	CPPUNIT_ASSERT_THROW( l.connect( LOCAL_SOCK_PATH ), sockexception );
 
 }
 
