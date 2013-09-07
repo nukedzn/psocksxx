@@ -49,7 +49,7 @@ void nsockaddr_test::test_constructor_remote() {
 void nsockaddr_test::test_constructor_fail() {
 
 	CPPUNIT_ASSERT_THROW( nsockaddr a( "invalid.domain", 1234 ), sockexception );
-	CPPUNIT_ASSERT_THROW( nsockaddr a( "1.2.3", 1234 ), sockexception );
+	CPPUNIT_ASSERT_THROW( nsockaddr a( "1.2.3.", 1234 ), sockexception );
 
 }
 
