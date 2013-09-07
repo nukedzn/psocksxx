@@ -13,7 +13,8 @@ libpsocksxx_la_SOURCES  = \
 	isockstream.cpp \
 	osockstream.cpp \
 	lsockstream.cpp \
-	nsockstream.cpp
+	nsockstream.cpp \
+	tcpnsockstream.cpp
 
 libpsocksxxinclude_HEADERS = \
 	sockexception.h \
@@ -24,5 +25,6 @@ libpsocksxxinclude_HEADERS = \
 	osockstream.h \
 	iosockstream.h \
 	lsockstream.h \
-	nsockstream.h
+	nsockstream.h \
+	tcpnsockstream.h
 
