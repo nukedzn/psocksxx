@@ -21,6 +21,8 @@
 #define PSOCKSXX_LSOCKSTREAM_H
 
 #include <psocksxx/iosockstream.h>
+#include <psocksxx/lsockaddr.h>
+
 
 namespace psocksxx {
 
@@ -35,9 +37,29 @@ namespace psocksxx {
 	public:
 
 		/**
+		*   @brief constructor
+		*   @throw psocksxx::sockexception socket exception
+		*
+		*   Initialise a local (unix) communication stream.
+		*
+		*/
+		lsockstream() throw( sockexception );
+
+		/**
 		*   @brief destructor
 		*/
 		~lsockstream() throw();
+
+		/**
+		*   @brief connect to a local socket
+		*   @param path local socket path
+		*   @throw psocksxx::sockexception socket exception
+		*
+		*   Connect a to local socket at the given path. It is assumed
+		*   that the socket is ready to accept connections.
+		*
+		*/
+		void connect( const char * path ) throw( sockexception );
 
 	};
 

@@ -22,7 +22,34 @@
 
 namespace psocksxx {
 
+	lsockstream::lsockstream() throw( sockexception ) : iosockstream( NULL ) {
+
+		// socket stream buffer instance
+		sockstreambuf * ssb = new sockstreambuf();
+
+		// open local socket
+		ssb->open( sockstreambuf::pf_local, sockstreambuf::sock_stream, sockstreambuf::proto_unspec );
+
+		// update I/O buffer
+		iosockstream::init( ssb );
+
+	}
+
+
 	lsockstream::~lsockstream() throw() {
+
+		// cleanup
+		delete iosockstream::rdbuf();
+
+	}
+
+
+	void lsockstream::connect( const char * path ) throw( sockexception ) {
+
+		lsockaddr saddr( path );
+		sockstreambuf * ssb = (sockstreambuf *) rdbuf();
+
+		ssb->connect( &saddr );
 
 	}
 
