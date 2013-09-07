@@ -13,7 +13,8 @@ TESTS          += $(check_PROGRAMS)
 
 CPPUNIT_TEST_SOURCES = \
 	lecho.h lecho.cpp \
-	sockstreambuf_test.h sockstreambuf_test.cpp
+	sockstreambuf_test.h sockstreambuf_test.cpp \
+	lsockstream_test.h lsockstream_test.cpp
 
 tap_runner_tap_SOURCES = \
 	tap-runner.cpp \
