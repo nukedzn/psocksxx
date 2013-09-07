@@ -34,6 +34,18 @@ namespace psocksxx {
 	*/
 	class sockaddr {
 	public:
+
+		/** socket address types definition */
+		enum address_t {
+			af_unspec   = AF_UNSPEC,    /*! unspecified */
+			af_local    = AF_LOCAL,     /*! local addresses */
+			af_inet     = AF_INET       /*! network addresses */
+		};
+
+
+		/**
+		*   @brief destructor
+		*/
 		virtual ~sockaddr() { };
 
 		/**
