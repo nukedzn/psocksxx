@@ -22,5 +22,15 @@
 
 namespace psocksxx {
 
+	tcpnsockstream::tcpnsockstream() throw( sockexception ) :
+			nsockstream( sockstreambuf::sock_stream, sockstreambuf::ipproto_tcp ) {
+
+	}
+
+
+	tcpnsockstream::~tcpnsockstream() throw() {
+
+	}
+
 } /* end of namespace psocksxx */
 

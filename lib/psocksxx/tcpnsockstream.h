@@ -32,6 +32,21 @@ namespace psocksxx {
 	*
 	*/
 	class tcpnsockstream : public nsockstream {
+	public:
+
+		/**
+		*   @brief constructor
+		*   @throw psocksxx::sockexception socket exception
+		*
+		*   Initialise a TCP/IP communication stream.
+		*
+		*/
+		tcpnsockstream() throw( sockexception );
+
+		/**
+		*   @brief destructor
+		*/
+		~tcpnsockstream() throw();
 
 	};
 
