@@ -37,13 +37,14 @@ class lsockstream_test : public CppUnit::TestFixture {
 	CPPUNIT_TEST_SUITE( lsockstream_test );
 	CPPUNIT_TEST( test_constructors );
 	CPPUNIT_TEST( test_connect_fail );
+	CPPUNIT_TEST( test_connect_addr_fail );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
 
 	void test_constructors();
 	void test_connect_fail();
-
+	void test_connect_addr_fail();
 
 };
 

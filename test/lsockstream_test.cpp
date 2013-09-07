@@ -47,3 +47,17 @@ void lsockstream_test::test_connect_fail() {
 
 }
 
+
+void lsockstream_test::test_connect_addr_fail() {
+
+	// local socket stream
+	lsockstream l;
+
+	// local (unix) socket address
+	lsockaddr saddr( LOCAL_SOCK_PATH );
+
+	// this should throw a file not found error
+	CPPUNIT_ASSERT_THROW( l.connect( &saddr ), sockexception );
+
+}
+
