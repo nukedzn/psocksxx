@@ -62,6 +62,16 @@ namespace psocksxx {
 		*/
 		void connect( const nsockaddr * saddr ) throw( sockexception );
 
+		/**
+		*   @brief bind the stream to a network address
+		*   @param saddr address information to bind to
+		*
+		*   This binds the network socket stream to the specified network
+		*   address.
+		*
+		*/
+		void bind( const nsockaddr * saddr ) throw( sockexception );
+
 	};
 
 } /* end of namespace psocksxx */
