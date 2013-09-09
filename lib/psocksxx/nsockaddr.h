@@ -44,10 +44,32 @@ namespace psocksxx {
 		*   @throw psocksxx::sockexception socket exception
 		*
 		*   Create a IPv4 socket address instance with the give node
-		*   and service information.
+		*   and port information.
 		*
 		*/
 		nsockaddr( const char * node, unsigned short port ) throw( sockexception );
+
+		/**
+		*   @brief constructor
+		*   @param port port number
+		*
+		*   Create a IPv4 socket address instance with the given port
+		*   and the node (host/IP) will be any available interface on
+		*   the host computer.
+		*
+		*/
+		nsockaddr( unsigned short port ) throw();
+
+		/**
+		*   @brief constructor
+		*   @param node node (host name or IP)
+		*   @param service port number of the service name (e.g. "http")
+		*
+		*   Create a IPv4 socket address instance with the give node
+		*   and service information.
+		*
+		*/
+		nsockaddr( const char * node, const char * service ) throw( sockexception );
 
 		// abstract method implementations
 		socklen_t size() const throw();

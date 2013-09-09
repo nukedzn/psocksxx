@@ -40,6 +40,51 @@ namespace psocksxx {
 	}
 
 
+	nsockaddr::nsockaddr( unsigned short port ) throw() {
+
+		// set the socket address family
+		sin_family = sockaddr::af_inet;
+
+		// set the port
+		sin_port = htons( port );
+
+		// set the address
+		sin_addr.s_addr = INADDR_ANY;;
+
+	}
+
+
+	nsockaddr::nsockaddr( const char * node, const char * service ) throw( sockexception ) {
+
+		int status;
+		addrinfo hints;
+		addrinfo * result;
+		sockaddr_in * sinaddr;
+
+		// empty the hints structure
+		memset( &hints, 0, sizeof( hints ) );
+
+		// setup hints
+		hints.ai_family   = sockaddr::af_inet;
+		hints.ai_socktype = sockstreambuf::sock_stream;
+
+		// translate node and service into a network address
+		if ( ( status = ( getaddrinfo( node, service, &hints, &result ) ) ) != 0 ) {
+			throw sockexception( gai_strerror( status ) );
+		}
+
+		// grab the address info we need
+		sinaddr    = (sockaddr_in *) result->ai_addr;
+		sin_family = sockaddr::af_inet;
+		sin_addr   = sinaddr->sin_addr;
+		sin_port   = sinaddr->sin_port;
+
+		// cleanup
+		freeaddrinfo( result );
+
+	}
+
+
 	in_addr_t nsockaddr::resolve_node( const char * node ) throw( sockexception ) {
 
 		int status;
@@ -54,6 +99,7 @@ namespace psocksxx {
 		hints.ai_family   = sockaddr::af_inet;
 		hints.ai_socktype = sockstreambuf::sock_stream;
 
+		// resolve node
 		if ( ( status = ( getaddrinfo( node, NULL, &hints, &result ) ) ) != 0 ) {
 			throw sockexception( gai_strerror( status ) );
 		}
