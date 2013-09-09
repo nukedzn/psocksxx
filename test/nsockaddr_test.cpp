@@ -53,3 +53,25 @@ void nsockaddr_test::test_constructor_fail() {
 
 }
 
+
+void nsockaddr_test::test_constructor_local_any() {
+
+	CPPUNIT_ASSERT_NO_THROW( nsockaddr a( 1234 ) );
+
+}
+
+
+void nsockaddr_test::test_constructor_local_service() {
+
+	CPPUNIT_ASSERT_NO_THROW( nsockaddr a( "localhost", "1234" ) );
+	CPPUNIT_ASSERT_NO_THROW( nsockaddr a( NULL, "ftp" ) );
+
+}
+
+
+void nsockaddr_test::test_constructor_remote_service() {
+
+	CPPUNIT_ASSERT_NO_THROW( nsockaddr a( "www.example.com", "http" ) );
+
+}
+

@@ -30,6 +30,9 @@ class nsockaddr_test : public CppUnit::TestFixture {
 	CPPUNIT_TEST( test_constructor_localhost );
 	CPPUNIT_TEST( test_constructor_remote );
 	CPPUNIT_TEST( test_constructor_fail );
+	CPPUNIT_TEST( test_constructor_local_any );
+	CPPUNIT_TEST( test_constructor_local_service );
+	CPPUNIT_TEST( test_constructor_remote_service );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -37,6 +40,9 @@ public:
 	void test_constructor_localhost();
 	void test_constructor_remote();
 	void test_constructor_fail();
+	void test_constructor_local_any();
+	void test_constructor_local_service();
+	void test_constructor_remote_service();
 
 };
 
