@@ -48,6 +48,19 @@ namespace psocksxx {
 		nsockstream( sockstreambuf::socket_type_t type, sockstreambuf::socket_protocol_t proto ) throw( sockexception );
 
 		/**
+		*   @brief constructor
+		*   @param ssb initialised socket stream buffer instance
+		*
+		*   Initialise a network socket stream by using the passed in
+		*   socket stream buffer, @c ssb, as the associated sequence
+		*   which is assumed to be initialised with the correct type
+		*   and protocol. The class destructor will delete the psocksxx::sockstreambuf
+		*   instance pointed by @c ssb.
+		*
+		*/
+		nsockstream( sockstreambuf * ssb ) throw();
+
+		/**
 		*   @brief destructor
 		*/
 		virtual ~nsockstream() throw();
@@ -71,6 +84,32 @@ namespace psocksxx {
 		*
 		*/
 		void bind( const nsockaddr * saddr ) throw( sockexception );
+
+		/**
+		*   @brief make this stream passive and ready to accept connections
+		*   @param backlog maximum length of the queue for pending connections
+		*                  and if this value is 0 (default) then it assumes
+		*                  system default
+		*
+		*   Make this network stream passive and ready to accept connections.
+		*   Before calling this method the stream must be bound to a
+		*   network address using the bind() method.
+		*
+		*/
+		void listen( int backlog = 0 ) throw( sockexception );
+
+		/**
+		*   @brief accept a connection on a listening (passive) stream
+		*   @return a new stream instance for the accepted connection
+		*
+		*   This method will accept an incoming connection on a listening
+		*   stream and return a newly created stream instance that can
+		*   be used to communicate with the accepted client connection.
+		*   Note that the returned stream instance must be deleted by the
+		*   caller.
+		*
+		*/
+		nsockstream * accept() throw( sockexception );
 
 	};
 

@@ -37,6 +37,11 @@ namespace psocksxx {
 	}
 
 
+	nsockstream::nsockstream( sockstreambuf * ssb ) throw() : iosockstream( ssb ) {
+
+	}
+
+
 	nsockstream::~nsockstream() throw() {
 
 		// cleanup
@@ -63,6 +68,36 @@ namespace psocksxx {
 
 		// bind
 		ssb->bind( saddr );
+
+	}
+
+
+	void nsockstream::listen( int backlog ) throw( sockexception ) {
+
+		// socket stream buffer
+		sockstreambuf * ssb = (sockstreambuf *) rdbuf();
+
+		if ( backlog == 0 ) {
+			ssb->listen();
+		} else {
+			ssb->listen( backlog );
+		}
+
+	}
+
+
+	nsockstream * nsockstream::accept() throw( sockexception ) {
+
+		// socket stream buffers
+		sockstreambuf * ssb = (sockstreambuf *) rdbuf();
+		sockstreambuf * cl_ssb;
+
+		// accept
+		sockstreambuf::socket_t cl_sock = ssb->accept();
+		cl_ssb = new sockstreambuf( cl_sock );
+
+		// return
+		return new nsockstream( cl_ssb );
 
 	}
 
