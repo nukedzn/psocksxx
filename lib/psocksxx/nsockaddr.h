@@ -64,6 +64,7 @@ namespace psocksxx {
 		*   @brief constructor
 		*   @param node node (host name or IP)
 		*   @param service port number of the service name (e.g. "http")
+		*   @throw psocksxx::sockexception socket exception
 		*
 		*   Create a IPv4 socket address instance with the give node
 		*   and service information.
@@ -81,6 +82,7 @@ namespace psocksxx {
 		/**
 		*   @brief convert a node name to a IPv4 address
 		*   @param node node (host name or IP)
+		*   @throw psocksxx::sockexception socket exception
 		*   @return IPv4 address in network byte order
 		*
 		*   Helper function to convert a node name into a IPv4 network

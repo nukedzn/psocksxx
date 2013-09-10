@@ -81,6 +81,7 @@ namespace psocksxx {
 		/**
 		*   @brief bind the stream to a network address
 		*   @param saddr address information to bind to
+		*   @throw psocksxx::sockexception socket exception
 		*
 		*   This binds the network socket stream to the specified network
 		*   address.
@@ -94,6 +95,8 @@ namespace psocksxx {
 		*                  and if this value is 0 (default) then it assumes
 		*                  system default
 		*
+		*   @throw psocksxx::sockexception socket exception
+		*
 		*   Make this network stream passive and ready to accept connections.
 		*   Before calling this method the stream must be bound to a
 		*   network address using the bind() method.
@@ -103,6 +106,7 @@ namespace psocksxx {
 
 		/**
 		*   @brief accept a connection on a listening (passive) stream
+		*   @throw psocksxx::sockexception socket exception
 		*   @return a new stream instance for the accepted connection
 		*
 		*   This method will accept an incoming connection on a listening

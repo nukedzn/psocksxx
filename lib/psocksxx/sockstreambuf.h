@@ -294,6 +294,7 @@ namespace psocksxx {
 		*   @param timeout timeout value reference to a @c timeval structure
 		*   @param chk_read check for read availability
 		*   @param chk_write check for write availability
+		*   @throw psocksxx::sockexception socket exception
 		*   @return boolean @c true to denote availability or @c false
 		*           if none of the checked actions are available.
 		*
