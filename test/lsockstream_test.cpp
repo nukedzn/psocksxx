@@ -18,6 +18,7 @@
 */
 
 #include "lsockstream_test.h"
+#include "lecho.h"
 
 #include <psocksxx/lsockstream.h>
 
@@ -58,6 +59,23 @@ void lsockstream_test::test_connect_addr_fail() {
 
 	// this should throw a file not found error
 	CPPUNIT_ASSERT_THROW( l.connect( &saddr ), sockexception );
+
+}
+
+
+void lsockstream_test::test_connect() {
+
+	// local socket stream
+	lsockstream l;
+
+	// local (unix) socket address
+	lsockaddr saddr( LOCAL_LISTENER_SOCK_PATH );
+
+	// local echo server
+	lecho echo( LOCAL_LISTENER_SOCK_PATH );
+
+	// connect
+	CPPUNIT_ASSERT_NO_THROW( l.connect( &saddr ) );
 
 }
 
