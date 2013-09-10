@@ -591,3 +591,45 @@ void sockstreambuf_test::test_clear_timeout() {
 
 }
 
+
+void sockstreambuf_test::test_local_read_timeout() {
+
+	// socket stream buffer
+	sockstreambuf ssb;
+
+	// local (unix) socket address
+	const char * path = LOCAL_LISTENER_SOCK_PATH;
+	lsockaddr saddr( path );
+
+	// local echo server
+	lecho echo( LOCAL_LISTENER_SOCK_PATH );
+
+
+	// prepare the socket
+	try {
+		ssb.open( sockstreambuf::pf_local, sockstreambuf::sock_stream, sockstreambuf::proto_unspec );
+	} catch( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// connect
+	try {
+		ssb.connect( &saddr );
+	} catch ( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// set timeout
+	ssb.timeout( 0, 200 );
+
+	// read - this should timeout and return sockstreambuf::eof
+	CPPUNIT_ASSERT( sockstreambuf::eof == ssb.sgetc() );
+
+
+	// close socket
+	ssb.close();
+
+}
+

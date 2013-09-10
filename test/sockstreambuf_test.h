@@ -50,6 +50,7 @@ class sockstreambuf_test : public CppUnit::TestFixture {
 	CPPUNIT_TEST( test_local_istream );
 	CPPUNIT_TEST( test_set_timeout );
 	CPPUNIT_TEST( test_clear_timeout );
+	CPPUNIT_TEST( test_local_read_timeout );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -78,6 +79,7 @@ public:
 	void test_local_istream();
 	void test_set_timeout();
 	void test_clear_timeout();
+	void test_local_read_timeout();
 
 
 private:
