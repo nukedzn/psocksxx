@@ -147,13 +147,29 @@ namespace psocksxx {
 		/**
 		*   @brief initiate a connection on a socket
 		*   @param dest_addr destination address to connect to
+		*   @param timeout connection timeout value in seconds
+		*   @throw psocksxx::sockexception socket exception
+		*
+		*   Initiate a connection on a socket previously opened using
+		*   open() method. If the timeout value is 0 (default) then
+		*   the timeouts are ignored.
+		*
+		*/
+		void connect( const sockaddr * dest_addr, unsigned int timeout = 0 ) throw( sockexception );
+
+		/**
+		*   @brief initiate a connection on a socket
+		*   @param dest_addr destination address to connect to
+		*   @param timeout connection timeout value as a reference to a
+		*          @c timeval structure
+		*
 		*   @throw psocksxx::sockexception socket exception
 		*
 		*   Initiate a connection on a socket previously opened using
 		*   open() method.
 		*
 		*/
-		void connect( const sockaddr * dest_addr ) throw( sockexception );
+		void connect( const sockaddr * dest_addr, timeval * timeout ) throw( sockexception );
 
 		/**
 		*   @brief bind the socket to a specified address
@@ -245,6 +261,19 @@ namespace psocksxx {
 		*/
 		virtual int underflow() throw();
 
+		/**
+		*   @brief check for the read/write availability on the socket
+		*   @param timeout timeout value reference to a @c timeval structure
+		*   @param chk_read check for read availability
+		*   @param chk_write check for write availability
+		*   @return boolean @c true to denote availability or @c false
+		*           if none of the checked actions are available.
+		*
+		*   This will check the socket for read and/or write availability.
+		*
+		*/
+		bool ready( timeval * timeout, bool chk_read = true, bool chk_write = true ) throw( sockexception );
+
 
 	private:
 
@@ -253,6 +282,11 @@ namespace psocksxx {
 
 		size_t _bufsize;
 		size_t _putbacksize;
+
+		timeval * _timeout;
+
+
+		void init_defaults() throw();
 
 	};
 

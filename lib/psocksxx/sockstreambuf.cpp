@@ -19,12 +19,18 @@
 
 #include "sockstreambuf.h"
 
+#include <fcntl.h>
+#include <cstring>
+
 
 namespace psocksxx {
 
 	sockstreambuf::sockstreambuf() throw() :
 			_socket( -1 ), _bufsize( SOCKSTREAMBUF_SIZE ),
 			_putbacksize( SOCKSTREAMBUF_PUTBACK_SIZE ) {
+
+		// initialise defaults
+		init_defaults();
 
 		// initialise internal buffers
 		init_buffers();
@@ -39,6 +45,9 @@ namespace psocksxx {
 		// update local copy of the socket data
 		_socket = socket;
 
+		// initialise defaults
+		init_defaults();
+
 		// initialise internal buffers
 		init_buffers();
 
@@ -52,6 +61,19 @@ namespace psocksxx {
 
 		// cleanup buffers
 		cleanup_buffers();
+
+		// cleanup timeout
+		if ( _timeout != NULL ) {
+			delete _timeout;
+		}
+
+	}
+
+
+	void sockstreambuf::init_defaults() throw() {
+
+		// timeout structure reference
+		_timeout = NULL;
 
 	}
 
@@ -88,10 +110,75 @@ namespace psocksxx {
 	}
 
 
-	void sockstreambuf::connect( const sockaddr * dest_addr ) throw( sockexception ) {
+	void sockstreambuf::connect( const sockaddr * dest_addr, unsigned int timeout ) throw( sockexception ) {
 
+		timeval t_val;
+		timeval * t_ptr;
+
+		// check timeout value
+		if ( timeout > 0 ) {
+
+			// setup timeval structure
+			t_val.tv_sec  = timeout;
+			t_val.tv_usec = 0;
+
+			// update pointer
+			t_ptr = &t_val;
+
+		} else {
+
+			// fall-back to class value
+			t_ptr = _timeout;
+
+		}
+
+		// call overloaded connect()
+		connect( dest_addr, t_ptr );
+
+	}
+
+
+	void sockstreambuf::connect( const sockaddr * dest_addr, timeval * timeout ) throw( sockexception ) {
+
+		// copy current flags
+		int s_flags = fcntl( _socket, F_GETFL );
+
+		// sanity check - affectively we ignore the fcntl() error
+		if ( s_flags == -1 ) {
+			s_flags = 0;
+		}
+
+		// setup timeout if needed
+		if ( timeout > 0 ) {
+
+			// make the socket non-blocking
+			if ( fcntl( _socket, F_SETFL, ( s_flags | O_NONBLOCK ) ) == -1 ) {
+				throw sockexception();
+			}
+
+		}
+
+		// connect
 		if ( ::connect( _socket, dest_addr->psockaddr(), dest_addr->size() ) != 0 ) {
 			throw sockexception();
+		}
+
+		// check for timeout if set
+		if ( timeout > 0 ) {
+
+			if (! ready( timeout ) ) {
+
+				// shutdown
+				::shutdown( _socket, 2 );
+
+				// FIXME: throw a timeout exception
+				throw sockexception();
+
+			}
+
+			// reset flags back to what they were
+			fcntl( _socket, F_SETFL, s_flags );
+
 		}
 
 	}
@@ -251,6 +338,40 @@ namespace psocksxx {
 
 		// return next character
 		return traits_type::to_int_type( *gptr() );
+
+	}
+
+
+	bool sockstreambuf::ready( timeval * timeout, bool chk_read, bool chk_write ) throw( sockexception ) {
+
+		fd_set  fds;
+		fd_set * read_fds  = NULL;
+		fd_set * write_fds = NULL;
+
+		// set the fd_set so we only check our socket
+		FD_ZERO( &fds );
+		FD_SET( _socket, &fds );
+
+		// set the actions we want to check
+		if ( chk_read ) {
+			read_fds = &fds;
+		}
+
+		if ( chk_write ) {
+			write_fds = &fds;
+		}
+
+		// check
+		if ( ::select( ( _socket + 1 ), read_fds, write_fds, NULL, timeout ) == -1 ) {
+			throw sockexception();
+		}
+
+		// sanity check
+		if ( FD_ISSET( _socket, &fds ) ) {
+			return true;
+		}
+
+		return false;
 
 	}
 
