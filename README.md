@@ -40,3 +40,36 @@ C++. To keep the code simple and clean this project will only support
 POSIX sockets.
 
 
+### Dependencies
+
+* CppUnit >= 1.12.1 (for unit tests)
+* Doxygen (for doxygen documentation, of course)
+
+
+### Compiling from source
+
+If you are using the github source then first you need to initialise
+autotools.
+
+	$ libtoolize (glibtoolize in OS X)
+	$ aclocal
+	$ autoheader
+	$ autoconf
+	$ automake --add-missing (you will need automake >= 1.13)
+
+Or you can grab the latest source distribution tar from [CI artifacts](http://jenkins.geniusse.com/job/psocksxx/).
+
+After that you can use the usual `./configure && make`
+
+
+### Notes
+#### Continuous Integration
+
+There is a continuous integration Jenkins job hosted [here](http://jenkins.geniusse.com/job/psocksxx/)
+which contains the latest artifacts, unit test results and documentation etc.
+
+
+#### Doxygen documentation
+
+The latest doxygen documentation can be found at http://jenkins.geniusse.com/job/psocksxx/doxygen/.
+
