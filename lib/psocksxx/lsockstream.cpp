@@ -44,7 +44,7 @@ namespace psocksxx {
 	}
 
 
-	void lsockstream::connect( const char * path ) throw( sockexception ) {
+	void lsockstream::connect( const char * path ) throw( sockexception, socktimeoutexception ) {
 
 		lsockaddr saddr( path );
 		sockstreambuf * ssb = (sockstreambuf *) rdbuf();
@@ -54,7 +54,7 @@ namespace psocksxx {
 	}
 
 
-	void lsockstream::connect( const lsockaddr * saddr ) throw( sockexception ) {
+	void lsockstream::connect( const lsockaddr * saddr ) throw( sockexception, socktimeoutexception ) {
 
 		sockstreambuf * ssb = (sockstreambuf *) rdbuf();
 		ssb->connect( saddr );

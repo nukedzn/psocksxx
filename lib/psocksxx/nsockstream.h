@@ -68,12 +68,15 @@ namespace psocksxx {
 		/**
 		*   @brief connect to a network address
 		*   @param saddr destination address information
+		*   @throw psocksxx::sockexception socket exception
+		*   @throw psocksxx::socktimeoutexception connection timeout
+		*          exception
 		*
 		*   Connect to a TCP/IPv4 communication end point making this
 		*   stream ready for I/O.
 		*
 		*/
-		void connect( const nsockaddr * saddr ) throw( sockexception );
+		void connect( const nsockaddr * saddr ) throw( sockexception, socktimeoutexception );
 
 		/**
 		*   @brief bind the stream to a network address

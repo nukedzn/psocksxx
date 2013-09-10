@@ -50,7 +50,7 @@ namespace psocksxx {
 	}
 
 
-	void nsockstream::connect( const nsockaddr * saddr ) throw( sockexception ) {
+	void nsockstream::connect( const nsockaddr * saddr ) throw( sockexception, socktimeoutexception ) {
 
 		// socket stream buffer
 		sockstreambuf * ssb = (sockstreambuf *) rdbuf();

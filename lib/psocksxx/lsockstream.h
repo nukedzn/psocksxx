@@ -54,23 +54,27 @@ namespace psocksxx {
 		*   @brief connect to a local socket
 		*   @param path local socket path
 		*   @throw psocksxx::sockexception socket exception
+		*   @throw psocksxx::socktimeoutexception connection timeout
+		*          exception
 		*
 		*   Connect a to local socket at the given path. It is assumed
 		*   that the socket is ready to accept connections.
 		*
 		*/
-		void connect( const char * path ) throw( sockexception );
+		void connect( const char * path ) throw( sockexception, socktimeoutexception );
 
 		/**
 		*   @brief connect to a local socket
 		*   @param saddr local socket address instance
 		*   @throw psocksxx::sockexception socket exception
+		*   @throw psocksxx::socktimeoutexception connection timeout
+		*          exception
 		*
 		*   Connect to a local socket using the passed in socket address
 		*   object.
 		*
 		*/
-		void connect( const lsockaddr * saddr ) throw( sockexception );
+		void connect( const lsockaddr * saddr ) throw( sockexception, socktimeoutexception );
 
 	};
 
