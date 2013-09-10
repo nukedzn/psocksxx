@@ -281,15 +281,22 @@ namespace psocksxx {
 	int sockstreambuf::flush() throw() {
 
 		int flush_size = pptr() - pbase();
+		bool b_ready   = false;
 
 		// sanity check
 		if ( flush_size > 0 ) {
 
-			// FIXME: timeouts? check whether socket is connected?
-			// FIXME: error handling?
-			if ( ::send( _socket, pbase(), flush_size, 0 ) == flush_size ) {
-				pbump( -flush_size );
-				return flush_size;
+			try {
+				b_ready = ready( _timeout, false, true );
+			} catch( sockexception &e ) {
+				// couldn't select the socket
+			}
+
+			if ( b_ready ) {
+				if ( ::send( _socket, pbase(), flush_size, 0 ) == flush_size ) {
+					pbump( -flush_size );
+					return flush_size;
+				}
 			}
 
 		}
@@ -344,6 +351,9 @@ namespace psocksxx {
 		size_t putback_size  = gptr() - eback();
 		size_t readable_size = 0;
 
+		bool b_ready = false;
+		ssize_t read_size = 0;
+
 		// sanitise putback size
 		if ( putback_size > _putbacksize ) {
 			putback_size = _putbacksize;
@@ -355,8 +365,18 @@ namespace psocksxx {
 		// calculate read buffer size
 		readable_size = _bufsize - putback_size;
 
+		// check for availability
+		try {
+			b_ready = ready( _timeout, true, false );
+		} catch( sockexception &e ) {
+			// couldn't select the socket, no need to do anything here
+			// since we will be returning eof below ( read_size <= 0 )
+		}
+
 		// read from socket
-		ssize_t read_size = ::read( _socket, read_buffer, readable_size );
+		if ( b_ready ) {
+			read_size = ::read( _socket, read_buffer, readable_size );
+		}
 
 		// sanity check
 		if ( read_size <= 0 ) {
@@ -373,6 +393,12 @@ namespace psocksxx {
 
 
 	bool sockstreambuf::ready( timeval * timeout, bool chk_read, bool chk_write ) throw( sockexception ) {
+
+		// sanity check
+		if ( _socket < 0 ) {
+			return false;
+		}
+
 
 		fd_set  fds;
 		fd_set * read_fds  = NULL;
