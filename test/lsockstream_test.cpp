@@ -68,6 +68,20 @@ void lsockstream_test::test_connect() {
 	// local socket stream
 	lsockstream l;
 
+	// local echo server
+	lecho echo( LOCAL_LISTENER_SOCK_PATH );
+
+	// connect
+	CPPUNIT_ASSERT_NO_THROW( l.connect( LOCAL_LISTENER_SOCK_PATH ) );
+
+}
+
+
+void lsockstream_test::test_connect_addr() {
+
+	// local socket stream
+	lsockstream l;
+
 	// local (unix) socket address
 	lsockaddr saddr( LOCAL_LISTENER_SOCK_PATH );
 
