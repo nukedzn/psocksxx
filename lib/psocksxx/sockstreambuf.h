@@ -210,6 +210,30 @@ namespace psocksxx {
 		*/
 		socket_t accept() throw( sockexception );
 
+		/**
+		*   @brief set the timeout value for the socket
+		*   @param sec seconds
+		*   @param usec microseconds
+		*   @return a reference to the internal timeout structure
+		*
+		*   This method will set the timeout for the socket and make this
+		*   a non-blocking socket. Note that you cannot clear the timeout
+		*   by passing in a 0 timeout, use clear_timeout() method instead.
+		*
+		*/
+		const timeval * timeout( time_t sec, suseconds_t usec ) throw();
+
+		/**
+		*   @brief clear the timeout value for the socket
+		*   @return a reference to the internal timeout structure which will
+		*           always be a @c NULL pointer after clearing the timeout
+		*
+		*   This will clear any timeout values set for the socket affectively
+		*   making this a blocking socket by default.
+		*
+		*/
+		void * clear_timeout() throw();
+
 
 	protected:
 

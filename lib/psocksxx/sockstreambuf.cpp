@@ -220,6 +220,36 @@ namespace psocksxx {
 	}
 
 
+	const timeval * sockstreambuf::timeout( time_t sec, suseconds_t usec ) throw() {
+
+		_timeout = new timeval;
+
+		_timeout->tv_sec  = sec;
+		_timeout->tv_usec = usec;
+
+		return _timeout;
+
+	}
+
+
+	void * sockstreambuf::clear_timeout() throw() {
+
+		// sanity check
+		if ( _timeout != NULL ) {
+
+			// delete structure
+			delete _timeout;
+
+			// set a null pointer
+			_timeout = NULL;
+
+		}
+
+		return _timeout;
+
+	}
+
+
 	void sockstreambuf::init_buffers() throw() {
 
 		// allocate output buffer space
