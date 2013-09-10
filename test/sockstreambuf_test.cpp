@@ -260,6 +260,35 @@ void sockstreambuf_test::test_local_connect() {
 }
 
 
+void sockstreambuf_test::test_local_connect_timeout() {
+
+	// socket steam buffer
+	sockstreambuf ssb;
+
+	// local (unix) socket address
+	const char * path = LOCAL_LISTENER_SOCK_PATH;
+	lsockaddr saddr( path );
+
+	// local echo server
+	lecho echo( LOCAL_LISTENER_SOCK_PATH );
+
+	// prepare the socket
+	try {
+		ssb.open( sockstreambuf::pf_local, sockstreambuf::sock_stream, sockstreambuf::proto_unspec );
+	} catch( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// connect
+	CPPUNIT_ASSERT_NO_THROW( ssb.connect( &saddr, 1 ) );
+
+	// close socket
+	ssb.close();
+
+}
+
+
 void sockstreambuf_test::test_local_accept() {
 
 	// fork variables
