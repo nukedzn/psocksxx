@@ -22,6 +22,8 @@
 
 #include <psocksxx/sockexception.h>
 
+#include <sys/time.h>
+
 
 namespace psocksxx {
 
