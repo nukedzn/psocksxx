@@ -552,3 +552,42 @@ void sockstreambuf_test::test_local_istream() {
 
 }
 
+
+void sockstreambuf_test::test_set_timeout() {
+
+	// socket stream buffer
+	sockstreambuf ssb;
+
+	time_t sec = 1;
+	suseconds_t usec = 500;
+
+	// set timeout
+	const timeval * t = ssb.timeout( sec, usec );
+
+	// validate
+	CPPUNIT_ASSERT( sec == t->tv_sec );
+	CPPUNIT_ASSERT( usec == t->tv_usec );
+
+}
+
+
+void sockstreambuf_test::test_clear_timeout() {
+
+	// socket stream buffer
+	sockstreambuf ssb;
+
+	// clear the timeout before a timeout is set
+	CPPUNIT_ASSERT( NULL == ssb.clear_timeout() );
+
+
+	time_t sec = 1;
+	suseconds_t usec = 500;
+
+	// set timeout
+	const timeval * t = ssb.timeout( sec, usec );
+
+	// clear the timeout after a timeout is set
+	CPPUNIT_ASSERT( NULL == ssb.clear_timeout() );
+
+}
+
