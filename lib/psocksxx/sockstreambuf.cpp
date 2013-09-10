@@ -110,7 +110,7 @@ namespace psocksxx {
 	}
 
 
-	void sockstreambuf::connect( const sockaddr * dest_addr, unsigned int timeout ) throw( sockexception ) {
+	void sockstreambuf::connect( const sockaddr * dest_addr, unsigned int timeout ) throw( sockexception, socktimeoutexception ) {
 
 		timeval t_val;
 		timeval * t_ptr;
@@ -138,7 +138,7 @@ namespace psocksxx {
 	}
 
 
-	void sockstreambuf::connect( const sockaddr * dest_addr, timeval * timeout ) throw( sockexception ) {
+	void sockstreambuf::connect( const sockaddr * dest_addr, timeval * timeout ) throw( sockexception, socktimeoutexception ) {
 
 		// copy current flags
 		int s_flags = fcntl( _socket, F_GETFL );
@@ -171,8 +171,8 @@ namespace psocksxx {
 				// shutdown
 				::shutdown( _socket, 2 );
 
-				// FIXME: throw a timeout exception
-				throw sockexception();
+				// throw a timeout exception
+				throw socktimeoutexception( timeout, "sockstreambuf::connect()" );
 
 			}
 

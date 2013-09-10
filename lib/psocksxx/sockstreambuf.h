@@ -20,7 +20,7 @@
 #ifndef PSOCKSXX_SOCKSTREAMBUF_H
 #define PSOCKSXX_SOCKSTREAMBUF_H
 
-#include <psocksxx/sockexception.h>
+#include <psocksxx/socktimeoutexception.h>
 #include <psocksxx/sockaddr.h>
 
 #include <streambuf>
@@ -149,13 +149,15 @@ namespace psocksxx {
 		*   @param dest_addr destination address to connect to
 		*   @param timeout connection timeout value in seconds
 		*   @throw psocksxx::sockexception socket exception
+		*   @throw psocksxx::socktimeoutexception connection timeout
+		*          exception
 		*
 		*   Initiate a connection on a socket previously opened using
 		*   open() method. If the timeout value is 0 (default) then
 		*   the timeouts are ignored.
 		*
 		*/
-		void connect( const sockaddr * dest_addr, unsigned int timeout = 0 ) throw( sockexception );
+		void connect( const sockaddr * dest_addr, unsigned int timeout = 0 ) throw( sockexception, socktimeoutexception );
 
 		/**
 		*   @brief initiate a connection on a socket
@@ -164,12 +166,14 @@ namespace psocksxx {
 		*          @c timeval structure
 		*
 		*   @throw psocksxx::sockexception socket exception
+		*   @throw psocksxx::socktimeoutexception connection timeout
+		*          exception
 		*
 		*   Initiate a connection on a socket previously opened using
 		*   open() method.
 		*
 		*/
-		void connect( const sockaddr * dest_addr, timeval * timeout ) throw( sockexception );
+		void connect( const sockaddr * dest_addr, timeval * timeout ) throw( sockexception, socktimeoutexception );
 
 		/**
 		*   @brief bind the socket to a specified address
