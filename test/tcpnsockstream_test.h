@@ -22,17 +22,29 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+#ifndef NSOCK_NODE
+#define NSOCK_NODE "localhost"
+#endif
+
+#ifndef NSOCK_SERVICE
+#define NSOCK_SERVICE "1234"
+#endif
+
 
 class tcpnsockstream_test : public CppUnit::TestFixture {
 
 	// setup the test suite
 	CPPUNIT_TEST_SUITE( tcpnsockstream_test );
 	CPPUNIT_TEST( test_constructors );
+	CPPUNIT_TEST( test_connect_addr );
+	CPPUNIT_TEST( test_connect_host_port );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
 
 	void test_constructors();
+	void test_connect_addr();
+	void test_connect_host_port();
 
 };
 

@@ -18,6 +18,7 @@
 */
 
 #include "tcpnsockstream_test.h"
+#include "necho.h"
 
 #include <psocksxx/tcpnsockstream.h>
 
@@ -33,6 +34,37 @@ void tcpnsockstream_test::test_constructors() {
 
 	// default constructor
 	CPPUNIT_ASSERT_NO_THROW( tcpnsockstream ss );
+
+}
+
+
+void tcpnsockstream_test::test_connect_addr() {
+
+	// tcp socket stream
+	tcpnsockstream ss;
+
+	// network echo server
+	necho n( NSOCK_NODE, NSOCK_SERVICE );
+
+	// network address to connect to
+	nsockaddr saddr( NSOCK_NODE, NSOCK_SERVICE );
+
+	// connect
+	CPPUNIT_ASSERT_NO_THROW( ss.connect( &saddr ) );
+
+}
+
+
+void tcpnsockstream_test::test_connect_host_port() {
+
+	// tcp socket stream
+	tcpnsockstream ss;
+
+	// network echo server
+	necho n( NSOCK_NODE, NSOCK_SERVICE );
+
+	// connect
+	CPPUNIT_ASSERT_NO_THROW( ss.connect( NSOCK_NODE, atoi( NSOCK_SERVICE ) ) );
 
 }
 
