@@ -26,7 +26,7 @@ tap_runner_tap_SOURCES = \
 	$(CPPUNIT_TEST_SOURCES) \
 	tap/tap_listener.h tap/tap_listener.cpp
 
-tap_runner_tap_CXXFLAGS = -I$(top_srcdir)/lib $(CPPUNIT_CFLAGS)
+tap_runner_tap_CXXFLAGS = -I$(top_srcdir)/lib -I$(top_srcdir)/test $(CPPUNIT_CFLAGS)
 tap_runner_tap_LDFLAGS  = $(top_builddir)/lib/psocksxx/libpsocksxx.la $(CPPUNIT_LIBS)
 endif
 
