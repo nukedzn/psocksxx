@@ -47,7 +47,7 @@ namespace psocksxx {
 		/**
 		*   @brief destructor
 		*/
-		~udpnsockstream() throw();
+		virtual ~udpnsockstream() throw();
 
 	};
 

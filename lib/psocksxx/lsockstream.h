@@ -48,7 +48,7 @@ namespace psocksxx {
 		/**
 		*   @brief destructor
 		*/
-		~lsockstream() throw();
+		virtual ~lsockstream() throw();
 
 		/**
 		*   @brief connect to a local socket
