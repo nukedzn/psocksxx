@@ -72,11 +72,25 @@ namespace psocksxx {
 		*   @throw psocksxx::socktimeoutexception connection timeout
 		*          exception
 		*
-		*   Connect to a TCP/IPv4 communication end point making this
-		*   stream ready for I/O.
+		*   Connect to a IPv4 communication end point making this stream
+		*   ready for I/O.
 		*
 		*/
 		void connect( const nsockaddr * saddr ) throw( sockexception, socktimeoutexception );
+
+		/**
+		*   @brief connect to a network address
+		*   @param node node (host name or IP)
+		*   @param port port number
+		*   @throw psocksxx::sockexception socket exception
+		*   @throw psocksxx::socktimeoutexception connection timeout
+		*          exception
+		*
+		*   Connect to a IPv4 communication end point making this stream
+		*   ready for I/O.
+		*
+		*/
+		void connect( const char * node, unsigned int port ) throw( sockexception, socktimeoutexception );
 
 		/**
 		*   @brief bind the stream to a network address

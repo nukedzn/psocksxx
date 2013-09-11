@@ -61,6 +61,17 @@ namespace psocksxx {
 	}
 
 
+	void nsockstream::connect( const char * node, unsigned int port ) throw( sockexception, socktimeoutexception ) {
+
+		// network address
+		nsockaddr naddr( node, port );
+
+		// connect
+		connect( &naddr );
+
+	}
+
+
 	void nsockstream::bind( const nsockaddr * saddr ) throw( sockexception ) {
 
 		// socket stream buffer
