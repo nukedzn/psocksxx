@@ -21,6 +21,7 @@
 #include "necho.h"
 
 #include <psocksxx/tcpnsockstream.h>
+#include <cstdlib>
 
 
 // register the fixture into the 'registry'
