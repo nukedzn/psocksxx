@@ -13,6 +13,7 @@ TESTS          += $(check_PROGRAMS)
 
 CPPUNIT_TEST_SOURCES = \
 	lecho.h lecho.cpp \
+	necho.h necho.cpp \
 	socktimeoutexception_test.h socktimeoutexception_test.cpp \
 	sockstreambuf_test.h sockstreambuf_test.cpp \
 	lsockstream_test.h lsockstream_test.cpp \
