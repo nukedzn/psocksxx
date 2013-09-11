@@ -12,14 +12,14 @@ check_PROGRAMS = tap-runner.tap
 TESTS          += $(check_PROGRAMS)
 
 CPPUNIT_TEST_SOURCES = \
-	lecho.h lecho.cpp \
-	socktimeoutexception_test.h socktimeoutexception_test.cpp \
-	sockstreambuf_test.h sockstreambuf_test.cpp \
-	lsockstream_test.h lsockstream_test.cpp \
-	nsockaddr_test.h nsockaddr_test.cpp \
-	nsockstream_test.h nsockstream_test.cpp \
-	tcpnsockstream_test.h tcpnsockstream_test.cpp \
-	udpnsockstream_test.h udpnsockstream_test.cpp
+	lecho.cpp \
+	socktimeoutexception_test.cpp \
+	sockstreambuf_test.cpp \
+	lsockstream_test.cpp \
+	nsockaddr_test.cpp \
+	nsockstream_test.cpp \
+	tcpnsockstream_test.cpp \
+	udpnsockstream_test.cpp
 
 tap_runner_tap_SOURCES = \
 	tap-runner.cpp \
