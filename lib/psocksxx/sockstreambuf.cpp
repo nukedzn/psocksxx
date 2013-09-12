@@ -405,7 +405,7 @@ namespace psocksxx {
 		fd_set * write_fds = NULL;
 
 		// set the fd_set so we only check our socket
-		memset( &fds, '\0', sizeof( fds ) );
+		memset( &fds, 0, sizeof( fds ) );
 		FD_SET( _socket, &fds );
 
 		// set the actions we want to check
