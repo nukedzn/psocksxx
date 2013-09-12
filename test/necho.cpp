@@ -95,7 +95,7 @@ void necho::init_listener() {
 
 
 	// listen
-	if ( listen( _sockfd, 2 ) != 0 ) {
+	if ( listen( _sockfd, 5 ) != 0 ) {
 		std::cerr << "failed to listen on network socket" << std::endl;
 		exit( -1 );
 	}
