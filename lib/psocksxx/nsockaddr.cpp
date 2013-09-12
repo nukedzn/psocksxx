@@ -49,7 +49,7 @@ namespace psocksxx {
 		sin_port = htons( port );
 
 		// set the address
-		sin_addr.s_addr = INADDR_ANY;;
+		sin_addr.s_addr = INADDR_ANY;
 
 	}
 
