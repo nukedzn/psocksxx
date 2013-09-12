@@ -73,10 +73,10 @@ void tcpnsockstream_test::test_connect_host_port() {
 	tcpnsockstream ss;
 
 	// network echo server
-	necho n( NSOCK_NODE, NSOCK_SERVICE );
+	necho n( NSOCK_NODE, NSOCK_SERVICE_2 );
 
 	// connect
-	CPPUNIT_ASSERT_NO_THROW( ss.connect( NSOCK_NODE, atoi( NSOCK_SERVICE ) ) );
+	CPPUNIT_ASSERT_NO_THROW( ss.connect( NSOCK_NODE, atoi( NSOCK_SERVICE_2 ) ) );
 
 }
 
