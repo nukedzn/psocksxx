@@ -177,3 +177,18 @@ void tcpnsockstream_test::test_accept_addr() {
 
 }
 
+
+void tcpnsockstream_test::test_bind_addr_fail() {
+
+	// tcp socket stream
+	tcpnsockstream ss;
+
+	// network address to bind to
+	nsockaddr naddr( NSOCK_NODE, NSOCK_BIND_SERVICE );
+
+	// bind - this should fail with address already in use error
+	// because of test_accept_addr()
+	CPPUNIT_ASSERT_THROW( ss.bind( &naddr ), sockexception );
+
+}
+

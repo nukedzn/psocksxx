@@ -46,6 +46,7 @@ class tcpnsockstream_test : public CppUnit::TestFixture {
 	CPPUNIT_TEST( test_bind_addr );
 	CPPUNIT_TEST( test_listen_addr );
 	CPPUNIT_TEST( test_accept_addr );
+	CPPUNIT_TEST( test_bind_addr_fail );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -56,6 +57,7 @@ public:
 	void test_bind_addr();
 	void test_listen_addr();
 	void test_accept_addr();
+	void test_bind_addr_fail();
 
 
 private:
