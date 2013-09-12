@@ -72,13 +72,13 @@ namespace psocksxx {
 	}
 
 
-	void nsockstream::bind( const nsockaddr * saddr ) throw( sockexception ) {
+	void nsockstream::bind( const nsockaddr * saddr, bool reuse_addr ) throw( sockexception ) {
 
 		// socket stream buffer
 		sockstreambuf * ssb = (sockstreambuf *) rdbuf();
 
 		// bind
-		ssb->bind( saddr );
+		ssb->bind( saddr, reuse_addr );
 
 	}
 

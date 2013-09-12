@@ -95,13 +95,16 @@ namespace psocksxx {
 		/**
 		*   @brief bind the stream to a network address
 		*   @param saddr address information to bind to
+		*   @param reuse_addr allow address to be re-used
 		*   @throw psocksxx::sockexception socket exception
 		*
 		*   This binds the network socket stream to the specified network
-		*   address.
+		*   address. If you want to try to bind to any socket that is not
+		*   actively listening (e.g. TIME_WAIT) then set the @c reuse_addr
+		*   parameter to be @c true.
 		*
 		*/
-		void bind( const nsockaddr * saddr ) throw( sockexception );
+		void bind( const nsockaddr * saddr, bool reuse_addr = false ) throw( sockexception );
 
 		/**
 		*   @brief make this stream passive and ready to accept connections

@@ -184,8 +184,15 @@ namespace psocksxx {
 	}
 
 
-	void sockstreambuf::bind( const sockaddr * bind_addr ) throw( sockexception ) {
+	void sockstreambuf::bind( const sockaddr * bind_addr, bool reuse_addr ) throw( sockexception ) {
 
+		// set socket options - SO_REUSEADDR
+		if ( reuse_addr ) {
+			int optval = 1;
+			setsockopt( _socket, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof( optval ) );
+		}
+
+		// bind
 		if ( ::bind( _socket, bind_addr->psockaddr(), bind_addr->size() ) != 0 ) {
 			throw sockexception();
 		}

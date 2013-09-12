@@ -178,13 +178,16 @@ namespace psocksxx {
 		/**
 		*   @brief bind the socket to a specified address
 		*   @param bind_addr address to bind to
+		*   @param reuse_addr allow address to be re-used
 		*   @throw psocksxx::sockexception socket exception
 		*
 		*   After a socket is configured using open() this method can
-		*   be used to assign an address to it.
+		*   be used to assign an address to it. If @c reuse_addr is set
+		*   to @c true then this will try to re-use the address unless
+		*   the address is actively listening.
 		*
 		*/
-		void bind( const sockaddr * bind_addr ) throw( sockexception );
+		void bind( const sockaddr * bind_addr, bool reuse_addr = false ) throw( sockexception );
 
 		/**
 		*   @brief make the socket passive and capable of accepting connections
