@@ -23,12 +23,12 @@
 #include <cstdlib>
 #include <cstring>
 #include <signal.h>
-#include <sys/socket.h>
 #include <netdb.h>
 
 
-necho::necho( const char * node, const char * service ) :
-		_sockfd( -1 ), _nsock_node( node ), _nsock_service( service ) {
+necho::necho( const char * node, const char * service, int socket_type ) :
+		_sockfd( -1 ), _nsock_node( node ), _nsock_service( service ),
+		_socket_type( socket_type ) {
 
 	// fork
 	_cpid = fork();
@@ -69,8 +69,8 @@ void necho::init_listener() {
 
 	// setup hints
 	memset( &hints, 0, sizeof ( hints ) );
-	hints.ai_family   = AF_UNSPEC;
-	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_family   = AF_INET;
+	hints.ai_socktype = _socket_type;
 
 	if ( ( status = getaddrinfo( _nsock_node, _nsock_service, &hints, &saddr_info ) ) != 0 ) {
 		std::cerr << "getaddrinfo: " << gai_strerror( status ) << std::endl;
@@ -157,8 +157,8 @@ void necho::wait_connect() {
 
 	// setup hints
 	memset( &hints, 0, sizeof ( hints ) );
-	hints.ai_family   = AF_UNSPEC;
-	hints.ai_socktype = SOCK_STREAM;
+	hints.ai_family   = AF_INET;
+	hints.ai_socktype = _socket_type;
 
 	if ( ( status = getaddrinfo( _nsock_node, _nsock_service, &hints, &saddr_info ) ) != 0 ) {
 		std::cerr << "getaddrinfo: " << gai_strerror( status ) << std::endl;

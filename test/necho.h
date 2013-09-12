@@ -21,12 +21,13 @@
 #define NECHO_H
 
 #include <unistd.h>
+#include <sys/socket.h>
 
 
 class necho {
 public:
 
-	necho( const char * node, const char * service );
+	necho( const char * node, const char * service, int socket_type = SOCK_STREAM );
 	virtual ~necho();
 
 protected:
@@ -36,6 +37,8 @@ protected:
 
 	const char * _nsock_node;
 	const char * _nsock_service;
+
+	int _socket_type;
 
 	void init_listener();
 	void serve_requests();
