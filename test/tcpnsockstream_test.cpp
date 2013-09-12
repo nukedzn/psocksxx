@@ -90,7 +90,7 @@ void tcpnsockstream_test::test_bind_addr() {
 	nsockaddr naddr( NSOCK_NODE, NSOCK_BIND_SERVICE );
 
 	// bind
-	CPPUNIT_ASSERT_NO_THROW( ss.bind( &naddr ) );
+	CPPUNIT_ASSERT_NO_THROW( ss.bind( &naddr, true ) );
 
 }
 
@@ -105,7 +105,7 @@ void tcpnsockstream_test::test_listen_addr() {
 
 	// bind
 	try {
-		ss.bind( &naddr );
+		ss.bind( &naddr, true );
 	} catch( sockexception &e ) {
 		CPPUNIT_FAIL( e.what() );
 		return;
@@ -134,7 +134,7 @@ void tcpnsockstream_test::test_accept_addr() {
 
 	// bind
 	try {
-		ss.bind( &naddr );
+		ss.bind( &naddr, true );
 	} catch( sockexception &e ) {
 		CPPUNIT_FAIL( e.what() );
 		return;
