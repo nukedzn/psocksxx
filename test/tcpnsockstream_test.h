@@ -21,6 +21,7 @@
 #define TCPNSOCKSTREAM_TEST_H
 
 #include <cppunit/extensions/HelperMacros.h>
+#include <psocksxx/nsockaddr.h>
 
 #ifndef NSOCK_NODE
 #define NSOCK_NODE "localhost"
@@ -28,6 +29,10 @@
 
 #ifndef NSOCK_SERVICE
 #define NSOCK_SERVICE "1234"
+#endif
+
+#ifndef NSOCK_BIND_SERVICE
+#define NSOCK_BIND_SERVICE "1235"
 #endif
 
 
@@ -38,6 +43,9 @@ class tcpnsockstream_test : public CppUnit::TestFixture {
 	CPPUNIT_TEST( test_constructors );
 	CPPUNIT_TEST( test_connect_addr );
 	CPPUNIT_TEST( test_connect_host_port );
+	CPPUNIT_TEST( test_bind_addr );
+	CPPUNIT_TEST( test_listen_addr );
+	CPPUNIT_TEST( test_accept_addr );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -45,6 +53,14 @@ public:
 	void test_constructors();
 	void test_connect_addr();
 	void test_connect_host_port();
+	void test_bind_addr();
+	void test_listen_addr();
+	void test_accept_addr();
+
+
+private:
+
+	void connect_naddr( psocksxx::nsockaddr * naddr ) throw();
 
 };
 

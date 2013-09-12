@@ -31,6 +31,17 @@ CPPUNIT_TEST_SUITE_REGISTRATION( tcpnsockstream_test );
 using namespace psocksxx;
 
 
+void tcpnsockstream_test::connect_naddr( nsockaddr * naddr ) throw() {
+
+	int csock;
+
+	// not worth having error handling here so we hope for the best
+	csock = socket( AF_INET, SOCK_STREAM, 0 );
+	connect( csock, naddr->psockaddr(), naddr->size() );
+
+}
+
+
 void tcpnsockstream_test::test_constructors() {
 
 	// default constructor
@@ -66,6 +77,103 @@ void tcpnsockstream_test::test_connect_host_port() {
 
 	// connect
 	CPPUNIT_ASSERT_NO_THROW( ss.connect( NSOCK_NODE, atoi( NSOCK_SERVICE ) ) );
+
+}
+
+
+void tcpnsockstream_test::test_bind_addr() {
+
+	// tcp socket stream
+	tcpnsockstream ss;
+
+	// network address to bind to
+	nsockaddr naddr( NSOCK_NODE, NSOCK_BIND_SERVICE );
+
+	// bind
+	CPPUNIT_ASSERT_NO_THROW( ss.bind( &naddr ) );
+
+}
+
+
+void tcpnsockstream_test::test_listen_addr() {
+
+	// tcp socket stream
+	tcpnsockstream ss;
+
+	// network address to bind to
+	nsockaddr naddr( NSOCK_NODE, NSOCK_BIND_SERVICE );
+
+	// bind
+	try {
+		ss.bind( &naddr );
+	} catch( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// listen
+	CPPUNIT_ASSERT_NO_THROW( ss.listen( 1 ) );
+
+}
+
+
+void tcpnsockstream_test::test_accept_addr() {
+
+	// fork variables
+	pid_t cpid, wpid;
+	int   wpid_status;
+
+	// tcp socket stream
+	tcpnsockstream ss;
+
+	// network socket pointer
+	nsockstream * nsock = NULL;
+
+	// network address to bind to
+	nsockaddr naddr( NSOCK_NODE, NSOCK_BIND_SERVICE );
+
+	// bind
+	try {
+		ss.bind( &naddr );
+	} catch( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// listen
+	try {
+		ss.listen( 1 );
+	} catch( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+
+	// fork
+	cpid = fork();
+
+	if ( cpid == -1 ) {
+		CPPUNIT_FAIL( "failed to fork" );
+	} else if ( cpid == 0 ) {
+
+		// child - connect to the network socket created by the parent
+		connect_naddr( &naddr );
+
+		// exit
+		exit( 0 );
+
+	} else {
+
+		// parent - accept a connection from the child
+		CPPUNIT_ASSERT_NO_THROW( nsock = ss.accept() );
+		CPPUNIT_ASSERT( nsock != NULL );
+
+		// cleanup
+		if ( nsock != NULL ) {
+			delete nsock;
+		}
+
+	}
 
 }
 
