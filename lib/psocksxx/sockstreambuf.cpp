@@ -188,8 +188,12 @@ namespace psocksxx {
 
 		// set socket options - SO_REUSEADDR
 		if ( reuse_addr ) {
+
 			int optval = 1;
-			setsockopt( _socket, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof( optval ) );
+			if ( setsockopt( _socket, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof( optval ) ) != 0 ) {
+				throw sockexception();
+			}
+
 		}
 
 		// bind
