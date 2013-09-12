@@ -192,3 +192,35 @@ void tcpnsockstream_test::test_bind_addr_fail() {
 
 }
 
+
+void tcpnsockstream_test::test_io_addr() {
+
+	// tcp socket stream
+	tcpnsockstream ss;
+
+	// network echo server
+	necho n( NSOCK_NODE, NSOCK_SERVICE );
+
+	// network address to connect to
+	nsockaddr saddr( NSOCK_NODE, NSOCK_SERVICE );
+
+	// connect
+	try {
+		ss.connect( &saddr );
+	} catch ( sockexception &e ) {
+		CPPUNIT_FAIL( e.what() );
+		return;
+	}
+
+	// write
+	ss << 'c' << std::endl;
+
+	// read
+	char c;
+	ss >> c;
+
+	// assert
+	CPPUNIT_ASSERT( c == 'c' );
+
+}
+
