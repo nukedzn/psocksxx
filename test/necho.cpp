@@ -24,6 +24,7 @@
 #include <cstring>
 #include <signal.h>
 #include <netdb.h>
+#include <cerrno>
 
 
 necho::necho( const char * node, const char * service, int socket_type ) :
@@ -73,7 +74,7 @@ void necho::init_listener() {
 	hints.ai_socktype = _socket_type;
 
 	if ( ( status = getaddrinfo( _nsock_node, _nsock_service, &hints, &saddr_info ) ) != 0 ) {
-		std::cerr << "getaddrinfo: " << gai_strerror( status ) << std::endl;
+		std::cerr << "getaddrinfo() failed: " << gai_strerror( status ) << std::endl;
 		exit( -1 );
 	}
 
@@ -85,18 +86,21 @@ void necho::init_listener() {
 
 	// set SO_REUSEADDR to true so we can reuse the socket
 	int optval = 1;
-	setsockopt( _sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof( optval ) );
+	if ( setsockopt( _sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof( optval ) ) != 0 ) {
+		std::cerr << "setsockopt() failed: " << strerror( errno ) << std::endl;
+		exit( -1 );
+	}
 
 	// bind
 	if ( bind( _sockfd, saddr_info->ai_addr, saddr_info->ai_addrlen ) != 0 ) {
-		std::cerr << "failed to bind to network socket" << std::endl;
+		std::cerr << "bind() failed: " << strerror( errno ) << std::endl;
 		exit( -1 );
 	}
 
 
 	// listen
 	if ( listen( _sockfd, 5 ) != 0 ) {
-		std::cerr << "failed to listen on network socket" << std::endl;
+		std::cerr << "listen() failed: " << strerror( errno ) << std::endl;
 		exit( -1 );
 	}
 
@@ -161,7 +165,7 @@ void necho::wait_connect() {
 	hints.ai_socktype = _socket_type;
 
 	if ( ( status = getaddrinfo( _nsock_node, _nsock_service, &hints, &saddr_info ) ) != 0 ) {
-		std::cerr << "getaddrinfo: " << gai_strerror( status ) << std::endl;
+		std::cerr << "getaddrinfo() failed: " << gai_strerror( status ) << std::endl;
 		exit( -1 );
 	}
 

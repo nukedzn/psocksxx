@@ -28,11 +28,11 @@
 #endif
 
 #ifndef NSOCK_SERVICE
-#define NSOCK_SERVICE "1234"
+#define NSOCK_SERVICE "21234"
 #endif
 
 #ifndef NSOCK_BIND_SERVICE
-#define NSOCK_BIND_SERVICE "1235"
+#define NSOCK_BIND_SERVICE "21235"
 #endif
 
 
