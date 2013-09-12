@@ -37,6 +37,9 @@ namespace psocksxx {
 		// set the address
 		sin_addr.s_addr = resolve_node( node );
 
+		// zero out internals
+		memset( sin_zero, 0, sizeof( sin_zero ) );
+
 	}
 
 
@@ -50,6 +53,9 @@ namespace psocksxx {
 
 		// set the address
 		sin_addr.s_addr = INADDR_ANY;
+
+		// zero out internals
+		memset( sin_zero, 0, sizeof( sin_zero ) );
 
 	}
 
@@ -78,6 +84,9 @@ namespace psocksxx {
 		sin_family = sockaddr::af_inet;
 		sin_addr   = sinaddr->sin_addr;
 		sin_port   = sinaddr->sin_port;
+
+		// zero out internals
+		memset( sin_zero, 0, sizeof( sin_zero ) );
 
 		// cleanup
 		freeaddrinfo( result );
