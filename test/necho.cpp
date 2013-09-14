@@ -22,9 +22,23 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstring>
-#include <signal.h>
+#include <csignal>
 #include <netdb.h>
 #include <cerrno>
+
+
+static int sockfd = -1;
+
+void sigterm_handler( int sig, siginfo_t *siginfo, void *context ) {
+
+	// close any open sockets
+	if ( sockfd > -1 ) {
+		close( sockfd );
+	}
+
+	exit( EXIT_SUCCESS );
+
+}
 
 
 necho::necho( const char * node, const char * service, int socket_type ) :
@@ -38,7 +52,10 @@ necho::necho( const char * node, const char * service, int socket_type ) :
 		std::cerr << "failed to fork out child process" << std::endl;
 	} else if ( _cpid == 0 ) {
 
-		// child - initialise echo server on a local socket
+		// child - initialise signal handlers
+		init_signal_handlers();
+
+		// echo socket
 		init_listener();
 
 		// serve requests
@@ -63,6 +80,22 @@ necho::~necho() {
 }
 
 
+void necho::init_signal_handlers() {
+
+	struct sigaction sa;
+
+	sigfillset( &sa.sa_mask );
+	sa.sa_sigaction = &sigterm_handler;
+	sa.sa_flags = SA_SIGINFO;
+
+	if ( sigaction( SIGTERM, &sa, NULL ) < 0 ) {
+		std::cerr << "sigaction() failed: " << strerror( errno ) << std::endl;
+		exit( EXIT_FAILURE );
+	}
+
+}
+
+
 void necho::init_listener() {
 
 	addrinfo hints, * saddr_info;
@@ -75,37 +108,40 @@ void necho::init_listener() {
 
 	if ( ( status = getaddrinfo( _nsock_node, _nsock_service, &hints, &saddr_info ) ) != 0 ) {
 		std::cerr << "getaddrinfo() failed: " << gai_strerror( status ) << std::endl;
-		exit( -1 );
+		exit( EXIT_FAILURE );
 	}
 
 	// initialise socket
 	if ( ( _sockfd = socket( saddr_info->ai_family, saddr_info->ai_socktype, saddr_info->ai_protocol ) ) < 0 ) {
 		std::cerr << "failed to setup network socket" << std::endl;
-		exit( -1 );
+		exit( EXIT_FAILURE );
 	}
+
+	// update static variable used by signal handlers
+	sockfd = _sockfd;
 
 	// set SO_REUSEADDR to true so we can reuse the socket
 	int optval = 1;
 	if ( setsockopt( _sockfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof( optval ) ) != 0 ) {
 		std::cerr << "setsockopt() failed: " << strerror( errno ) << std::endl;
-		exit( -1 );
+		exit( EXIT_FAILURE );
 	}
 
 	// bind
 	if ( bind( _sockfd, saddr_info->ai_addr, saddr_info->ai_addrlen ) != 0 ) {
 		std::cerr << "bind() failed: " << strerror( errno ) << std::endl;
-		exit( -1 );
+		exit( EXIT_FAILURE );
 	}
 
 
 	// listen
 	if ( listen( _sockfd, 5 ) != 0 ) {
 		std::cerr << "listen() failed: " << strerror( errno ) << std::endl;
-		exit( -1 );
+		exit( EXIT_FAILURE );
 	}
 
 	// cleanup
-	freeaddrinfo ( saddr_info );
+	freeaddrinfo( saddr_info );
 
 }
 
@@ -166,7 +202,7 @@ void necho::wait_connect() {
 
 	if ( ( status = getaddrinfo( _nsock_node, _nsock_service, &hints, &saddr_info ) ) != 0 ) {
 		std::cerr << "getaddrinfo() failed: " << gai_strerror( status ) << std::endl;
-		exit( -1 );
+		exit( EXIT_FAILURE );
 	}
 
 	// loop until we can establish a connection or
@@ -200,6 +236,9 @@ void necho::shutdown() {
 
 		// parent - send kill to child
 		kill( _cpid, SIGTERM );
+
+		// wait for the child
+		waitpid( _cpid, NULL, 0 );
 
 	}
 

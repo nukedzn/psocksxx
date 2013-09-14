@@ -40,6 +40,7 @@ protected:
 
 	int _socket_type;
 
+	void init_signal_handlers();
 	void init_listener();
 	void serve_requests();
 	void shutdown();
