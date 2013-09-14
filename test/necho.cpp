@@ -25,6 +25,7 @@
 #include <csignal>
 #include <netdb.h>
 #include <cerrno>
+#include <sys/wait.h>
 
 
 static int sockfd = -1;
