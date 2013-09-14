@@ -15,3 +15,8 @@ SUBDIRS = \
 EXTRA_DIST = \
 	README.md
 
+
+# pkg-config
+pkgconfigdir   = $(libdir)/pkgconfig
+pkgconfig_DATA = psocksxx.pc
+

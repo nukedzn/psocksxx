@@ -1,0 +1,12 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: @PACKAGE@
+Description: A C++ wrapper for POSIX sockets
+Version: @VERSION@
+URL: https://github.com/uditha-atukorala/psocksxx
+Libs: -L${libdir} -lpsocksxx
+Cflags: -I${includedir}
+

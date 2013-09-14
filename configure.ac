@@ -73,6 +73,7 @@ AC_REQUIRE_AUX_FILE([tap-driver.sh])
 
 AC_CONFIG_FILES([ \
 	Makefile \
+	psocksxx.pc \
 	doc/doxygen.cfg \
 	doc/Makefile \
 	include/Makefile \
