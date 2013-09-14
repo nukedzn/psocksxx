@@ -22,6 +22,7 @@
 
 #include <psocksxx/tcpnsockstream.h>
 #include <cstdlib>
+#include <sys/wait.h>
 
 
 // register the fixture into the 'registry'
@@ -171,6 +172,11 @@ void tcpnsockstream_test::test_accept_addr() {
 		// cleanup
 		if ( nsock != NULL ) {
 			delete nsock;
+		}
+
+		// wait for child to exit
+		if ( ( wpid = waitpid( cpid, &wpid_status, 0 ) ) == -1 ) {
+			CPPUNIT_FAIL( "failed waiting for the child process to terminate" );
 		}
 
 	}
