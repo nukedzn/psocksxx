@@ -44,3 +44,42 @@ void nsockstream_test::test_constructor_udp() {
 
 }
 
+
+void nsockstream_test::test_set_timeout() {
+
+	// network socket stream
+	sockstreambuf ss;
+
+	time_t sec = 1;
+	suseconds_t usec = 500;
+
+	// set timeout
+	const timeval * t = ss.timeout( sec, usec );
+
+	// validate
+	CPPUNIT_ASSERT( sec == t->tv_sec );
+	CPPUNIT_ASSERT( usec == t->tv_usec );
+
+}
+
+
+void nsockstream_test::test_clear_timeout() {
+
+	// network socket stream
+	sockstreambuf ss;
+
+	// clear the timeout before a timeout is set
+	CPPUNIT_ASSERT( NULL == ss.clear_timeout() );
+
+
+	time_t sec = 1;
+	suseconds_t usec = 500;
+
+	// set timeout
+	const timeval * t = ss.timeout( sec, usec );
+
+	// clear the timeout after a timeout is set
+	CPPUNIT_ASSERT( NULL == ss.clear_timeout() );
+
+}
+
