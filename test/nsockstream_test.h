@@ -29,6 +29,7 @@ class nsockstream_test : public CppUnit::TestFixture {
 	CPPUNIT_TEST_SUITE( nsockstream_test );
 	CPPUNIT_TEST( test_constructor_tcp );
 	CPPUNIT_TEST( test_constructor_udp );
+	CPPUNIT_TEST( test_constructor_streambuf );
 	CPPUNIT_TEST( test_set_timeout );
 	CPPUNIT_TEST( test_clear_timeout );
 	CPPUNIT_TEST_SUITE_END();
@@ -37,6 +38,7 @@ public:
 
 	void test_constructor_tcp();
 	void test_constructor_udp();
+	void test_constructor_streambuf();
 	void test_set_timeout();
 	void test_clear_timeout();
 

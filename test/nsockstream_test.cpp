@@ -45,6 +45,20 @@ void nsockstream_test::test_constructor_udp() {
 }
 
 
+void nsockstream_test::test_constructor_streambuf() {
+
+	// socket stream buffer
+	sockstreambuf * ssb = new sockstreambuf();
+
+	// network socket stream
+	nsockstream ss( ssb );
+
+	// assert
+	CPPUNIT_ASSERT( ssb == ss.rdbuf() );
+
+}
+
+
 void nsockstream_test::test_set_timeout() {
 
 	// socket stream buffer
