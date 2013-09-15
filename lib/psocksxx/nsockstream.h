@@ -135,6 +135,30 @@ namespace psocksxx {
 		*/
 		nsockstream * accept() throw( sockexception );
 
+		/**
+		*   @brief set the timeout value for stream communications
+		*   @param sec seconds
+		*   @param usec microseconds
+		*   @return a reference to the internal timeout structure
+		*
+		*   This method will set the timeout value for stream I/O and
+		*   connect(). Note that you cannot clear/disable the timeout
+		*   by passing in a 0 timeout, use clear_timeout() method instead.
+		*
+		*/
+		const timeval * timeout( time_t sec, suseconds_t usec ) throw();
+
+		/**
+		*   @brief clear the timeout value
+		*   @return a reference to the internal timeout structure which will
+		*           always be a @c NULL pointer after clearing the timeout
+		*
+		*   This will clear any timeout values set for this stream using
+		*   timeout().
+		*
+		*/
+		void * clear_timeout() throw();
+
 	};
 
 } /* end of namespace psocksxx */
