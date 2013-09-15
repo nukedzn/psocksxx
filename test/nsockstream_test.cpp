@@ -47,8 +47,11 @@ void nsockstream_test::test_constructor_udp() {
 
 void nsockstream_test::test_set_timeout() {
 
+	// socket stream buffer
+	sockstreambuf * ssb = new sockstreambuf();
+
 	// network socket stream
-	sockstreambuf ss;
+	nsockstream ss( ssb );
 
 	time_t sec = 1;
 	suseconds_t usec = 500;
@@ -65,8 +68,11 @@ void nsockstream_test::test_set_timeout() {
 
 void nsockstream_test::test_clear_timeout() {
 
+	// socket stream buffer
+	sockstreambuf * ssb = new sockstreambuf();
+
 	// network socket stream
-	sockstreambuf ss;
+	nsockstream ss( ssb );
 
 	// clear the timeout before a timeout is set
 	CPPUNIT_ASSERT( NULL == ss.clear_timeout() );
