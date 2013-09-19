@@ -46,6 +46,19 @@ POSIX sockets.
 * Doxygen (for doxygen documentation, of course)
 
 
+### Bugs and Feature Requests
+
+Please report all bugs and feature requests in [bugzilla](http://bugs.geniusse.com/) under the
+[psocksxx](http://bugs.geniusse.com/enter_bug.cgi?product=psocksxx) project.
+Known issues can be found [here](http://bugs.geniusse.com/buglist.cgi?query_format=specific&order=relevance%20desc&bug_status=__open__&product=psocksxx&list_id=130).
+
+
+### Version history
+
+__0.0.1__ - _19th September 2013_
+*   Initial release
+
+
 ### Compiling from source
 
 If you are using the github source then first you need to initialise
