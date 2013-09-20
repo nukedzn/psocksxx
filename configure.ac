@@ -51,11 +51,11 @@ AC_PROG_LIBTOOL
 AC_LANG(C++)
 
 # doxygen
-AC_CHECK_PROGS([DOXYGEN], [doxygen], [])
-if test -z "$DOXYGEN"; then
+AC_CHECK_PROGS([DOXYGEN], [doxygen], [false])
+AM_CONDITIONAL([HAVE_DOXYGEN], [test "x$DOXYGEN" != xfalse])
+AM_COND_IF([HAVE_DOXYGEN],,
 	AC_MSG_WARN([Doxygen not found - continuing without Doxygen support])
-fi
-AM_CONDITIONAL([HAVE_DOXYGEN], [test -n "$DOXYGEN"])
+)
 
 # cppunit
 AM_PATH_CPPUNIT(1.12.1,
