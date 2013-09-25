@@ -3,8 +3,6 @@
 # doxygen
 if HAVE_DOXYGEN
 
-.PHONY: doxygen-doc install-doxygen-doc
-
 doxygen.stamp:
 	$(DOXYGEN) doxygen.cfg
 	echo timestamp > doxygen.stamp
@@ -22,6 +20,9 @@ uninstall-local:
 
 clean-local:
 	rm -rf $(top_builddir)/doc/doxygen
+
+
+.PHONY: doxygen-doc install-doxygen-doc
 
 endif
 
