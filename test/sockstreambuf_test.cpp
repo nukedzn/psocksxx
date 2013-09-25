@@ -625,7 +625,7 @@ void sockstreambuf_test::test_local_read_timeout() {
 	ssb.timeout( 0, 200 );
 
 	// read - this should timeout and return sockstreambuf::eof
-	CPPUNIT_ASSERT( sockstreambuf::eof == ssb.sgetc() );
+	CPPUNIT_ASSERT_THROW( ssb.sgetc(), socktimeoutexception );
 
 
 	// close socket

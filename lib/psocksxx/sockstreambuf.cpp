@@ -289,7 +289,7 @@ namespace psocksxx {
 	}
 
 
-	int sockstreambuf::flush() throw() {
+	int sockstreambuf::flush() throw( socktimeoutexception ) {
 
 		int flush_size = pptr() - pbase();
 		bool b_ready   = false;
@@ -301,6 +301,7 @@ namespace psocksxx {
 				b_ready = ready( _timeout, false, true );
 			} catch( sockexception &e ) {
 				// couldn't select the socket
+				return eof;
 			}
 
 			if ( b_ready ) {
@@ -308,6 +309,9 @@ namespace psocksxx {
 					pbump( -flush_size );
 					return flush_size;
 				}
+			} else {
+				// timed out - throw a timeout exception
+				throw socktimeoutexception( _timeout, "sockstreambuf::flush()" );
 			}
 
 		}
@@ -329,7 +333,7 @@ namespace psocksxx {
 	}
 
 
-	int sockstreambuf::overflow( int c ) throw() {
+	int sockstreambuf::overflow( int c ) throw( socktimeoutexception ) {
 
 		// sanity check
 		if ( c != eof ) {
@@ -340,7 +344,7 @@ namespace psocksxx {
 
 		}
 
-		// flush the buffer
+		// flush the buffer - could throw a timeout exception
 		if ( flush() == eof ) {
 			return eof;
 		}
@@ -350,7 +354,7 @@ namespace psocksxx {
 	}
 
 
-	int sockstreambuf::underflow() throw() {
+	int sockstreambuf::underflow() throw( socktimeoutexception ) {
 
 		// sanity check - read position before end-of-buffer?
 		if ( gptr() < egptr() ) {
@@ -380,13 +384,16 @@ namespace psocksxx {
 		try {
 			b_ready = ready( _timeout, true, false );
 		} catch( sockexception &e ) {
-			// couldn't select the socket, no need to do anything here
-			// since we will be returning eof below ( read_size <= 0 )
+			// couldn't select the socket
+			return eof;
 		}
 
 		// read from socket
 		if ( b_ready ) {
 			read_size = ::read( _socket, read_buffer, readable_size );
+		} else {
+			// timed out - throw a timeout exception
+			throw socktimeoutexception( _timeout, "sockstreambuf::overflow()" );
 		}
 
 		// sanity check
@@ -407,7 +414,7 @@ namespace psocksxx {
 
 		// sanity check
 		if ( _socket < 0 ) {
-			return false;
+			throw sockexception( "sockstreambuf::ready(): invalid socket" );
 		}
 
 

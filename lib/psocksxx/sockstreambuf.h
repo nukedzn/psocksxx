@@ -135,13 +135,14 @@ namespace psocksxx {
 		/**
 		*   @brief flush the socket output buffer
 		*   @return number of characters flushed
+		*   @throw psocksxx::socktimeoutexception on socket timeout
 		*
 		*   Flush the socket buffer by writing date into the
 		*   socket and returns the number of characters flushed.
 		*   If the output buffer is empty sockstreambuf::eof is returned.
 		*
 		*/
-		virtual int flush() throw();
+		virtual int flush() throw( socktimeoutexception );
 
 
 		/**
@@ -272,17 +273,23 @@ namespace psocksxx {
 		*   @return sockstreambuf::eof to indicate failure or @a c
 		*           if successful.
 		*
+		*   @throw psocksxx::socktimeoutexception on socket timeout
+		*
+		*
 		*   Consumes the buffer contents and writes to the opened socket.
 		*   If @a c is not sockstreambuf::eof then @a c is also written
 		*   out.
 		*
 		*/
-		virtual int overflow( int c = eof ) throw();
+		virtual int overflow( int c = eof ) throw( socktimeoutexception );
 
 		/**
 		*   @brief read more data into the buffer from the socket
 		*   @return the first character from the buffer or sockstreambuf::eof
 		*           if no data is available to read
+		*
+		*   @throw psocksxx::socktimeoutexception on socket timeout
+		*
 		*
 		*   This reads more data into the buffer from the socket when
 		*   the input buffer is empty and returns the next readable
@@ -290,7 +297,7 @@ namespace psocksxx {
 		*   data is available through the socket, this returns sockstreambuf::eof.
 		*
 		*/
-		virtual int underflow() throw();
+		virtual int underflow() throw( socktimeoutexception );
 
 		/**
 		*   @brief check for the read/write availability on the socket
