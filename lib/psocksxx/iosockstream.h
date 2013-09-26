@@ -59,6 +59,18 @@ namespace psocksxx {
 			// destructor
 		}
 
+		/**
+		*   @brief get the timed-out status for this stream
+		*   @return boolean @c true if timed-out flag is set or @c false
+		*           otherwise.
+		*
+		*   Returns the timed-out status.
+		*
+		*/
+		bool timedout() const throw() {
+			return ( isockstream::timedout() || osockstream::timedout() );
+		}
+
 	};
 
 } /* end of namespace psocksxx */

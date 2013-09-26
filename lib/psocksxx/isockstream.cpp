@@ -29,6 +29,15 @@ namespace psocksxx {
 
 	isockstream::~isockstream() throw() {
 		// destructor
+	}
+
+
+	bool isockstream::timedout() const throw() {
+
+		// socket stream buffer
+		sockstreambuf * ssb = (sockstreambuf *) rdbuf();
+
+		return ssb->timedout();
 
 	}
 
