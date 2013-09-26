@@ -627,6 +627,9 @@ void sockstreambuf_test::test_local_read_timeout() {
 	// read - this should timeout and throw a timeout exception
 	CPPUNIT_ASSERT_THROW( ssb.sgetc(), socktimeoutexception );
 
+	// should've set the timed-out flag as well
+	CPPUNIT_ASSERT( true == ssb.timedout() );
+
 
 	// close socket
 	ssb.close();
