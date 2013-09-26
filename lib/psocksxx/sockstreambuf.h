@@ -242,6 +242,16 @@ namespace psocksxx {
 		*/
 		void * clear_timeout() throw();
 
+		/**
+		*   @brief get the timed-out status
+		*   @return boolean @c true if timed-out flag is set or @c false
+		*           otherwise.
+		*
+		*   Returns the timed-out status.
+		*
+		*/
+		bool timedout() const throw();
+
 
 	protected:
 
@@ -323,6 +333,7 @@ namespace psocksxx {
 		size_t _putbacksize;
 
 		timeval * _timeout;
+		bool      _timed_out;
 
 
 		void init_defaults() throw();

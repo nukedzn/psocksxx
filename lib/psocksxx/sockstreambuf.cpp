@@ -75,6 +75,9 @@ namespace psocksxx {
 		// timeout structure reference
 		_timeout = NULL;
 
+		// timed-out status
+		_timed_out = false;
+
 	}
 
 
@@ -172,7 +175,9 @@ namespace psocksxx {
 				::shutdown( _socket, 2 );
 
 				// throw a timeout exception
-				throw socktimeoutexception( timeout, "sockstreambuf::connect()" );
+				if ( _timed_out ) {
+					throw socktimeoutexception( timeout, "sockstreambuf::connect()" );
+				}
 
 			}
 
@@ -261,6 +266,11 @@ namespace psocksxx {
 	}
 
 
+	bool sockstreambuf::timedout() const throw() {
+		return _timed_out;
+	}
+
+
 	void sockstreambuf::init_buffers() throw() {
 
 		// allocate output buffer space
@@ -310,8 +320,12 @@ namespace psocksxx {
 					return flush_size;
 				}
 			} else {
+
 				// timed out - throw a timeout exception
-				throw socktimeoutexception( _timeout, "sockstreambuf::flush()" );
+				if ( _timed_out ) {
+					throw socktimeoutexception( _timeout, "sockstreambuf::flush()" );
+				}
+
 			}
 
 		}
@@ -392,8 +406,12 @@ namespace psocksxx {
 		if ( b_ready ) {
 			read_size = ::read( _socket, read_buffer, readable_size );
 		} else {
+
 			// timed out - throw a timeout exception
-			throw socktimeoutexception( _timeout, "sockstreambuf::overflow()" );
+			if ( _timed_out ) {
+				throw socktimeoutexception( _timeout, "sockstreambuf::overflow()" );
+			}
+
 		}
 
 		// sanity check
@@ -435,9 +453,25 @@ namespace psocksxx {
 			write_fds = &fds;
 		}
 
-		// check
-		if ( ::select( ( _socket + 1 ), read_fds, write_fds, NULL, timeout ) == -1 ) {
-			throw sockexception();
+		// reset timed-out status
+		_timed_out = false;
+
+		// select the socket
+		int s_status = ::select( ( _socket + 1 ), read_fds, write_fds, NULL, timeout );
+
+		// check status
+		switch ( s_status ) {
+			case 0:
+				// timed-out
+				_timed_out = true;
+				break;
+
+			case -1:
+				throw sockexception();
+				break;
+
+			default:
+				break;
 		}
 
 		// sanity check
