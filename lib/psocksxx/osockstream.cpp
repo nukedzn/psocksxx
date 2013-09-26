@@ -23,11 +23,12 @@
 namespace psocksxx {
 
 	osockstream::osockstream( sockstreambuf * ssb ) throw() : std::ostream( ssb ) {
-
+		// constructor
 	}
 
 
 	osockstream::~osockstream() throw() {
+		// destructor
 
 	}
 
