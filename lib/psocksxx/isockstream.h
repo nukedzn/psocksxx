@@ -20,7 +20,7 @@
 #ifndef PSOCKSXX_ISOCKSTREAM_H
 #define PSOCKSXX_ISOCKSTREAM_H
 
-#include <psocksxx/sockstreambuf.h>
+#include <psocksxx/iosocks.h>
 
 #include <istream>
 
@@ -33,7 +33,10 @@ namespace psocksxx {
 	*   This class acts as an interface for getting inputs
 	*   from a psocksxx::sockstreambuf class.
 	*/
-	class isockstream : public std::istream {
+	class isockstream :
+		public virtual iosocks,
+		public std::istream {
+
 	public:
 
 		/**

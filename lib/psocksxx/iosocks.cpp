@@ -17,19 +17,38 @@
 *
 */
 
-#include "osockstream.h"
+#include "iosocks.h"
 
 
 namespace psocksxx {
 
-	osockstream::osockstream( sockstreambuf * ssb ) throw() :
-			std::ostream( ssb ) {
-		// constructor
+	bool iosocks::timedout() const throw() {
+
+		// socket stream buffer
+		sockstreambuf * ssb = (sockstreambuf *) rdbuf();
+
+		return ssb->timedout();
+
 	}
 
 
-	osockstream::~osockstream() throw() {
-		// destructor
+	const timeval * iosocks::timeout( time_t sec, suseconds_t usec ) throw() {
+
+		// socket stream buffer
+		sockstreambuf * ssb = (sockstreambuf *) rdbuf();
+
+		return ssb->timeout( sec, usec );
+
+	}
+
+
+	void * iosocks::clear_timeout() throw() {
+
+		// socket stream buffer
+		sockstreambuf * ssb = (sockstreambuf *) rdbuf();
+
+		return ssb->clear_timeout();
+
 	}
 
 } /* end of namespace psocksxx */

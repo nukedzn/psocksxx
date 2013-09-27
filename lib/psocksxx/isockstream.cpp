@@ -22,23 +22,14 @@
 
 namespace psocksxx {
 
-	isockstream::isockstream( sockstreambuf * ssb ) throw() : std::istream( ssb ) {
+	isockstream::isockstream( sockstreambuf * ssb ) throw() :
+			std::istream( ssb ) {
 		// constructor
 	}
 
 
 	isockstream::~isockstream() throw() {
 		// destructor
-	}
-
-
-	bool isockstream::timedout() const throw() {
-
-		// socket stream buffer
-		sockstreambuf * ssb = (sockstreambuf *) rdbuf();
-
-		return ssb->timedout();
-
 	}
 
 } /* end of namespace psocksxx */

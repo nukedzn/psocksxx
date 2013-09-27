@@ -112,25 +112,5 @@ namespace psocksxx {
 
 	}
 
-
-	const timeval * nsockstream::timeout( time_t sec, suseconds_t usec ) throw() {
-
-		// socket stream buffer
-		sockstreambuf * ssb = (sockstreambuf *) rdbuf();
-
-		return ssb->timeout( sec, usec );
-
-	}
-
-
-	void * nsockstream::clear_timeout() throw() {
-
-		// socket stream buffer
-		sockstreambuf * ssb = (sockstreambuf *) rdbuf();
-
-		return ssb->clear_timeout();
-
-	}
-
 } /* end of namespace psocksxx */
 
