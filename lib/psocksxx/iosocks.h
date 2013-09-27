@@ -82,9 +82,6 @@ namespace psocksxx {
 
 	protected:
 
-		/** internal socket stream buffer reference */
-		sockstreambuf * _ssb;
-
 		/**
 		*   @brief empty default constructor
 		*
@@ -92,7 +89,7 @@ namespace psocksxx {
 		*   inheritance does not have to call the constructor.
 		*
 		*/
-		iosocks() : _ssb( NULL ) { }
+		iosocks() throw() { }
 
 	};
 
