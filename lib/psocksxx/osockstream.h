@@ -50,16 +50,6 @@ namespace psocksxx {
 
 		virtual ~osockstream() throw();  //!< destructor
 
-		/**
-		*   @brief get the timed-out status for this stream
-		*   @return boolean @c true if timed-out flag is set or @c false
-		*           otherwise.
-		*
-		*   Returns the timed-out status.
-		*
-		*/
-		bool timedout() const throw();
-
 	};
 
 } /* end of namespace psocksxx */
