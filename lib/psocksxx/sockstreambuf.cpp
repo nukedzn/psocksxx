@@ -309,7 +309,7 @@ namespace psocksxx {
 
 			try {
 				b_ready = ready( _timeout, false, true );
-			} catch( sockexception &e ) {
+			} catch ( sockexception &e ) {
 				// couldn't select the socket
 				return eof;
 			}
@@ -397,7 +397,7 @@ namespace psocksxx {
 		// check for availability
 		try {
 			b_ready = ready( _timeout, true, false );
-		} catch( sockexception &e ) {
+		} catch ( sockexception &e ) {
 			// couldn't select the socket
 			return eof;
 		}
