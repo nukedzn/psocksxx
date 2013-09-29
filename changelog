@@ -1,3 +1,8 @@
-0.1.1 - 19th September 2013
+0.0.2 - 29th September 2013
+	*   Added timeout support for socket communications
+	*   New base socket stream I/O class to reduce redundant code
+	*   Added install targets for doxygen generated docs
+
+0.0.1 - 19th September 2013
 	*   Initial release
 
