@@ -80,7 +80,7 @@ __0.0.2__ - _29th September 2013_
 *   Added timeout support for socket communications
 *   New base socket stream I/O class to reduce redundant code
 *   Added install targets for doxygen generated docs
-	
+
 __0.0.1__ - _19th September 2013_
 *   Initial release
 
