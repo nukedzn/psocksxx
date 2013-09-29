@@ -40,6 +40,27 @@ C++. To keep the code simple and clean this project will only support
 POSIX sockets.
 
 
+### Downloads
+You can download the source distributions from http://packages.geniusse.com/source/psocksxx/.
+
+
+#### Debian/Ubuntu packages
+First you should add the repository key to avoid warnings.
+
+	$ wget -q -O - http://packages.geniusse.com/debian/packman.gpg.key | sudo apt-key add -
+
+Then add the following to your `/etc/apt/sources.list`;
+
+	$ deb http://packages.geniusse.com/debian/ [release] main
+
+where the `[release]` being wheezy, jessie, sid etc.
+
+Finally update your package list and install psocksxx;
+
+	$ sudo aptitude update
+	$ sudo aptitude install libpsocksxx-dev
+
+
 ### Dependencies
 
 * CppUnit >= 1.12.1 (for unit tests)
@@ -55,6 +76,11 @@ Known issues can be found [here](http://bugs.geniusse.com/buglist.cgi?query_form
 
 ### Version history
 
+__0.0.2__ - _29th September 2013_
+*   Added timeout support for socket communications
+*   New base socket stream I/O class to reduce redundant code
+*   Added install targets for doxygen generated docs
+	
 __0.0.1__ - _19th September 2013_
 *   Initial release
 
@@ -70,7 +96,7 @@ autotools.
 	$ autoconf
 	$ automake --add-missing (you will need automake >= 1.13)
 
-Or you can grab the latest source distribution tar from [CI artifacts](http://jenkins.geniusse.com/job/psocksxx/).
+Or you can grab the latest snapshot tar from [CI artifacts](http://jenkins.geniusse.com/job/psocksxx/).
 
 After that you can use the usual `./configure && make`
 
