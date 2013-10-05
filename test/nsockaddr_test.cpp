@@ -20,7 +20,6 @@
 #include "nsockaddr_test.h"
 
 #include <psocksxx/nsockaddr.h>
-#include <iostream>
 
 
 // register the fixture into the 'registry'
