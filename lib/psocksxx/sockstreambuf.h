@@ -234,7 +234,7 @@ namespace psocksxx {
 		/**
 		*   @brief clear the timeout value for the socket
 		*   @return a reference to the internal timeout structure which will
-		*           always be a @c NULL pointer after clearing the timeout
+		*           always be a null-pointer (@c 0) after clearing the timeout
 		*
 		*   This will clear any timeout values set for the socket affectively
 		*   making this a blocking socket by default.

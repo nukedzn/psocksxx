@@ -72,7 +72,7 @@ namespace psocksxx {
 		/**
 		*   @brief clear the timeout value
 		*   @return a reference to the internal timeout structure which will
-		*           always be a @c NULL pointer after clearing the timeout
+		*           always be a null-pointer (@c 0) after clearing the timeout
 		*
 		*   This will clear any timeout values set for this stream using
 		*   timeout().

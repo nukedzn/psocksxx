@@ -577,7 +577,7 @@ void sockstreambuf_test::test_clear_timeout() {
 	sockstreambuf ssb;
 
 	// clear the timeout before a timeout is set
-	CPPUNIT_ASSERT( NULL == ssb.clear_timeout() );
+	CPPUNIT_ASSERT( 0 == ssb.clear_timeout() );
 
 
 	time_t sec = 1;
@@ -587,7 +587,7 @@ void sockstreambuf_test::test_clear_timeout() {
 	const timeval * t = ssb.timeout( sec, usec );
 
 	// clear the timeout after a timeout is set
-	CPPUNIT_ASSERT( NULL == ssb.clear_timeout() );
+	CPPUNIT_ASSERT( 0 == ssb.clear_timeout() );
 
 }
 

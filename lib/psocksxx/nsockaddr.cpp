@@ -109,7 +109,7 @@ namespace psocksxx {
 		hints.ai_socktype = sockstreambuf::sock_stream;
 
 		// resolve node
-		if ( ( status = ( getaddrinfo( node, NULL, &hints, &result ) ) ) != 0 ) {
+		if ( ( status = ( getaddrinfo( node, 0, &hints, &result ) ) ) != 0 ) {
 			throw sockexception( gai_strerror( status ) );
 		}
 

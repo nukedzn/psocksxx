@@ -32,7 +32,7 @@ namespace psocksxx {
 		_sys_msg = strerror( _errno );
 
 		// sanity check
-		if ( message == NULL ) {
+		if ( message == 0 ) {
 
 			// use system error message if no user message is passed in
 			_message = _sys_msg;

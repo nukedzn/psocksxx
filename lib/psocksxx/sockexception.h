@@ -38,12 +38,12 @@ namespace psocksxx {
 		*   @brief constructor
 		*
 		*   Create an instance with the passed in error message.
-		*   If a message is not passed in or is equal to NULL then
+		*   If a message is not passed in or is equal to @c 0 then
 		*   the system error message is used.
 		*
 		*   @param message (optional) user error message
 		*/
-		sockexception( const char * message = NULL ) throw();
+		sockexception( const char * message = 0 ) throw();
 
 		virtual ~sockexception() throw();   //!< destructor
 

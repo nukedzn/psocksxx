@@ -33,7 +33,7 @@ namespace psocksxx {
 		// string stream
 		std::stringstream ss;
 
-		if ( method != NULL ) {
+		if ( method != 0 ) {
 			ss << method << " ";
 		}
 

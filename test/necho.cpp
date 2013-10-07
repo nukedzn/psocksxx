@@ -89,7 +89,7 @@ void necho::init_signal_handlers() {
 	sa.sa_sigaction = &sigterm_handler;
 	sa.sa_flags = SA_SIGINFO;
 
-	if ( sigaction( SIGTERM, &sa, NULL ) < 0 ) {
+	if ( sigaction( SIGTERM, &sa, 0 ) < 0 ) {
 		std::cerr << "sigaction() failed: " << strerror( errno ) << std::endl;
 		exit( EXIT_FAILURE );
 	}
@@ -157,7 +157,7 @@ void necho::serve_requests() {
 
 	for (;;) {
 
-		if ( ( peer_sockfd = accept( _sockfd, NULL, 0 ) ) == -1 ) {
+		if ( ( peer_sockfd = accept( _sockfd, 0, 0 ) ) == -1 ) {
 			continue;
 		}
 
@@ -239,7 +239,7 @@ void necho::shutdown() {
 		kill( _cpid, SIGTERM );
 
 		// wait for the child
-		waitpid( _cpid, NULL, 0 );
+		waitpid( _cpid, 0, 0 );
 
 	}
 

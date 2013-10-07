@@ -22,7 +22,7 @@
 
 namespace psocksxx {
 
-	lsockstream::lsockstream() throw( sockexception ) : iosockstream( NULL ) {
+	lsockstream::lsockstream() throw( sockexception ) : iosockstream( 0 ) {
 
 		// socket stream buffer instance
 		sockstreambuf * ssb = new sockstreambuf();

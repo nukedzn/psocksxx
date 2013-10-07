@@ -55,7 +55,7 @@ namespace psocksxx {
 		*   to construct the exception message.
 		*
 		*/
-		socktimeoutexception( const timeval * t_val, const char * method = NULL ) throw();
+		socktimeoutexception( const timeval * t_val, const char * method = 0 ) throw();
 
 		virtual ~socktimeoutexception() throw();   //!< destructor
 

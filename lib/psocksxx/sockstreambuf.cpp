@@ -63,7 +63,7 @@ namespace psocksxx {
 		cleanup_buffers();
 
 		// cleanup timeout
-		if ( _timeout != NULL ) {
+		if ( _timeout != 0 ) {
 			delete _timeout;
 		}
 
@@ -73,7 +73,7 @@ namespace psocksxx {
 	void sockstreambuf::init_defaults() throw() {
 
 		// timeout structure reference
-		_timeout = NULL;
+		_timeout = 0;
 
 		// timed-out status
 		_timed_out = false;
@@ -222,7 +222,7 @@ namespace psocksxx {
 
 		socket_t peer_sock;
 
-		if ( ( peer_sock = ::accept( _socket, NULL, 0 ) ) < 0 ) {
+		if ( ( peer_sock = ::accept( _socket, 0, 0 ) ) < 0 ) {
 			throw sockexception();
 		}
 
@@ -251,13 +251,13 @@ namespace psocksxx {
 	void * sockstreambuf::clear_timeout() throw() {
 
 		// sanity check
-		if ( _timeout != NULL ) {
+		if ( _timeout != 0 ) {
 
 			// delete structure
 			delete _timeout;
 
 			// set a null pointer
-			_timeout = NULL;
+			_timeout = 0;
 
 		}
 
@@ -437,8 +437,8 @@ namespace psocksxx {
 
 
 		fd_set  fds;
-		fd_set * read_fds  = NULL;
-		fd_set * write_fds = NULL;
+		fd_set * read_fds  = 0;
+		fd_set * write_fds = 0;
 
 		// set the fd_set so we only check our socket
 		memset( &fds, 0, sizeof( fds ) );
@@ -457,7 +457,7 @@ namespace psocksxx {
 		_timed_out = false;
 
 		// select the socket
-		int s_status = ::select( ( _socket + 1 ), read_fds, write_fds, NULL, timeout );
+		int s_status = ::select( ( _socket + 1 ), read_fds, write_fds, 0, timeout );
 
 		// check status
 		switch ( s_status ) {

@@ -23,7 +23,7 @@
 namespace psocksxx {
 
 	nsockstream::nsockstream( sockstreambuf::socket_type_t type, sockstreambuf::socket_protocol_t proto )
-		throw ( sockexception ) : iosockstream( NULL ) {
+		throw ( sockexception ) : iosockstream( 0 ) {
 
 		// socket stream buffer instance
 		sockstreambuf * ssb = new sockstreambuf();

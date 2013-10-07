@@ -128,7 +128,7 @@ void tcpnsockstream_test::test_accept_addr() {
 	tcpnsockstream ss;
 
 	// network socket pointer
-	nsockstream * nsock = NULL;
+	nsockstream * nsock = 0;
 
 	// network address to bind to
 	nsockaddr naddr( NSOCK_NODE, NSOCK_BIND_SERVICE );
@@ -167,10 +167,10 @@ void tcpnsockstream_test::test_accept_addr() {
 
 		// parent - accept a connection from the child
 		CPPUNIT_ASSERT_NO_THROW( nsock = ss.accept() );
-		CPPUNIT_ASSERT( nsock != NULL );
+		CPPUNIT_ASSERT( nsock != 0 );
 
 		// cleanup
-		if ( nsock != NULL ) {
+		if ( nsock != 0 ) {
 			delete nsock;
 		}
 

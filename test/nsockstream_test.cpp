@@ -89,7 +89,7 @@ void nsockstream_test::test_clear_timeout() {
 	nsockstream ss( ssb );
 
 	// clear the timeout before a timeout is set
-	CPPUNIT_ASSERT( NULL == ss.clear_timeout() );
+	CPPUNIT_ASSERT( 0 == ss.clear_timeout() );
 
 
 	time_t sec = 1;
@@ -99,7 +99,7 @@ void nsockstream_test::test_clear_timeout() {
 	const timeval * t = ss.timeout( sec, usec );
 
 	// clear the timeout after a timeout is set
-	CPPUNIT_ASSERT( NULL == ss.clear_timeout() );
+	CPPUNIT_ASSERT( 0 == ss.clear_timeout() );
 
 }
 
