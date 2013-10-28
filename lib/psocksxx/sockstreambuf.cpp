@@ -22,6 +22,11 @@
 #include <fcntl.h>
 #include <cstring>
 
+// Mac OSX does not define MSG_NOSIGNAL
+#ifndef MSG_NOSIGNAL
+#define MSG_NOSIGNAL 0
+#endif
+
 
 namespace psocksxx {
 
@@ -90,6 +95,14 @@ namespace psocksxx {
 		if ( _socket == -1 ) {
 			throw sockexception();
 		}
+
+#ifdef SO_NOSIGPIPE
+		// suppress SIGPIPE (Mac OSX)
+		int optval = 1;
+		if ( setsockopt( _socket, SOL_SOCKET, SO_NOSIGPIPE, &optval, sizeof( optval ) ) != 0 ) {
+			throw sockexception();
+		}
+#endif
 
 	}
 
@@ -315,7 +328,7 @@ namespace psocksxx {
 			}
 
 			if ( b_ready ) {
-				if ( ::send( _socket, pbase(), flush_size, 0 ) == flush_size ) {
+				if ( ::send( _socket, pbase(), flush_size, MSG_NOSIGNAL ) == flush_size ) {
 					pbump( -flush_size );
 					return flush_size;
 				}
