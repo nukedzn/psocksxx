@@ -76,6 +76,10 @@ Known issues can be found [here](http://bugs.geniusse.com/buglist.cgi?query_form
 
 ### Version history
 
+__0.0.3__ - _31st October 2013_
+*   Suppress SIGPIPE signals
+*   Code cleanup work
+
 __0.0.2__ - _29th September 2013_
 *   Added timeout support for socket communications
 *   New base socket stream I/O class to reduce redundant code

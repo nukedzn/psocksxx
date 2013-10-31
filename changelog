@@ -1,3 +1,7 @@
+0.0.3 - 31st October 2013
+	*   Suppress SIGPIPE signals
+	*   Code cleanup work
+
 0.0.2 - 29th September 2013
 	*   Added timeout support for socket communications
 	*   New base socket stream I/O class to reduce redundant code
