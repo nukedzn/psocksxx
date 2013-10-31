@@ -350,12 +350,19 @@ namespace psocksxx {
 
 	int sockstreambuf::sync() throw() {
 
-		// flush buffer
-		if ( flush() == eof ) {
-			return -1;
+		try {
+
+			// flush buffer
+			if ( flush() != eof ) {
+				return 0;
+			}
+
+		} catch ( socktimeoutexception &e ) {
+			// communication timeout - suppress the exception
 		}
 
-		return 0;
+		// sync failed
+		return -1;
 
 	}
 
