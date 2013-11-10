@@ -76,6 +76,10 @@ Known issues can be found [here](http://bugs.geniusse.com/buglist.cgi?query_form
 
 ### Version history
 
+__0.0.4__ - _10th november 2013_
+*   bug fix - member functions should not be throwing exceptions if the
+	signature does not specify it.
+
 __0.0.3__ - _31st October 2013_
 *   Suppress SIGPIPE signals
 *   Code cleanup work

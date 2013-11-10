@@ -1,3 +1,7 @@
+0.0.4 - 10th november 2013
+	*   bug fix - member functions should not be throwing exceptions if the
+		signature does not specify it.
+
 0.0.3 - 31st October 2013
 	*   Suppress SIGPIPE signals
 	*   Code cleanup work
