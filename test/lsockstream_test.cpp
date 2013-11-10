@@ -124,37 +124,3 @@ void lsockstream_test::test_read_timeout() {
 
 }
 
-
-void lsockstream_test::test_read_timeout_exception() {
-
-	// local socket stream
-	lsockstream l;
-
-	// local (unix) socket address
-	lsockaddr saddr( LOCAL_LISTENER_SOCK_PATH );
-
-	// local echo server
-	lecho echo( LOCAL_LISTENER_SOCK_PATH );
-
-	// connect
-	try {
-		l.connect( &saddr );
-	} catch( sockexception &e ) {
-		CPPUNIT_FAIL( e.what() );
-		return;
-	}
-
-	// set timeout
-	l.timeout( 0, 200 );
-
-	// read
-	char c;
-
-	// read - this should timeout and throw a timeout exception
-	CPPUNIT_ASSERT_THROW( l >> c, socktimeoutexception );
-
-	// should've set the timed-out flag as well
-	CPPUNIT_ASSERT( true == l.timedout() );
-
-}
-

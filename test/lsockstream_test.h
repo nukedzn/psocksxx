@@ -41,7 +41,6 @@ class lsockstream_test : public CppUnit::TestFixture {
 	CPPUNIT_TEST( test_connect );
 	CPPUNIT_TEST( test_connect_addr );
 	CPPUNIT_TEST( test_read_timeout );
-	CPPUNIT_TEST( test_read_timeout_exception );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -52,7 +51,6 @@ public:
 	void test_connect();
 	void test_connect_addr();
 	void test_read_timeout();
-	void test_read_timeout_exception();
 
 };
 
