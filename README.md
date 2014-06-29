@@ -76,7 +76,10 @@ Known issues can be found [here](http://bugs.geniusse.com/buglist.cgi?query_form
 
 ### Version history
 
-__0.0.4__ - _10th november 2013_
+__0.0.5__ - _29th June 2014_
+*   Fixing inconsistent timeout behaviour on different systems
+
+__0.0.4__ - _10th November 2013_
 *   bug fix - member functions should not be throwing exceptions if the
 	signature does not specify it.
 

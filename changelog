@@ -1,4 +1,7 @@
-0.0.4 - 10th november 2013
+0.0.5 - 29th June 2014
+	*   Fixing inconsistent timeout behaviour on different systems
+
+0.0.4 - 10th November 2013
 	*   bug fix - member functions should not be throwing exceptions if the
 		signature does not specify it.
 
