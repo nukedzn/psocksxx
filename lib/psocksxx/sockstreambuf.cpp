@@ -460,6 +460,10 @@ namespace psocksxx {
 		fd_set * read_fds  = 0;
 		fd_set * write_fds = 0;
 
+		// timespec structure
+		timespec * t_spec = 0;
+
+
 		// set the fd_set so we only check our socket
 		memset( &fds, 0, sizeof( fds ) );
 		FD_SET( _socket, &fds );
@@ -476,8 +480,20 @@ namespace psocksxx {
 		// reset timed-out status
 		_timed_out = false;
 
+		// create timespec structure from timeval structure
+		if ( timeout != 0 ) {
+			t_spec = new timespec;
+			t_spec->tv_sec  = timeout->tv_sec;
+			t_spec->tv_nsec = ( timeout->tv_usec * 1000 );
+		}
+
 		// select the socket
-		int s_status = ::select( ( _socket + 1 ), read_fds, write_fds, 0, timeout );
+		int s_status = ::pselect( ( _socket + 1 ), read_fds, write_fds, 0, t_spec, 0 );
+
+		// cleanup
+		if ( t_spec != 0  ) {
+			delete t_spec;
+		}
 
 		// check status
 		switch ( s_status ) {
