@@ -76,6 +76,9 @@ Known issues can be found [here](http://bugs.geniusse.com/buglist.cgi?query_form
 
 ### Version history
 
+__0.0.6__ - _03rd October 2014_
+*   Removing obsolete doxygen tags (bug [#37](http://bugs.geniusse.com/show_bug.cgi?id=37))
+
 __0.0.5__ - _29th June 2014_
 *   Fixing inconsistent timeout behaviour on different systems
 
