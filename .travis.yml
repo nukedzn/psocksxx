@@ -2,3 +2,10 @@ language: cpp
 
 sudo: false
 
+before_script:
+  - libtoolize
+  - aclocal
+  - autoheader
+  - autoconf
+  - automake --add-missing
+
