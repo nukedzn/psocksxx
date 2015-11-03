@@ -3,9 +3,15 @@ language: cpp
 sudo: required
 dist: trusty
 
+compiler:
+  - gcc
+  - clang
+
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -y libcppunit-dev
+  - echo $LANG
+  - echo $LC_ALL
+  - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get update && sudo apt-get install -y libcppunit-dev; fi
+  - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install cppunit; fi
 
 before_script:
   - libtoolize
@@ -13,7 +19,13 @@ before_script:
   - autoheader
   - autoconf
   - automake --add-missing
+  - ./configure
 
 script:
-  - ./configure && make && make check
+  - make
+  - make check
+
+os:
+  - linux
+  - osx
 
