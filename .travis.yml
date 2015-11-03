@@ -14,3 +14,6 @@ before_script:
   - autoconf
   - automake --add-missing
 
+script:
+  - ./configure && make && make check
+
