@@ -1,0 +1,32 @@
+language: cpp
+
+sudo: required
+dist: trusty
+
+compiler:
+  - gcc
+  - clang
+
+before_install:
+  - echo $LANG
+  - echo $LC_ALL
+  - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get update && sudo apt-get install -y libcppunit-dev; fi
+  - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install cppunit; fi
+
+before_script:
+  - if [ $TRAVIS_OS_NAME == linux ]; then libtoolize; fi
+  - if [ $TRAVIS_OS_NAME == osx ]; then glibtoolize; fi
+  - aclocal
+  - autoheader
+  - autoconf
+  - automake --add-missing
+  - ./configure
+
+script:
+  - make
+  - make check
+
+os:
+  - linux
+  - osx
+
