@@ -35,10 +35,10 @@
 
 <p>A C++ wrapper for POSIX sockets</p>
 
-<h3>
-<a id="copyright-and-license" class="anchor" href="#copyright-and-license" aria-hidden="true"><span class="octicon octicon-link"></span></a>Copyright and License</h3>
+<h2>
+<a id="copyright-and-license" class="anchor" href="#copyright-and-license" aria-hidden="true"><span class="octicon octicon-link"></span></a>Copyright and License</h2>
 
-<p>Copyright (C) 2013 Uditha Atukorala.</p>
+<p>Copyright (C) 2015 Uditha Atukorala.</p>
 
 <p>This software library is free software; you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -51,8 +51,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 <a href="http://www.gnu.org/licenses/lgpl.html">GNU Lesser General Public License</a>
 for more details.</p>
 
-<h3>
-<a id="the-concept" class="anchor" href="#the-concept" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Concept</h3>
+<h2>
+<a id="the-concept" class="anchor" href="#the-concept" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Concept</h2>
 
 <p>This project was started to add to the features provided by the simple
 <a href="https://github.com/uditha-atukorala/socket-library">socket-library</a> project,
@@ -72,78 +72,35 @@ hopefully easy to understand) POSIX socket communication wrapper in
 C++. To keep the code simple and clean this project will only support
 POSIX sockets.</p>
 
-<h3>
-<a id="downloads" class="anchor" href="#downloads" aria-hidden="true"><span class="octicon octicon-link"></span></a>Downloads</h3>
+<h2>
+<a id="downloads" class="anchor" href="#downloads" aria-hidden="true"><span class="octicon octicon-link"></span></a>Downloads</h2>
 
 <p>You can download source distributions from <a href="https://github.com/nukedzn/psocksxx/releases">https://github.com/nukedzn/psocksxx/releases</a>.</p>
 
-<h4>
-<a id="debianubuntu-packages" class="anchor" href="#debianubuntu-packages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Debian/Ubuntu packages</h4>
+<h3>
+<a id="debianubuntu-packages" class="anchor" href="#debianubuntu-packages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Debian/Ubuntu packages</h3>
+
+<p>Please check availability for your distribution first (<a href="https://packages.debian.org/search?searchon=names&amp;keywords=psocksxx">Debian</a>, <a href="http://packages.ubuntu.com/search?suite=wily&amp;section=all&amp;arch=any&amp;keywords=psocksxx&amp;searchon=names">Ubuntu</a>).</p>
 
 <pre><code>$ sudo aptitude update
 $ sudo aptitude install libpsocksxx-dev
 </code></pre>
 
-<p><em>Note:</em> Check availability for your distribution first (<a href="https://packages.debian.org/search?searchon=names&amp;keywords=psocksxx">Debian</a>, <a href="http://packages.ubuntu.com/search?suite=wily&amp;section=all&amp;arch=any&amp;keywords=psocksxx&amp;searchon=names">Ubuntu</a>).</p>
-
-<h3>
-<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies</h3>
+<h2>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies</h2>
 
 <ul>
 <li>CppUnit &gt;= 1.12.1 (for unit tests)</li>
 <li>Doxygen (for doxygen documentation, of course)</li>
 </ul>
 
-<h3>
-<a id="bugs-and-feature-requests" class="anchor" href="#bugs-and-feature-requests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bugs and Feature Requests</h3>
+<h2>
+<a id="bugs-and-feature-requests" class="anchor" href="#bugs-and-feature-requests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bugs and Feature Requests</h2>
 
 <p>Please report all bugs and feature requests under <a href="https://github.com/nukedzn/psocksxx/issues">issues</a>.</p>
 
-<h3>
-<a id="version-history" class="anchor" href="#version-history" aria-hidden="true"><span class="octicon octicon-link"></span></a>Version history</h3>
-
-<p><strong>0.0.6</strong> - <em>03rd October 2014</em></p>
-
-<ul>
-<li>  Removing obsolete doxygen tags</li>
-</ul>
-
-<p><strong>0.0.5</strong> - <em>29th June 2014</em></p>
-
-<ul>
-<li>  Fixing inconsistent timeout behaviour on different systems</li>
-</ul>
-
-<p><strong>0.0.4</strong> - <em>10th November 2013</em></p>
-
-<ul>
-<li>  bug fix - member functions should not be throwing exceptions if the
-signature does not specify it.</li>
-</ul>
-
-<p><strong>0.0.3</strong> - <em>31st October 2013</em></p>
-
-<ul>
-<li>  Suppress SIGPIPE signals</li>
-<li>  Code cleanup work</li>
-</ul>
-
-<p><strong>0.0.2</strong> - <em>29th September 2013</em></p>
-
-<ul>
-<li>  Added timeout support for socket communications</li>
-<li>  New base socket stream I/O class to reduce redundant code</li>
-<li>  Added install targets for doxygen generated docs</li>
-</ul>
-
-<p><strong>0.0.1</strong> - <em>19th September 2013</em></p>
-
-<ul>
-<li>  Initial release</li>
-</ul>
-
-<h3>
-<a id="compiling-from-source" class="anchor" href="#compiling-from-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compiling from source</h3>
+<h2>
+<a id="compiling-from-source" class="anchor" href="#compiling-from-source" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compiling from source</h2>
 
 <p>If you are using the github source then first you need to initialise
 autotools.</p>
@@ -157,13 +114,12 @@ $ automake --add-missing (you will need automake &gt;= 1.13)
 
 <p>After that you can use the usual <code>./configure &amp;&amp; make</code></p>
 
-<h3>
-<a id="notes" class="anchor" href="#notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Notes</h3>
+<h2>
+<a id="api-documentation" class="anchor" href="#api-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>API Documentation</h2>
 
-<h4>
-<a id="doxygen-documentation" class="anchor" href="#doxygen-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Doxygen documentation</h4>
-
-<p>The latest doxygen documentation can be found at <a href="http://jenkins.geniusse.com/job/psocksxx/doxygen/">http://jenkins.geniusse.com/job/psocksxx/doxygen/</a>.</p>
+<ul>
+<li><a href="https://nukedzn.github.io/psocksxx/docs/v1.0">v1.0</a></li>
+</ul>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/nukedzn">nukedzn</a></p>
