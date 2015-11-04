@@ -1,6 +1,8 @@
 psocksxx
 ========
 
+[![Build Status](https://travis-ci.org/nukedzn/psocksxx.svg)](https://travis-ci.org/nukedzn/psocksxx)
+
 A C++ wrapper for POSIX sockets
 
 ### Copyright and License
@@ -69,15 +71,13 @@ Finally update your package list and install psocksxx;
 
 ### Bugs and Feature Requests
 
-Please report all bugs and feature requests in [bugzilla](http://bugs.geniusse.com/) under the
-[psocksxx](http://bugs.geniusse.com/enter_bug.cgi?product=psocksxx) project.
-Known issues can be found [here](http://bugs.geniusse.com/buglist.cgi?query_format=specific&order=relevance%20desc&bug_status=__open__&product=psocksxx&list_id=130).
+Please report all bugs and feature requests under [Issues](https://github.com/nukedzn/psocksxx/issues).
 
 
 ### Version history
 
 __0.0.6__ - _03rd October 2014_
-*   Removing obsolete doxygen tags (bug [#37](http://bugs.geniusse.com/show_bug.cgi?id=37))
+*   Removing obsolete doxygen tags
 
 __0.0.5__ - _29th June 2014_
 *   Fixing inconsistent timeout behaviour on different systems
