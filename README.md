@@ -61,7 +61,7 @@ You can download source distributions from https://github.com/nukedzn/psocksxx/r
 
 ### Bugs and Feature Requests
 
-Please report all bugs and feature requests under [Issues](https://github.com/nukedzn/psocksxx/issues).
+Please report all bugs and feature requests under [issues](https://github.com/nukedzn/psocksxx/issues).
 
 
 ### Version history
@@ -100,18 +100,10 @@ autotools.
 	$ autoconf
 	$ automake --add-missing (you will need automake >= 1.13)
 
-Or you can grab the latest snapshot tar from [CI artifacts](http://jenkins.geniusse.com/job/psocksxx/).
-
 After that you can use the usual `./configure && make`
 
 
 ### Notes
-#### Continuous Integration
-
-There is a continuous integration Jenkins job hosted [here](http://jenkins.geniusse.com/job/psocksxx/)
-which contains the latest artifacts, unit test results and documentation etc.
-
-
 #### Doxygen documentation
 
 The latest doxygen documentation can be found at http://jenkins.geniusse.com/job/psocksxx/doxygen/.
