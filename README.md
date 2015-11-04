@@ -80,8 +80,7 @@ autotools.
 After that you can use the usual `./configure && make`
 
 
-## Notes
-### Doxygen documentation
+## API Documentation
 
-* [v1.0.0](https://nukedzn.github.io/psocksxx/docs/v1.0.0)
+* [v1.0](https://nukedzn.github.io/psocksxx/docs/v1.0)
 
