@@ -5,9 +5,9 @@ psocksxx
 
 A C++ wrapper for POSIX sockets
 
-### Copyright and License
+## Copyright and License
 
-Copyright (C) 2013 Uditha Atukorala.
+Copyright (C) 2015 Uditha Atukorala.
 
 This software library is free software; you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -21,7 +21,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 for more details.
 
 
-### The Concept
+## The Concept
 
 This project was started to add to the features provided by the simple
 [socket-library](https://github.com/uditha-atukorala/socket-library) project,
@@ -42,54 +42,31 @@ C++. To keep the code simple and clean this project will only support
 POSIX sockets.
 
 
-### Downloads
+## Downloads
+
 You can download source distributions from https://github.com/nukedzn/psocksxx/releases.
 
 
-#### Debian/Ubuntu packages
+### Debian/Ubuntu packages
+
+Please check availability for your distribution first ([Debian](https://packages.debian.org/search?searchon=names&keywords=psocksxx), [Ubuntu](http://packages.ubuntu.com/search?suite=wily&section=all&arch=any&keywords=psocksxx&searchon=names)).
 
 	$ sudo aptitude update
 	$ sudo aptitude install libpsocksxx-dev
 
-*Note:* Check availability for your distribution first ([Debian](https://packages.debian.org/search?searchon=names&keywords=psocksxx), [Ubuntu](http://packages.ubuntu.com/search?suite=wily&section=all&arch=any&keywords=psocksxx&searchon=names)).
 
-### Dependencies
+## Dependencies
 
 * CppUnit >= 1.12.1 (for unit tests)
 * Doxygen (for doxygen documentation, of course)
 
 
-### Bugs and Feature Requests
+## Bugs and Feature Requests
 
 Please report all bugs and feature requests under [issues](https://github.com/nukedzn/psocksxx/issues).
 
 
-### Version history
-
-__0.0.6__ - _03rd October 2014_
-*   Removing obsolete doxygen tags
-
-__0.0.5__ - _29th June 2014_
-*   Fixing inconsistent timeout behaviour on different systems
-
-__0.0.4__ - _10th November 2013_
-*   bug fix - member functions should not be throwing exceptions if the
-	signature does not specify it.
-
-__0.0.3__ - _31st October 2013_
-*   Suppress SIGPIPE signals
-*   Code cleanup work
-
-__0.0.2__ - _29th September 2013_
-*   Added timeout support for socket communications
-*   New base socket stream I/O class to reduce redundant code
-*   Added install targets for doxygen generated docs
-
-__0.0.1__ - _19th September 2013_
-*   Initial release
-
-
-### Compiling from source
+## Compiling from source
 
 If you are using the github source then first you need to initialise
 autotools.
@@ -103,8 +80,7 @@ autotools.
 After that you can use the usual `./configure && make`
 
 
-### Notes
-#### Doxygen documentation
+## API Documentation
 
-The latest doxygen documentation can be found at http://jenkins.geniusse.com/job/psocksxx/doxygen/.
+* [v1.0](https://nukedzn.github.io/psocksxx/docs/v1.0)
 
