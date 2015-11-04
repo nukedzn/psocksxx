@@ -43,25 +43,15 @@ POSIX sockets.
 
 
 ### Downloads
-You can download the source distributions from http://packages.geniusse.com/source/psocksxx/.
+You can download source distributions from https://github.com/nukedzn/psocksxx/releases.
 
 
 #### Debian/Ubuntu packages
-First you should add the repository key to avoid warnings.
-
-	$ wget -q -O - http://packages.geniusse.com/debian/packman.gpg.key | sudo apt-key add -
-
-Then add the following to your `/etc/apt/sources.list`;
-
-	$ deb http://packages.geniusse.com/debian/ [release] main
-
-where the `[release]` being wheezy, jessie, sid etc.
-
-Finally update your package list and install psocksxx;
 
 	$ sudo aptitude update
 	$ sudo aptitude install libpsocksxx-dev
 
+*Note:* Check availability for your distribution first ([Debian](https://packages.debian.org/search?searchon=names&keywords=psocksxx), [Ubuntu](http://packages.ubuntu.com/search?suite=wily&section=all&arch=any&keywords=psocksxx&searchon=names)).
 
 ### Dependencies
 
