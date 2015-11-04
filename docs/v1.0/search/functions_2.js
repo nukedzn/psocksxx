@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['cleanup_5fbuffers',['cleanup_buffers',['../classpsocksxx_1_1sockstreambuf.html#adbb2670879563cc32cbd592dbf3163cd',1,'psocksxx::sockstreambuf']]],
+  ['clear_5ftimeout',['clear_timeout',['../classpsocksxx_1_1iosocks.html#ab11ee4833ed948843766731b2fe1c3e3',1,'psocksxx::iosocks::clear_timeout()'],['../classpsocksxx_1_1sockstreambuf.html#af67f7f1be10ac068c1d4960ac5a4d74a',1,'psocksxx::sockstreambuf::clear_timeout()']]],
+  ['close',['close',['../classpsocksxx_1_1sockstreambuf.html#a86a89e55e466c76af43392f65a03720f',1,'psocksxx::sockstreambuf']]],
+  ['connect',['connect',['../classpsocksxx_1_1lsockstream.html#a8dc40366db63a60d9bac2c73dcb83a94',1,'psocksxx::lsockstream::connect(const char *path)'],['../classpsocksxx_1_1lsockstream.html#aff42eee3b6b6d24296ee15c23bf988c7',1,'psocksxx::lsockstream::connect(const lsockaddr *saddr)'],['../classpsocksxx_1_1nsockstream.html#a7fe8619a2b2f8478a0cd9f915f7697ab',1,'psocksxx::nsockstream::connect(const nsockaddr *saddr)'],['../classpsocksxx_1_1nsockstream.html#a697a6dfaefaefc0ff2c9a24dca9cb969',1,'psocksxx::nsockstream::connect(const char *node, unsigned int port)'],['../classpsocksxx_1_1sockstreambuf.html#a2b711ca39c95fc4fbaf297aebecc9f58',1,'psocksxx::sockstreambuf::connect(const sockaddr *dest_addr, unsigned int timeout=0)'],['../classpsocksxx_1_1sockstreambuf.html#a4dfcee2d5e3bbd648b05353aaad18225',1,'psocksxx::sockstreambuf::connect(const sockaddr *dest_addr, timeval *timeout)']]]
+];
