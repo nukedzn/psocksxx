@@ -49,7 +49,7 @@ You can download source distributions from https://github.com/nukedzn/psocksxx/r
 
 ### Debian/Ubuntu packages
 
-Please check availability for your distribution first ([Debian](https://packages.debian.org/search?searchon=names&keywords=psocksxx), [Ubuntu](http://packages.ubuntu.com/search?suite=wily&section=all&arch=any&keywords=psocksxx&searchon=names)).
+Please check availability for your distribution first ([Debian](https://packages.debian.org/psocksxx), [Ubuntu](http://packages.ubuntu.com/psocksxx)).
 
 	$ sudo aptitude update
 	$ sudo aptitude install libpsocksxx-dev
