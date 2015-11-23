@@ -2,7 +2,7 @@
 	* First stable release (no code changes since v0.0.6)
 
 0.0.6 - 03rd October 2014
-	*   Removing obsolete doxygen tags (bug #37)
+	*   Remove obsolete doxygen tags
 
 0.0.5 - 29th June 2014
 	*   Fixing inconsistent timeout behaviour on different systems
