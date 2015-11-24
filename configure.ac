@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.68])
-AC_INIT([psocksxx], [1.0.0], [https://github.com/nukedzn/psocksxx/issues])
+AC_INIT([psocksxx], [1.1.0], [https://github.com/nukedzn/psocksxx/issues])
 AC_CONFIG_AUX_DIR([aux-build])
 AC_CONFIG_MACRO_DIR([aux-build/m4])
 AC_CONFIG_HEADERS([include/config.h])
