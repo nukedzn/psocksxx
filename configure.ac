@@ -37,7 +37,7 @@ LIBPSOCKSXX_LT_VERSION=1:3:1
 AC_SUBST(LIBPSOCKSXX_LT_VERSION)
 
 # init
-AM_INIT_AUTOMAKE([foreign])
+AM_INIT_AUTOMAKE([1.13 foreign])
 LT_INIT()
 
 # check for programs
