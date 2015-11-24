@@ -80,6 +80,8 @@ AC_CONFIG_FILES([ \
 	lib/Makefile \
 	lib/psocksxx/Makefile \
 	src/Makefile \
+	src/examples/Makefile \
+	src/examples/echo/Makefile \
 	test/Makefile \
 ])
 
