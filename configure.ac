@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.68])
-AC_INIT([psocksxx], [1.0.0], [https://github.com/nukedzn/psocksxx/issues])
+AC_INIT([psocksxx], [1.1.0], [https://github.com/nukedzn/psocksxx/issues])
 AC_CONFIG_AUX_DIR([aux-build])
 AC_CONFIG_MACRO_DIR([aux-build/m4])
 AC_CONFIG_HEADERS([include/config.h])
@@ -37,7 +37,7 @@ LIBPSOCKSXX_LT_VERSION=1:3:1
 AC_SUBST(LIBPSOCKSXX_LT_VERSION)
 
 # init
-AM_INIT_AUTOMAKE([foreign])
+AM_INIT_AUTOMAKE([1.13 foreign])
 LT_INIT()
 
 # check for programs
@@ -80,6 +80,8 @@ AC_CONFIG_FILES([ \
 	lib/Makefile \
 	lib/psocksxx/Makefile \
 	src/Makefile \
+	src/examples/Makefile \
+	src/examples/echo/Makefile \
 	test/Makefile \
 ])
 

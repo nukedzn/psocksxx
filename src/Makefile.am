@@ -1,2 +1,5 @@
 ## [psocksxx] src/
 
+SUBDIRS = \
+	examples
+
