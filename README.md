@@ -7,7 +7,7 @@ A C++ wrapper for POSIX sockets
 
 ## Copyright and License
 
-Copyright (C) 2015 Uditha Atukorala.
+Copyright (C) 2013-2015 Uditha Atukorala.
 
 This software library is free software; you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -78,6 +78,48 @@ autotools.
 	$ automake --add-missing (you will need automake >= 1.13)
 
 After that you can use the usual `./configure && make`
+
+
+## Usage
+
+Please take a look at [examples](https://github.com/nukedzn/psocksxx/tree/master/src/examples)
+for more details.
+
+### Simple Server
+
+``` c++
+
+// tcp socket stream
+psocksxx::tcpnsockstream ss;
+
+// network address to bind to
+psocksxx::nsockaddr naddr( "localhost", "21555" );
+
+// bind and listen
+ss.bind( &naddr, true );
+ss.listen();
+
+// accept a connection
+psocksxx::nsockstream * css = ss.accept();
+
+```
+
+### Simple Client
+
+``` c++
+// tcp socket stream
+psocksxx::tcpnsockstream ss;
+
+// connect
+ss.connect( "localhost", 21555 );
+
+// send a message
+ss << "hello" << std::endl;
+
+// receive a message
+std::string msg;
+ss >> msg;
+```
 
 
 ## API Documentation
