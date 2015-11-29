@@ -1,6 +1,7 @@
 psocksxx
 ========
 
+[![GitHub release](https://img.shields.io/github/release/nukedzn/psocksxx.svg)](https://github.com/nukedzn/psocksxx/releases)
 [![Build Status](https://travis-ci.org/nukedzn/psocksxx.svg)](https://travis-ci.org/nukedzn/psocksxx)
 
 A C++ wrapper for POSIX sockets
