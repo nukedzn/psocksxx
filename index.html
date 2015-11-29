@@ -31,14 +31,15 @@
         <h1>
 <a id="psocksxx" class="anchor" href="#psocksxx" aria-hidden="true"><span class="octicon octicon-link"></span></a>psocksxx</h1>
 
-<p><a href="https://travis-ci.org/nukedzn/psocksxx"><img src="https://travis-ci.org/nukedzn/psocksxx.svg" alt="Build Status"></a></p>
+<p><a href="https://github.com/nukedzn/psocksxx/releases"><img src="https://img.shields.io/github/release/nukedzn/psocksxx.svg" alt="GitHub release"></a>
+<a href="https://travis-ci.org/nukedzn/psocksxx"><img src="https://travis-ci.org/nukedzn/psocksxx.svg" alt="Build Status"></a></p>
 
 <p>A C++ wrapper for POSIX sockets</p>
 
 <h2>
 <a id="copyright-and-license" class="anchor" href="#copyright-and-license" aria-hidden="true"><span class="octicon octicon-link"></span></a>Copyright and License</h2>
 
-<p>Copyright (C) 2015 Uditha Atukorala.</p>
+<p>Copyright (C) 2013-2015 Uditha Atukorala.</p>
 
 <p>This software library is free software; you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
@@ -113,6 +114,46 @@ $ automake --add-missing (you will need automake &gt;= 1.13)
 </code></pre>
 
 <p>After that you can use the usual <code>./configure &amp;&amp; make</code></p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Please take a look at <a href="https://github.com/nukedzn/psocksxx/tree/master/src/examples">examples</a>
+for more details.</p>
+
+<h3>
+<a id="simple-server" class="anchor" href="#simple-server" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simple Server</h3>
+
+<div class="highlight highlight-source-c++"><pre>
+<span class="pl-c">// tcp socket stream</span>
+psocksxx::tcpnsockstream ss;
+
+<span class="pl-c">// network address to bind to</span>
+psocksxx::nsockaddr <span class="pl-en">naddr</span>( <span class="pl-s"><span class="pl-pds">"</span>localhost<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>21555<span class="pl-pds">"</span></span> );
+
+<span class="pl-c">// bind and listen</span>
+ss.bind( &amp;naddr, <span class="pl-c1">true</span> );
+ss.listen();
+
+<span class="pl-c">// accept a connection</span>
+psocksxx::nsockstream * css = ss.accept();
+</pre></div>
+
+<h3>
+<a id="simple-client" class="anchor" href="#simple-client" aria-hidden="true"><span class="octicon octicon-link"></span></a>Simple Client</h3>
+
+<div class="highlight highlight-source-c++"><pre><span class="pl-c">// tcp socket stream</span>
+psocksxx::tcpnsockstream ss;
+
+<span class="pl-c">// connect</span>
+ss.connect( <span class="pl-s"><span class="pl-pds">"</span>localhost<span class="pl-pds">"</span></span>, <span class="pl-c1">21555</span> );
+
+<span class="pl-c">// send a message</span>
+ss &lt;&lt; <span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span> &lt;&lt; std::endl;
+
+<span class="pl-c">// receive a message</span>
+std::string msg;
+ss &gt;&gt; msg;</pre></div>
 
 <h2>
 <a id="api-documentation" class="anchor" href="#api-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>API Documentation</h2>
