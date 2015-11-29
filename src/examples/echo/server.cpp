@@ -43,7 +43,7 @@ int main( int argc, char **argv ) {
 
 	// listen
 	try {
-		ss.listen( 1 );
+		ss.listen();
 	} catch( psocksxx::sockexception &e ) {
 		std::cerr << "[server] failed to listen on socket, exception: " << e.what() << std::endl;
 		return 1;
