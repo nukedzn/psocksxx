@@ -68,7 +68,7 @@ namespace psocksxx {
 		cleanup_buffers();
 
 		// cleanup timeout
-		if ( _timeout != 0 ) {
+		if ( _timeout ) {
 			delete _timeout;
 		}
 
@@ -78,7 +78,7 @@ namespace psocksxx {
 	void sockstreambuf::init_defaults() throw() {
 
 		// timeout structure reference
-		_timeout = 0;
+		_timeout = NULL;
 
 		// timed-out status
 		_timed_out = false;
@@ -165,7 +165,7 @@ namespace psocksxx {
 		}
 
 		// setup timeout if needed
-		if ( timeout > 0 ) {
+		if ( timeout ) {
 
 			// make the socket non-blocking
 			if ( fcntl( _socket, F_SETFL, ( s_flags | O_NONBLOCK ) ) == -1 ) {
@@ -180,7 +180,7 @@ namespace psocksxx {
 		}
 
 		// check for timeout if set
-		if ( timeout > 0 ) {
+		if ( timeout ) {
 
 			if (! ready( timeout ) ) {
 
@@ -264,13 +264,13 @@ namespace psocksxx {
 	void * sockstreambuf::clear_timeout() throw() {
 
 		// sanity check
-		if ( _timeout != 0 ) {
+		if ( _timeout ) {
 
 			// delete structure
 			delete _timeout;
 
 			// set a null pointer
-			_timeout = 0;
+			_timeout = NULL;
 
 		}
 
@@ -481,7 +481,7 @@ namespace psocksxx {
 		_timed_out = false;
 
 		// create timespec structure from timeval structure
-		if ( timeout != 0 ) {
+		if ( timeout ) {
 			t_spec = new timespec;
 			t_spec->tv_sec  = timeout->tv_sec;
 			t_spec->tv_nsec = ( timeout->tv_usec * 1000 );
