@@ -1,3 +1,7 @@
+1.1.1 - 14th June 2018
+	*   Drop ordered comparisons between pointers and zero
+	*   Use NULL instead of 0 for pointers
+
 1.1.0 - 29th November 2015
 	*   Add examples
 	*   Enforce Automake version check in configure.ac
